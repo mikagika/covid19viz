@@ -82,6 +82,30 @@ for (var k=1;k<lines.length;k++) {
     }
 }
 
+covid.obs.sort(function(a,b) {
+    if (a.country != b.country) {
+        return a.country < b.country ? -1 : 1;
+    }
+    else {
+        if (a.state != b.state) {
+            return a.state < b.state ? -1 : 1;
+        }
+        else {
+            if (a.county != b.county) {
+                return a.county < b.county ? -1 : 1;
+            }
+            else {
+                if (a.date != b.date) {
+                    return a.date < b.date ? -1 : 1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        }
+    }
+});
+
 var FileWriter=Java.type("java.io.FileWriter");  // we'll need this later for writing out the files
 var fw = new FileWriter(outcsv);
 fw.write("FIPS,Country,State,County,Date,Confirmed,Died,Recovered,Active\n");
