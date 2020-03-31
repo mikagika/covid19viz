@@ -7,8 +7,8 @@ This script reads a daily reporting file from John Hopkins and reformats it to t
 Note that this is set up to work with my personal directory config. Sorry. 
 */
 
-var inlog='03-22-2020';
-var outcsv='daily_data.csv';
+var inlog='03-22-2020.csv';
+var outcsv='covid19_daily_reports.csv';
 
 if ($ARG.length > 0 && $ARG[0] === "--") {
     $ARG.shift(); // because sometimes the come through!?!
@@ -25,7 +25,7 @@ if (inlog.indexOf("/") < 0) {
     inlog = "../COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"+inlog;
 }
 if (outcsv.indexOf("/") < 0) {
-    outcsv = "../COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"+outcsv;
+    outcsv = "html/data/"+outcsv;
 }
 
 print("Reading log file: "+inlog+", writing to "+outcsv);
@@ -35,29 +35,51 @@ var covid = {obs:[],
     date: {idx:{},list:[]}
     };
 
+var keys = {};
+
 getCovidData(readFully(outcsv));
 
 var lines = readFully(inlog).split("\n");
 var version = checkVersion(lines[0]);
 
-for (var k=0;k<lines.length;k++) {
+if (version === 0) {
+    print("Header unrecognized");
+    print(lines[0]);
+    exit(1);
+}
+
+print("Reading "+lines.length+" new data lines");
+for (var k=1;k<lines.length;k++) {
     var data = lines[k].split(",");
-    var tobs = {};
-    if (version === 2) {
-        tobs.fips = data[0];
-        tobs.county = data[1];
-        tobs.state = data[2];
-        tobs.country = data[3];
-        tobs.date = data[4];
-        tobs.confirmed = data[7];
-        tobs.died = data[8];
-        tobs.recovered = data[9];
-        tobs.active = data[10];
-        var parts = tobs.date.split("[/\s]");
-        tobs.date = parts[2]+"-"+zeroPad(parts[0])+"-"+zeroPad[1];
+    if (data && data.length >= 11) {
+        var tobs = {};
+        if (version === 2) {
+            tobs.fips = data[0];
+            tobs.county = data[1];
+            tobs.state = data[2];
+            tobs.country = data[3];
+            tobs.date = data[4];
+            tobs.confirmed = data[7];
+            tobs.died = data[8];
+            tobs.recovered = data[9];
+            tobs.active = data[10];
+            var parts = tobs.date.split("-");
+            parts[2] = parts[2] ? parts[2].substr(0,2) : parts[2];
+            tobs.date = parts[0]+"-"+zeroPad(parts[1])+"-"+zeroPad(parts[2]);
+            if (k<5) {
+                print(lines[k]);
+                print(tobs.date);
+            }
+        }
+        if (!keys[tobs.country+tobs.state+tobs.county+tobs.date]) {
+            covid.obs.push(tobs);
+            //updateIndexes(tobs);
+            keys[tobs.country+tobs.state+tobs.county+tobs.date] = true;
+        }
+        else {
+            print("Skipping "+tobs.country+" "+tobs.state+" "+tobs.county+" "+tobs.date)
+        }    
     }
-    covid.obs.push(tobs);
-    updateIndexes(tobs);
 }
 
 var FileWriter=Java.type("java.io.FileWriter");  // we'll need this later for writing out the files
@@ -114,22 +136,26 @@ function getCovidData(csv) {
     if (csv.indexOf("\n") >= 0) {
         lines = csv.split("\n");
     }
+    print("Reading "+lines.length+" existing data lines");
     for (var k=1;k<lines.length;k++) {
         var data = lines[k].split(",");
-        var tobs = {
-            fips: data[0],
-            country: data[1], 
-            state: data[2],
-            county: data[3],
-            date: data[4],
-            confirmed: data[5],
-            died: data[6],
-            recovered: data[7],
-            active: data[8]
+        if (data && data.length >= 9) {
+            var tobs = {
+                fips: data[0],
+                country: data[1], 
+                state: data[2],
+                county: data[3],
+                date: data[4],
+                confirmed: data[5],
+                died: data[6],
+                recovered: data[7],
+                active: data[8]
+            }
+            var idx = covid.obs.length;
+            covid.obs.push(tobs);
+            //updateIndexes(tobs);
+            keys[tobs.country+tobs.state+tobs.county+tobs.date] = true;    
         }
-        var idx = covid.obs.length;
-        covid.obs.push(tobs);
-        updateIndexes(tobs);
     }
 }
 
@@ -151,7 +177,7 @@ function updateIndexes(tobs) {
         tcountry.state.idx[tobs.state] = tcountry.state.list.length;
         tcountry.state.list.push({name:tobs.state, county:{idx:{},list:[]}});
     }
-    var tstate = tcountry.list[tcountry.idx[tobs.state]]; // get this state 
+    var tstate = tcountry.state.list[tcountry.idx[tobs.state]]; // get this state 
     if (typeof tstate.county.idx[tobs.county] == "undefined") {
         tstate.county.idx[tobs.county] = tstate.county.list.length;
         tstate.county.list.push({name:tobs.county});
