@@ -1,9 +1,8 @@
 /* globals Chart:false, feather:false */
 
-(function () {
+we3 = (function () {
   'use strict'
 
-initialize();
 var popData;
 var covid = {
 	obs: [],
@@ -11,28 +10,7 @@ var covid = {
     date: {idx:{},list:[]}
 };
 
-function initialize() {
-	$.ajaxSetup ({
-		// Disable caching of AJAX responses
-		cache: false
-	});
-
-    $.ajax({
-        'async': true,
-        'global': false,
-        'url': 'data/popEstimate.csv',
-        'dataType': "json",
-        'success': function (data) {
-            parsePopData(data);
-        },
-        'error': function(resp) {
-            log("Error retrieving popEstimate.csv, status: "+resp.status+" "+resp.statusText);
-            log(resp.responseText);
-        }
-    });
-}
-
-function parsePopData(csv) {
+var parsePopData = function(csv) {
     var lines = csv; // assume an array?
     if (csv.indexOf("\n") >= 0) {
         lines = csv.split("\n");
@@ -61,13 +39,13 @@ function parsePopData(csv) {
             parseCovidData(data);
         },
         'error': function(resp) {
-            log("Error retrieving popEstimate.csv, status: "+resp.status+" "+resp.statusText);
-            log(resp.responseText);
+            console.log("Error retrieving popEstimate.csv, status: "+resp.status+" "+resp.statusText);
+            console.log(resp.responseText);
         }
     });
-}
+};
 
-function parseCovidData(csv) {
+var parseCovidData = function(csv) {
     var lines = csv; // assume an array?
     if (csv.indexOf("\n") >= 0) {
         lines = csv.split("\n");
@@ -93,13 +71,13 @@ function parseCovidData(csv) {
             keys[tobs.country+tobs.state+tobs.county+tobs.date] = true;    
         }
 	}
-}
+};
 
 /**
  * Updates the covid object indexes based on a current observation
  * @param {object} tobs this observation
  */
-function updateIndexes(tobs) {
+var updateIndexes = function(tobs) {
     if (typeof covid.date.idx[tobs.date] == "undefined") {
         covid.date.idx[tobs.date] = covid.date.list.length;
         covid.date.list.push(tobs.date);
@@ -119,7 +97,31 @@ function updateIndexes(tobs) {
         tstate.county.list.push({name:tobs.county});
     }
     return;
-}
+};
 
+return {
+	initialize: function() {
+		$.ajaxSetup ({
+			// Disable caching of AJAX responses
+			cache: false
+		});
+	
+		$.ajax({
+			'async': true,
+			'global': false,
+			'url': 'data/popEstimate.csv',
+			'dataType': "json",
+			'success': function (data) {
+				parsePopData(data);
+			},
+			'error': function(resp) {
+				console.log("Error retrieving popEstimate.csv, status: "+resp.status+" "+resp.statusText);
+				console.log(resp.responseText);
+			}
+		});
+	}
 
-}())  // end of closure
+} // return public functions
+
+	
+})();  // end of we3 function
