@@ -3,51 +3,123 @@
 (function () {
   'use strict'
 
-  feather.replace()
+initialize();
+var popData;
+var covid = {
+	obs: [],
+    country: {idx:{},list:[]},
+    date: {idx:{},list:[]}
+};
 
-  // Graphs
-  var ctx = document.getElementById('myChart')
-  // eslint-disable-next-line no-unused-vars
-  var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ],
-      datasets: [{
-        data: [
-          15339,
-          21345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034
-        ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: false
-          }
-        }]
-      },
-      legend: {
-        display: false
-      }
+function initialize() {
+	$.ajaxSetup ({
+		// Disable caching of AJAX responses
+		cache: false
+	});
+
+    $.ajax({
+        'async': true,
+        'global': false,
+        'url': 'data/popEstimate.csv',
+        'dataType': "json",
+        'success': function (data) {
+            parsePopData(data);
+        },
+        'error': function(resp) {
+            log("Error retrieving popEstimate.csv, status: "+resp.status+" "+resp.statusText);
+            log(resp.responseText);
+        }
+    });
+}
+
+function parsePopData(csv) {
+    var lines = csv; // assume an array?
+    if (csv.indexOf("\n") >= 0) {
+        lines = csv.split("\n");
     }
-  })
-}())
+    print("Reading "+lines.length+" existing data lines");
+    for (var k=1;k<lines.length;k++) {
+        var data = lines[k].split(",");
+        if (data && data.length >= 5) {
+			var obs = {
+				fips: data[0],
+				state: data[1],
+				county: data[2].split(" ")[0],
+				pop2010: data[3],
+				popEst: data[4]
+			}
+			popData[obs.fips] = obs;
+		}
+	}
+
+    $.ajax({
+        'async': true,
+        'global': false,
+        'url': 'data/covid19_daily_reports.csv',
+        'dataType': "json",
+        'success': function (data) {
+            parseCovidData(data);
+        },
+        'error': function(resp) {
+            log("Error retrieving popEstimate.csv, status: "+resp.status+" "+resp.statusText);
+            log(resp.responseText);
+        }
+    });
+}
+
+function parseCovidData(csv) {
+    var lines = csv; // assume an array?
+    if (csv.indexOf("\n") >= 0) {
+        lines = csv.split("\n");
+    }
+    print("Reading "+lines.length+" existing data lines");
+    for (var k=1;k<lines.length;k++) {
+        var data = lines[k].split(",");
+        if (data && data.length >= 9) {
+            var tobs = {
+                fips: data[0],
+                country: data[1], 
+                state: data[2],
+                county: data[3],
+                date: data[4],
+                confirmed: data[5],
+                died: data[6],
+                recovered: data[7],
+                active: data[8]
+            }
+            var idx = covid.obs.length;
+            covid.obs.push(tobs);
+            updateIndexes(tobs);
+            keys[tobs.country+tobs.state+tobs.county+tobs.date] = true;    
+        }
+	}
+}
+
+/**
+ * Updates the covid object indexes based on a current observation
+ * @param {object} tobs this observation
+ */
+function updateIndexes(tobs) {
+    if (typeof covid.date.idx[tobs.date] == "undefined") {
+        covid.date.idx[tobs.date] = covid.date.list.length;
+        covid.date.list.push(tobs.date);
+    }
+    if (typeof covid.country.idx[tobs.country] == "undefined") {
+        covid.country.idx[tobs.country] = covid.country.list.length;
+        covid.country.list.push({name:tobs.country, state:{idx:{},list:[]}});
+    }
+    var tcountry = covid.country.list[covid.country.idx[tobs.country]]; // get this country
+    if (typeof tcountry.state.idx[tobs.state] == "undefined") {
+        tcountry.state.idx[tobs.state] = tcountry.state.list.length;
+        tcountry.state.list.push({name:tobs.state, county:{idx:{},list:[]}});
+    }
+    var tstate = tcountry.state.list[tcountry.idx[tobs.state]]; // get this state 
+    if (typeof tstate.county.idx[tobs.county] == "undefined") {
+        tstate.county.idx[tobs.county] = tstate.county.list.length;
+        tstate.county.list.push({name:tobs.county});
+    }
+    return;
+}
+
+
+}())  // end of closure
