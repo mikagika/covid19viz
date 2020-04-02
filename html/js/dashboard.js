@@ -17,7 +17,7 @@ var parsePopData = function(csv) {
     if (csv.indexOf("\n") >= 0) {
         lines = csv.split("\n");
     }
-    print("Reading "+lines.length+" existing data lines");
+    console.log("Reading "+lines.length+" existing data lines");
     for (var k=1;k<lines.length;k++) {
         var data = lines[k].split(",");
         if (data && data.length >= 5) {
@@ -53,7 +53,7 @@ var parseCovidData = function(csv) {
     if (csv.indexOf("\n") >= 0) {
         lines = csv.split("\n");
     }
-    print("Reading "+lines.length+" existing data lines");
+    console.log("Reading "+lines.length+" existing data lines");
     for (var k=1;k<lines.length;k++) {
         var data = lines[k].split(",");
         if (data && data.length >= 9) {
