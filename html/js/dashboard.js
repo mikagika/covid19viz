@@ -3,7 +3,8 @@
 we3 = (function () {
   'use strict'
 
-var popData;
+var popData = {};
+var keys = {};
 var covid = {
 	obs: [],
     country: {idx:{},list:[]},
@@ -11,6 +12,7 @@ var covid = {
 };
 
 var parsePopData = function(csv) {
+	console.log("Parsing population data");
     var lines = csv; // assume an array?
     if (csv.indexOf("\n") >= 0) {
         lines = csv.split("\n");
@@ -29,12 +31,12 @@ var parsePopData = function(csv) {
 			popData[obs.fips] = obs;
 		}
 	}
-
+	console.log("Populated population data, fetching daily report file");
     $.ajax({
         'async': true,
         'global': false,
         'url': 'data/covid19_daily_reports.csv',
-        'dataType': "json",
+        'dataType': "text",
         'success': function (data) {
             parseCovidData(data);
         },
@@ -46,6 +48,7 @@ var parsePopData = function(csv) {
 };
 
 var parseCovidData = function(csv) {
+	console.log("Fetched daily report, parsing...");
     var lines = csv; // assume an array?
     if (csv.indexOf("\n") >= 0) {
         lines = csv.split("\n");
@@ -71,6 +74,8 @@ var parseCovidData = function(csv) {
             keys[tobs.country+tobs.state+tobs.county+tobs.date] = true;    
         }
 	}
+	console.log("Daily report data parsed");
+	populateFields();
 };
 
 /**
@@ -85,19 +90,27 @@ var updateIndexes = function(tobs) {
     if (typeof covid.country.idx[tobs.country] == "undefined") {
         covid.country.idx[tobs.country] = covid.country.list.length;
         covid.country.list.push({name:tobs.country, state:{idx:{},list:[]}});
-    }
-    var tcountry = covid.country.list[covid.country.idx[tobs.country]]; // get this country
-    if (typeof tcountry.state.idx[tobs.state] == "undefined") {
-        tcountry.state.idx[tobs.state] = tcountry.state.list.length;
-        tcountry.state.list.push({name:tobs.state, county:{idx:{},list:[]}});
-    }
-    var tstate = tcountry.state.list[tcountry.idx[tobs.state]]; // get this state 
-    if (typeof tstate.county.idx[tobs.county] == "undefined") {
-        tstate.county.idx[tobs.county] = tstate.county.list.length;
-        tstate.county.list.push({name:tobs.county});
-    }
+	}
+	if (tobs.state) {
+		var tcountry = covid.country.list[covid.country.idx[tobs.country]]; // get this country
+		if (typeof tcountry.state.idx[tobs.state] == "undefined") {
+			tcountry.state.idx[tobs.state] = tcountry.state.list.length;
+			tcountry.state.list.push({name:tobs.state, county:{idx:{},list:[]}});
+		}
+		if (tobs.state) {
+			var tstate = tcountry.state.list[tcountry.state.idx[tobs.state]]; // get this state 
+			if (typeof tstate.county.idx[tobs.county] == "undefined") {
+				tstate.county.idx[tobs.county] = tstate.county.list.length;
+				tstate.county.list.push({name:tobs.county});
+			}
+		}
+	}
     return;
 };
+
+var populateFields = function() {
+	
+}
 
 return {
 	initialize: function() {
@@ -105,12 +118,12 @@ return {
 			// Disable caching of AJAX responses
 			cache: false
 		});
-	
+		console.log("Fetching population data");
 		$.ajax({
 			'async': true,
 			'global': false,
 			'url': 'data/popEstimate.csv',
-			'dataType': "json",
+			'dataType': "text",
 			'success': function (data) {
 				parsePopData(data);
 			},
