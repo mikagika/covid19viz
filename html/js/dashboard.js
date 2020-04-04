@@ -11,6 +11,7 @@ var covid = {
     date: {idx:{},list:[]}
 };
 var minDate = "20200322";  // oldest complete data we have, ignore anything older
+// note
 
 var parsePopData = function(csv) {
 	console.log("Parsing population data");
