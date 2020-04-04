@@ -10,6 +10,7 @@ var covid = {
     country: {idx:{},list:[]},
     date: {idx:{},list:[]}
 };
+
 var minDate = "20200322";  // oldest complete data we have, ignore anything older
 // note
 
@@ -235,6 +236,24 @@ var summarize = function(srchCountry, srchState, srchCounty) {
         }
     }
 
+    console.log("Done summarization");
+
+    showData(days, locales);
+
+};
+
+/**
+ * Display the data selected in both tabular and graphical form 
+ */
+var showData = function(days, locales) {
+    var boxWidth = 1200;
+    var boxHeight = 800;
+    var margin= { t: 100, r: 200, b: 50, l: 75, rAxis: 0};
+    var width   = boxWidth - margin.l - margin.r,
+    height  = boxHeight - margin.t - margin.b,
+    colWidth = 1; // this will be changed later
+
+
     var ohtml = [];
     for (var k=days.length - 1;k>=0;k--) {
         var tobs = days[k];
@@ -269,8 +288,82 @@ var summarize = function(srchCountry, srchState, srchCounty) {
     }
     $("#localesTBody").html(ohtml.join(""));
 
-    console.log("Done summarization");
+    var svg = d3.select('body').select("#chartDays").selectAll("*").remove(); // be sure to get rid of all children (unhook them too?)
+    var svg = d3.select('body').select("#chartDays").html("");
 
+    $("#chartDays").width(boxWidth);
+    $("#chartDays").height(boxHeight);
+
+    var x, xAxis, y, yAxis, y_2, y2Axis, y_3, y3Axis;  // core axis definitions that will get reused many times
+    /*
+    x = d3.time.scale().domain([chartParms.xAxis.min,chartParms.xAxis.max]).range([0, width]);
+    xAxis   = d3.svg.axis().scale(x).orient('bottom')
+                .outerTickSize(8).tickFormat(EPSChart.dateFormatter).ticks(chartParms.xAxis.ticks);
+    y       = d3.scale.linear().domain([chartParms.yAxis.min,chartParms.yAxis.max]).range([height, 0]);
+    yAxis   = d3.svg.axis().scale(y).orient('left').innerTickSize(-width).ticks(10);
+    var ticks = y.ticks(); // gets the array of ticks that d3 wants to use
+    y_2     = d3.scale.linear().domain([chartParms.y2Axis.min,chartParms.y2Axis.max]).range([height, 0]);
+    y2Axis  = d3.svg.axis().scale(y_2).orient('right').innerTickSize(0).ticks(10).tickPadding(width+10);
+    var ticks = y_2.ticks(); // gets the array of ticks that d3 wants to use
+    if (ticks[ticks.length - 1] < chartParms.y2Axis.max ) {  // if the last tick isn't at the max of the chart
+        var stride = ticks[1] - ticks[0];                           // determine increment d3 is using
+        chartParms.y2Axis.max = ticks[ticks.length - 1] + stride;   // reset max to account for it
+        y_2.domain([chartParms.y2Axis.min,chartParms.y2Axis.max]);  // reset the domain
+    }
+    */
+
+    svg = svg.append('svg')
+        .attr("viewBox","0 0 "+boxWidth+" "+boxHeight)
+        .attr("preserveAspectRatio","none")         // decided better to err on side of seeing everything
+        .attr("style","height:100%;width:100%");
+
+    svg.append("rect")
+        .attr("x",0)
+        .attr("y",0)
+        .attr("width",boxWidth)
+        .attr("height",boxHeight)
+        .attr("fill","none")
+        .attr("stroke-width","2")
+        .attr("stroke","#a5a5a5")
+    ;
+
+    var titleg = svg.append("g")
+        .attr("transform","translate("+margin.l+",0)");
+    titleg.append("text")
+        .attr("class","title")
+        .attr("width",width)
+        .attr("x",width/2)
+        .attr("y",33)
+        .text("Daily COVID-19 Data");
+    titleg.append("text")
+        .attr("class","subtitle")
+        .attr("width",width)
+        .attr("x",width/2)
+        .attr("y",60)
+        .text("Measurement");
+    titleg.append("text")
+        .attr("class","datatitle")
+        .attr("width",width)
+        .attr("x",width/2)
+        .attr("y",90)
+        .text("Subset name")
+        ;
+
+    var vis = svg
+      .append('g')
+      .attr("class","graph")
+      .attr('transform', 'translate(' + margin.l + ',' + margin.t + ')');
+
+    /* create the axis before you do this!
+    vis.append('g')
+        .attr('class', 'x axis')
+        //.attr("clip-path", "url(#clip)")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        ;
+    */
+
+    console.log("Done visualization");
 };
 
 return {
