@@ -1,0 +1,135 @@
+.axis text {
+    fill:#333333;
+    font-family:"Arial",sans-serif;
+    font-size:12px;
+}
+.axis line {
+    stroke:#999999;
+    stroke-width:1px;
+    stroke-dasharray: 8,4,12,4;
+}
+
+.axis2 text {
+    fill:#333333;
+    font-family:"Arial",sans-serif;
+    font-weight: bold;
+    font-size:12px;
+}
+.axis2 line {
+    stroke:#999999;
+    stroke-width:1px;
+    stroke-dasharray: 8,4,12,4;
+}
+
+.axis3 text {
+    fill:#333333;
+    font-family:"Arial",sans-serif;
+    font-weight: bold;
+    font-size:12px;
+}
+.axis3 line {
+    stroke:#999999;
+    stroke-width:1px;
+    stroke-dasharray: 8,4,12,4;
+}
+
+.axis {
+    font-size: 12px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+.x.axis {
+	text-anchor: middle;
+}
+.x.axis text {
+        transform: translate(0px,10px) rotate(15deg);
+}
+.y.axis {
+	text-anchor: end;
+}
+.y.axis2 {
+	text-anchor: start;
+}
+.y.axis3 {
+	text-anchor: start;
+}
+.tick {
+	opacity: 1;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    text-anchor: middle;
+    font-family: "Arial",sans-serif;
+}
+
+.subtitle {
+    font-size: 24px;
+    text-anchor: middle;
+    font-family: "Arial",sans-serif;
+}
+
+.datatitle {
+    font-size: 18px;
+    font-weight: bold;
+    text-anchor: middle;
+    font-family: "Arial",sans-serif;
+}
+
+.legend rect {
+    opacity: 0;
+  }
+  .legend-series {
+      font-size: 16px;
+      font-family: "Arial",sans-serif;
+  }
+  .legend-markers {
+      font-size: 16px;
+      font-family: "Arial",sans-serif;
+  }
+  .legendSmall-series {
+      font-size: 12px;
+      font-family: "Arial",sans-serif;
+  }
+  .legendSmall-markers {
+      font-size: 12px;
+      font-family: "Arial",sans-serif;
+  }
+  .yLabel {
+      font-size: 16px;
+      font-family: "Arial",sans-serif;
+      text-align: middle;
+  }
+  
+  .area-line {
+      opacity: 1;
+      fill: none;
+  }
+  
+  .area-marker {
+      opacity: 0;
+      stroke: #999999;
+      fill: #999999;
+  }
+  .area-marker:hover {
+      opacity: 1 !important;
+      z-index:900;
+  }
+  
+  
+  .line {
+      stroke-width: 2px;
+      fill: none;
+      opacity: 0.9;
+  }
+  
+  .line-marker {
+      opacity: 0.9;
+  }
+  .line-marker:hover {
+      opacity: 1 !important;
+      z-index:900;
+  }
+  
+  

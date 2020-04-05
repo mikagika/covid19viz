@@ -125,7 +125,8 @@ var updateIndexes = function(tobs) {
  * @param {*} srchCounty - The county to search for or all for all counties
  */
 var summarize = function(srchCountry, srchState, srchCounty) {
-    console.log("Summarizing for country="+srchCountry+", state="+srchState+", county="+srchCounty);
+    var selection = "Country="+srchCountry+", State="+srchState+", County="+srchCounty
+    console.log("Summarizing for "+selection);
     var days = [];
     var dayIdx = {};
     var locales = [];
@@ -238,14 +239,16 @@ var summarize = function(srchCountry, srchState, srchCounty) {
 
     console.log("Done summarization");
 
-    showData(days, locales);
+    showData(days, locales, selection, "confirmed");
 
 };
 
 /**
  * Display the data selected in both tabular and graphical form 
  */
-var showData = function(days, locales) {
+var showData = function(days, locales, selection, dimension) {
+    console.log("showing data for dimension ", dimension);
+    var dimDelta = dimension+"Delta";
     var boxWidth = 1200;
     var boxHeight = 800;
     var margin= { t: 100, r: 200, b: 50, l: 75, rAxis: 0};
@@ -294,23 +297,29 @@ var showData = function(days, locales) {
     $("#chartDays").width(boxWidth);
     $("#chartDays").height(boxHeight);
 
-    var x, xAxis, y, yAxis, y_2, y2Axis, y_3, y3Axis;  // core axis definitions that will get reused many times
-    /*
-    x = d3.time.scale().domain([chartParms.xAxis.min,chartParms.xAxis.max]).range([0, width]);
-    xAxis   = d3.svg.axis().scale(x).orient('bottom')
-                .outerTickSize(8).tickFormat(EPSChart.dateFormatter).ticks(chartParms.xAxis.ticks);
-    y       = d3.scale.linear().domain([chartParms.yAxis.min,chartParms.yAxis.max]).range([height, 0]);
-    yAxis   = d3.svg.axis().scale(y).orient('left').innerTickSize(-width).ticks(10);
+
+    var x, xAxis, y, yAxis, y_2, y2Axis, xExtent, yExtent, yExtent2;  // core axis definitions that will get reused many times
+    var timeParser = d3.timeParse("%Y%m%d");
+    var timeFormatter = d3.timeFormat("%Y-%m-%d");
+    xExtent = d3.extent(days, d => timeParser(d.date));
+    x = d3.scaleTime().domain(xExtent).range([0, width]);
+    xAxis   = d3.axisBottom(x).tickSizeOuter(8).tickFormat(timeFormatter).ticks(10);
+    yExtent = d3.extent(days, d => d[dimension]);
+    y       = d3.scaleLinear().domain(yExtent).range([height, 0]);
+    yAxis   = d3.axisLeft(y).tickSizeInner(-width).ticks(10);
     var ticks = y.ticks(); // gets the array of ticks that d3 wants to use
-    y_2     = d3.scale.linear().domain([chartParms.y2Axis.min,chartParms.y2Axis.max]).range([height, 0]);
-    y2Axis  = d3.svg.axis().scale(y_2).orient('right').innerTickSize(0).ticks(10).tickPadding(width+10);
-    var ticks = y_2.ticks(); // gets the array of ticks that d3 wants to use
-    if (ticks[ticks.length - 1] < chartParms.y2Axis.max ) {  // if the last tick isn't at the max of the chart
+    if (ticks[ticks.length - 1] < yExtent[1] ) {  // if the last tick isn't at the max of the chart
         var stride = ticks[1] - ticks[0];                           // determine increment d3 is using
-        chartParms.y2Axis.max = ticks[ticks.length - 1] + stride;   // reset max to account for it
-        y_2.domain([chartParms.y2Axis.min,chartParms.y2Axis.max]);  // reset the domain
+        y.domain([yExtent[0],ticks[ticks.length - 1] + stride]);  // reset the domain
     }
-    */
+    yExtent2 = d3.extent(days, d => d[dimDelta]);
+    y_2     = d3.scaleLinear().domain(yExtent2).range([height, 0]);
+    y2Axis  = d3.axisRight(y_2).tickSizeInner(0).ticks(10).tickPadding(width+10);
+    var ticks = y_2.ticks(); // gets the array of ticks that d3 wants to use
+    if (ticks[ticks.length - 1] < yExtent2[1] ) {  // if the last tick isn't at the max of the chart
+        var stride = ticks[1] - ticks[0];                           // determine increment d3 is using
+        y_2.domain([yExtent2[0],ticks[ticks.length - 1] + stride]);  // reset the domain
+    }
 
     svg = svg.append('svg')
         .attr("viewBox","0 0 "+boxWidth+" "+boxHeight)
@@ -340,28 +349,57 @@ var showData = function(days, locales) {
         .attr("width",width)
         .attr("x",width/2)
         .attr("y",60)
-        .text("Measurement");
+        .text(selection);
     titleg.append("text")
         .attr("class","datatitle")
         .attr("width",width)
         .attr("x",width/2)
         .attr("y",90)
-        .text("Subset name")
+        .text(dimension)
         ;
+
+    svg.append('g')  // y axis label
+        .append('text')
+        .attr('class','yLabel')
+        .attr('transform','rotate(-90)')
+        .attr('x',0-(height/2)-margin.t-margin.b)
+        .attr('y',16)
+        .text("Total");
+
+    svg.append('g')  // y2 axis label
+        .append('text')
+        .attr('class','yLabel')
+        .attr('transform','rotate(-90)')
+        .attr('x',0-(height/2)-margin.t-margin.b)
+        .attr('y',margin.l+width+60)
+        .text("Incremental");
+
+
 
     var vis = svg
       .append('g')
       .attr("class","graph")
       .attr('transform', 'translate(' + margin.l + ',' + margin.t + ')');
 
-    /* create the axis before you do this!
     vis.append('g')
         .attr('class', 'x axis')
-        //.attr("clip-path", "url(#clip)")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
         ;
-    */
+
+    vis.append('g')
+        .attr('class', 'y axis')
+        .call(yAxis)
+        .selectAll("text")
+        .append("title").text("Total")
+        ;
+
+    vis.append('g')
+        .attr('class', 'y axis2')
+        .call(y2Axis)
+        .selectAll("text")
+        .append("title").text("Incremental")
+        ;
 
     console.log("Done visualization");
 };
