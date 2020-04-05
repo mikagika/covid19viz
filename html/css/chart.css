@@ -119,9 +119,10 @@
   
   
   .line {
-      stroke-width: 2px;
+      stroke-width: 3px;
       fill: none;
       opacity: 0.9;
+      stroke: #ff4646;
   }
   
   .line-marker {
@@ -132,4 +133,12 @@
       z-index:900;
   }
   
-  
+.dimObs  {
+    opacity: 0.80;
+    fill: #816ee8;
+}
+
+.dimObsDelta  {
+    opacity: 0.80;
+    fill: #3e1cf7;
+}

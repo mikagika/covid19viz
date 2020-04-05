@@ -251,10 +251,10 @@ var showData = function(days, locales, selection, dimension) {
     var dimDelta = dimension+"Delta";
     var boxWidth = 1200;
     var boxHeight = 800;
-    var margin= { t: 100, r: 200, b: 50, l: 75, rAxis: 0};
-    var width   = boxWidth - margin.l - margin.r,
-    height  = boxHeight - margin.t - margin.b,
-    colWidth = 1; // this will be changed later
+    var margin= { t: 100, r: 200, b: 50, l: 100, rAxis: 0};
+    var width   = boxWidth - margin.l - margin.r;
+    var height  = boxHeight - margin.t - margin.b;
+    var colWidth = 1; // this will be changed later
 
 
     var ohtml = [];
@@ -302,9 +302,13 @@ var showData = function(days, locales, selection, dimension) {
     var timeParser = d3.timeParse("%Y%m%d");
     var timeFormatter = d3.timeFormat("%Y-%m-%d");
     xExtent = d3.extent(days, d => timeParser(d.date));
+    xExtent[1] = xExtent[1].getTime()+(86400*1000); // because days are one day wide, so need to fit an extra day on x axis
     x = d3.scaleTime().domain(xExtent).range([0, width]);
     xAxis   = d3.axisBottom(x).tickSizeOuter(8).tickFormat(timeFormatter).ticks(10);
+    var colWidth = Math.round((x(timeParser("20200323")) - x(timeParser("20200322")))*.97);
+
     yExtent = d3.extent(days, d => d[dimension]);
+    yExtent[0] = 0; // always make it zero based
     y       = d3.scaleLinear().domain(yExtent).range([height, 0]);
     yAxis   = d3.axisLeft(y).tickSizeInner(-width).ticks(10);
     var ticks = y.ticks(); // gets the array of ticks that d3 wants to use
@@ -312,7 +316,9 @@ var showData = function(days, locales, selection, dimension) {
         var stride = ticks[1] - ticks[0];                           // determine increment d3 is using
         y.domain([yExtent[0],ticks[ticks.length - 1] + stride]);  // reset the domain
     }
+
     yExtent2 = d3.extent(days, d => d[dimDelta]);
+    yExtent2[0] = 0; // always make it zero based
     y_2     = d3.scaleLinear().domain(yExtent2).range([height, 0]);
     y2Axis  = d3.axisRight(y_2).tickSizeInner(0).ticks(10).tickPadding(width+10);
     var ticks = y_2.ticks(); // gets the array of ticks that d3 wants to use
@@ -375,7 +381,7 @@ var showData = function(days, locales, selection, dimension) {
         .text("Incremental");
 
 
-
+    // create the space and labeling for the visualization
     var vis = svg
       .append('g')
       .attr("class","graph")
@@ -399,6 +405,51 @@ var showData = function(days, locales, selection, dimension) {
         .call(y2Axis)
         .selectAll("text")
         .append("title").text("Incremental")
+        ;
+
+    // Add the bars
+    var groups = vis.selectAll("rect")
+        .data(days)
+        .enter().append("g");
+    groups.append("rect")
+            .attr("class","dimObs")
+            .attr("x",function(d) {
+                return x(timeParser(d.date));
+            })
+            .attr("y",function(d) {
+                return y(d[dimension]);
+            })
+            .attr("height", function(d) {
+                return y(0) - y(d[dimension]);
+            })
+            .attr("width", colWidth);
+    groups.append("rect")  // add the incremental value
+            .attr("class","dimObsDelta")
+            .attr("x",function(d) {
+                return x(timeParser(d.date));
+            })
+            .attr("y",function(d) {
+                return d[dimDelta] ? y(d[dimDelta]) : 0;
+            })
+            .attr("height", function(d) {
+                return d[dimDelta] ? y(0) - y(d[dimDelta]) : 0;
+            })
+            .attr("width", colWidth)
+        ;
+
+    // add the line
+    var valueline  = d3.line() 
+            .x(function(d) {
+                return x(timeParser(d.date))+(colWidth/2);
+            })
+            .y(function(d) {
+                return d[dimDelta] ? y_2(d[dimDelta]) : y_2(0);            }) 
+            ;
+    days.shift(); // get rid of first observation when making the line
+    vis.append("path")
+        .data([days])
+        .attr("class","line")
+        .attr("d",valueline)
         ;
 
     console.log("Done visualization");
