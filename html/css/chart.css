@@ -1,3 +1,16 @@
+div.tooltip {   
+    position: absolute;           
+    padding: 2px;             
+    font: 14px "Arial",sans-serif;        
+    background:#ffff99; 
+    border: 0px;      
+    pointer-events: none;       
+    box-shadow: 3px 3px rgba(153,153,153,0.6);
+    line-height: 21px;
+    opacity: 1;
+  }
+  
+  
 .axis text {
     fill:#333333;
     font-family:"Arial",sans-serif;
@@ -58,14 +71,14 @@
 }
 
 .title {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
     text-anchor: middle;
     font-family: "Arial",sans-serif;
 }
 
 .subtitle {
-    font-size: 24px;
+    font-size: 20px;
     text-anchor: middle;
     font-family: "Arial",sans-serif;
 }

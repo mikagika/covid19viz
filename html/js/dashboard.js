@@ -249,9 +249,9 @@ var summarize = function(srchCountry, srchState, srchCounty) {
 var showData = function(days, locales, selection, dimension) {
     console.log("showing data for dimension ", dimension);
     var dimDelta = dimension+"Delta";
-    var boxWidth = 1200;
-    var boxHeight = 800;
-    var margin= { t: 100, r: 200, b: 50, l: 100, rAxis: 0};
+    var boxWidth = 800;
+    var boxHeight = 480;
+    var margin= { t: 100, r: 100, b: 50, l: 100, rAxis: 0};
     var width   = boxWidth - margin.l - margin.r;
     var height  = boxHeight - margin.t - margin.b;
     var colWidth = 1; // this will be changed later
@@ -304,7 +304,7 @@ var showData = function(days, locales, selection, dimension) {
     xExtent = d3.extent(days, d => timeParser(d.date));
     xExtent[1] = xExtent[1].getTime()+(86400*1000); // because days are one day wide, so need to fit an extra day on x axis
     x = d3.scaleTime().domain(xExtent).range([0, width]);
-    xAxis   = d3.axisBottom(x).tickSizeOuter(8).tickFormat(timeFormatter).ticks(10);
+    xAxis   = d3.axisBottom(x).tickSizeOuter(8).tickFormat(timeFormatter).ticks(6);
     var colWidth = Math.round((x(timeParser("20200323")) - x(timeParser("20200322")))*.97);
 
     yExtent = d3.extent(days, d => d[dimension]);
@@ -452,6 +452,13 @@ var showData = function(days, locales, selection, dimension) {
         .attr("d",valueline)
         ;
 
+    // Hide old tooltip
+    d3.select("body").append("div")   
+        .attr("class", "tooltip")             
+        .style("opacity", 0);
+    vis.selectAll("rect.dimObs").call(d3.helper.tooltip());
+    vis.selectAll("rect.dimObsDelta").call(d3.helper.tooltip());
+
     console.log("Done visualization");
 };
 
@@ -478,6 +485,119 @@ return {
 	}
 
 } // return public functions
-
 	
 })();  // end of we3 function
+
+d3.helper = {};
+
+d3.helper.tooltip = function(){
+    var tooltipDiv;
+    var bodyNode = d3.select('body').node();
+
+    function tooltip(selection){
+
+        selection.on('mouseover.tooltip', function(pD, pI){
+            if (Array.isArray(pD)) {
+                pData = pD[pI];
+            }
+            else {
+                var pData = pD;
+            }
+            // Clean up lost tooltips
+            d3.select('body').selectAll('div.tooltip').remove();
+            // Append tooltip
+            tooltipDiv = d3.select('body')
+                           .append('div')
+                           .attr('class', 'tooltip');
+            var absoluteMousePos = d3.mouse(bodyNode);
+            tooltipDiv.style({
+                left: (absoluteMousePos[0] + 10)+'px',
+                top: (absoluteMousePos[1] + 30)+'px',
+                padding: '5px',
+                position: 'absolute',
+                'z-index': 1001
+            });
+            
+            var ohtml = [pData.date+"<br/>"];
+            var fmt = d3.format(",.0f");
+            ohtml.push("Confirmed: "+fmt(pData.confirmed)+" ("+fmt(pData.confirmedDelta)+")<br>");
+            ohtml.push("Died: "+fmt(pData.died)+" ("+fmt(pData.diedDelta)+")<br>");
+            ohtml.push("Recovered: "+fmt(pData.recovered)+" ("+fmt(pData.recoveredDelta)+")<br>");
+            ohtml.push("Active: "+fmt(pData.active)+" ("+fmt(pData.activeDelta)+")<br>");
+
+            tooltipDiv.html(ohtml.join(""));
+        })
+        .on('mousemove.tooltip', function(pD, pI){
+            // Move tooltip
+            var absoluteMousePos = d3.mouse(bodyNode);
+            var node=d3.select("div.tooltip").node();
+            if (node === null || typeof tooltipDiv === "undefined" || tooltipDiv === null) {
+                return;  // because we haven't drawn it yet?
+            }
+            var rect = node.getBoundingClientRect();
+            var w = window,
+                d = document,
+                e = d.documentElement,
+                g = d.getElementsByTagName('body')[0],
+                xwide = w.innerWidth || e.clientWidth || g.clientWidth,
+                yhigh = w.innerHeight|| e.clientHeight|| g.clientHeight;
+            var left = absoluteMousePos[0] + 10;
+            var top = absoluteMousePos[1] + 30;
+            if (left + rect.width >= xwide - 20) {  // too wide--flip around
+                left = absoluteMousePos[0] - 10 - rect.width;
+            }
+            if (top + rect.height >= yhigh - 20) {  // too high--flip around
+                 top = absoluteMousePos[1] - rect.height;
+            }
+            console.log(absoluteMousePos[0]+","+absoluteMousePos[1]+" = "+left+","+top);
+            tooltipDiv.style("left",left+"px");
+            tooltipDiv.style("top",top+"px");
+            /*
+            tooltipDiv.style({
+                left: (+left)+'px',
+                top: (+top)+'px'
+            });
+            */
+        })
+        /*
+        .on('mouseout.tooltip', function(pD, pI){
+            // Remove tooltip
+            tooltipDiv.remove();
+        })
+        */
+        ;
+
+    }
+
+    tooltip.attr = function(_x){
+        if (!arguments.length) return attrs;
+        attrs = _x;
+        return this;
+    };
+
+    tooltip.style = function(_x){
+        if (!arguments.length) return styles;
+        styles = _x;
+        return this;
+    };
+
+    return tooltip;
+};
+
+
+// Custom event polyfill required for IE
+(function () {
+
+  if ( typeof window.CustomEvent === "function" ) return false;
+
+  function CustomEvent ( event, params ) {
+    params = params || { bubbles: false, cancelable: false, detail: undefined };
+    var evt = document.createEvent( 'CustomEvent' );
+    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+    return evt;
+   }
+
+  CustomEvent.prototype = window.Event.prototype;
+
+  window.CustomEvent = CustomEvent;
+})();
