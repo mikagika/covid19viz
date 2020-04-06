@@ -248,6 +248,7 @@ var summarize = function(srchCountry, srchState, srchCounty) {
  */
 var showData = function(days, locales, selection, dimension) {
     console.log("showing data for dimension ", dimension);
+    var fmt = d3.format(",.0f");
     var dimDelta = dimension+"Delta";
     var boxWidth = 800;
     var boxHeight = 480;
@@ -261,15 +262,15 @@ var showData = function(days, locales, selection, dimension) {
     for (var k=days.length - 1;k>=0;k--) {
         var tobs = days[k];
         ohtml.push("<tr>");
-        ohtml.push("<td>"+tobs.date+"</td>");
-        ohtml.push("<td>"+tobs.confirmed+"</td>");
-        ohtml.push("<td>"+tobs.confirmedDelta+"</td>");
-        ohtml.push("<td>"+tobs.died+"</td>");
-        ohtml.push("<td>"+tobs.diedDelta+"</td>");
-        ohtml.push("<td>"+tobs.recovered+"</td>");
-        ohtml.push("<td>"+tobs.recoveredDelta+"</td>");
-        ohtml.push("<td>"+tobs.active+"</td>");
-        ohtml.push("<td>"+tobs.activeDelta+"</td>");
+        ohtml.push("<td>"+tobs.date.substr(0,4)+"-"+tobs.date.substr(4,2)+"-"+tobs.date.substr(6,2)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.confirmed)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.confirmedDelta)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.died)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.diedDelta)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.recovered)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.recoveredDelta)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.active)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.activeDelta)+"</td>");
         ohtml.push("</tr>");
     }
     $("#daysTBody").html(ohtml.join(""));
@@ -279,14 +280,14 @@ var showData = function(days, locales, selection, dimension) {
         var tobs = locales[k].days[locales[k].days.length - 1];
         ohtml.push("<tr>");
         ohtml.push("<td>"+locales[k].locale+"</td>");
-        ohtml.push("<td>"+tobs.confirmed+"</td>");
-        ohtml.push("<td>"+tobs.confirmedDelta+"</td>");
-        ohtml.push("<td>"+tobs.died+"</td>");
-        ohtml.push("<td>"+tobs.diedDelta+"</td>");
-        ohtml.push("<td>"+tobs.recovered+"</td>");
-        ohtml.push("<td>"+tobs.recoveredDelta+"</td>");
-        ohtml.push("<td>"+tobs.active+"</td>");
-        ohtml.push("<td>"+tobs.activeDelta+"</td>");
+        ohtml.push("<td>"+fmt(tobs.confirmed)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.confirmedDelta)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.died)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.diedDelta)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.recovered)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.recoveredDelta)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.active)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.activeDelta)+"</td>");
         ohtml.push("</tr>");
     }
     $("#localesTBody").html(ohtml.join(""));
@@ -549,7 +550,6 @@ d3.helper.tooltip = function(){
             if (top + rect.height >= yhigh - 20) {  // too high--flip around
                  top = absoluteMousePos[1] - rect.height;
             }
-            console.log(absoluteMousePos[0]+","+absoluteMousePos[1]+" = "+left+","+top);
             tooltipDiv.style("left",left+"px");
             tooltipDiv.style("top",top+"px");
             /*
