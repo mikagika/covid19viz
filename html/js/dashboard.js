@@ -75,7 +75,7 @@ var parseCovidData = function(csv) {
                 var idx = covid.obs.length;
                 covid.obs.push(tobs);
                 updateIndexes(tobs);
-                keys[tobs.country+tobs.state+tobs.county+tobs.date] = true;    
+                keys[tobs.country+tobs.state+tobs.county+tobs.date] = true;
             }
         }
 	}
@@ -85,7 +85,16 @@ var parseCovidData = function(csv) {
 };
 
 var populateSelects = function() {
-
+	console.log(covid.country.list);
+	var selectCountry = document.getElementById("selectCountry");
+	var selectState = document.getElementById("selectState");
+	var selectCounty = document.getElementById("selectCounty");
+	covid.country.list.forEach(country => {
+		var newOption = document.createElement("option");
+		newOption.innerText = country.name;
+		//console.log(country);
+		selectCountry.appendChild(newOption);
+	});
 };
 
 /**
