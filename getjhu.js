@@ -51,6 +51,7 @@ if (version === 0) {
 print("Reading "+lines.length+" new data lines");
 for (var k=1;k<lines.length;k++) {
     var data = lines[k].split(",");
+    data = handleQuotes(data);
     if (data && data.length >= 11) {
         var tobs = {};
         if (version === 2) {
@@ -119,6 +120,33 @@ print("Wrote "+covid.obs.length+" lines");
 
 exit(0);
 
+function handleQuotes(items) {
+    var out = [];
+    var hold = '';
+    for (var k=0;k<items.length;k++) {
+        if (items[k].substr(0,1) === '"') {
+            hold = items[k].substr(1);
+        }
+        else {
+            if (hold > '') {
+                var l = items[k].length - 1;
+                if (items[k].substr(l) == '"') {
+                    hold += items[k].substr(0,l);
+                    out.push(hold);
+                    hold = '';
+                }
+                else {
+                    hold += items[k];
+                }
+            }
+            else {
+                out.push(items[k]);
+                hold = '';
+            }
+        }
+    }
+    return out;
+}
 /**
  * Returns a version number for this type of data, 0 = unknown
  * @param {string} line0 
@@ -181,32 +209,6 @@ function getCovidData(csv) {
             keys[tobs.country+tobs.state+tobs.county+tobs.date] = true;    
         }
     }
-}
-
-/**
- * Updates the global covid object indexes based on a current observation
- * @param {object} tobs this observation
- */
-function updateIndexes(tobs) {
-    if (typeof covid.date.idx[tobs.date] == "undefined") {
-        covid.date.idx[tobs.date] = covid.date.list.length;
-        covid.date.list.push(tobs.date);
-    }
-    if (typeof covid.country.idx[tobs.country] == "undefined") {
-        covid.country.idx[tobs.country] = covid.country.list.length;
-        covid.country.list.push({name:tobs.country, state:{idx:{},list:[]}});
-    }
-    var tcountry = covid.country.list[covid.country.idx[tobs.country]]; // get this country
-    if (typeof tcountry.state.idx[tobs.state] == "undefined") {
-        tcountry.state.idx[tobs.state] = tcountry.state.list.length;
-        tcountry.state.list.push({name:tobs.state, county:{idx:{},list:[]}});
-    }
-    var tstate = tcountry.state.list[tcountry.idx[tobs.state]]; // get this state 
-    if (typeof tstate.county.idx[tobs.county] == "undefined") {
-        tstate.county.idx[tobs.county] = tstate.county.list.length;
-        tstate.county.list.push({name:tobs.county});
-    }
-    return;
 }
 
 /**
