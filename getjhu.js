@@ -65,8 +65,22 @@ for (var k=1;k<lines.length;k++) {
             tobs.recovered = data[9];
             tobs.active = data[10];
             var parts = tobs.date.split("-");
-            parts[2] = parts[2] ? parts[2].substr(0,2) : parts[2];
-            tobs.date = parts[0]+"-"+zeroPad(parts[1])+"-"+zeroPad(parts[2]);
+            if (parts.length >= 3) {
+                parts[2] = parts[2] ? parts[2].substr(0,2) : parts[2];
+                tobs.date = parts[0]+"-"+zeroPad(parts[1])+"-"+zeroPad(parts[2]);
+            }
+            else {
+                parts = tobs.date.split("/");
+                if (parts.length < 3) {
+                    print("Possible bad date: "+tobs.date);
+                }
+                else {
+                    parts[2] = parts[2] ? parts[2].substr(0,2) : parts[2];
+                    var old = tobs.date;
+                    tobs.date = "20"+parts[2]+"-"+zeroPad(parts[0])+"-"+zeroPad(parts[1]);
+                    print("Unexpected old date format "+old+" converted to "+tobs.date);
+                }
+            }
             if (k<5) {
                 print(lines[k]);
                 print(tobs.date);
