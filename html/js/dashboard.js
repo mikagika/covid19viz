@@ -79,22 +79,66 @@ var parseCovidData = function(csv) {
             }
         }
 	}
-    console.log("Daily report data parsed");
-    populateSelects();
-	summarize("all","all","all");
+  console.log("Daily report data parsed");
+  populateSelects("all");
+	document.getElementById("selectCountry").addEventListener("change", summarizeFromDocCountry);
+	document.getElementById("selectState").addEventListener("change", summarizeFromDocState);
+	document.getElementById("selectCounty").addEventListener("change", summarizeFromDocCounty);
+	summarize("All","All","All");
 };
 
-var populateSelects = function() {
-	console.log(covid.country.list);
+/**
+ * Populates the select boxes
+ */
+var populateSelects = function(level) {
 	var selectCountry = document.getElementById("selectCountry");
 	var selectState = document.getElementById("selectState");
 	var selectCounty = document.getElementById("selectCounty");
-	covid.country.list.forEach(country => {
-		var newOption = document.createElement("option");
-		newOption.innerText = country.name;
-		//console.log(country);
-		selectCountry.appendChild(newOption);
-	});
+	
+	console.log(level);
+	if(level == "all") {
+		covid.country.list.forEach(country => {
+			var newOption = document.createElement("option");
+			newOption.innerText = country.name;
+			selectCountry.appendChild(newOption);
+		});
+	} else if(level == "country") {
+		// Remove any pre-existing state & county options
+		var allOption = document.createElement("option");
+		allOption.innerText = "All";
+		var allOption2 = document.createElement("option");
+		allOption2.innerText = "All";
+		
+		selectState.innerHTML = '';
+		selectState.appendChild(allOption);
+		
+		selectCounty.innerHTML = '';
+		selectCounty.appendChild(allOption2);
+		
+		if(covid.country.idx[selectCountry.selectedOptions[0].textContent] >= 0) {
+			covid.country.list[covid.country.idx[selectCountry.selectedOptions[0].textContent]].state.list.forEach(state => {
+				var newOption = document.createElement("option");
+				newOption.innerText = state.name;
+				selectState.appendChild(newOption);
+			});
+		}
+	} else if(level == "state") {
+		// Remove any preexisting county options
+		var allOption = document.createElement("option");
+		allOption.innerText = "All";
+		
+		selectCounty.innerHTML = '';
+		selectCounty.appendChild(allOption);
+		
+		var states = covid.country.list[covid.country.idx[selectCountry.selectedOptions[0].textContent]].state
+		if(states.idx[selectState.selectedOptions[0].textContent] >= 0) {
+			states.list[states.idx[selectState.selectedOptions[0].textContent]].county.list.forEach(county => {
+				var newOption = document.createElement("option");
+				newOption.innerText = county.name;
+				selectCounty.appendChild(newOption);
+			});
+		}
+	}
 };
 
 /**
@@ -128,6 +172,40 @@ var updateIndexes = function(tobs) {
 };
 
 /**
+ * Wrapper to get around passing value in addEventListener for selectCountry
+ */
+var summarizeFromDocCountry = function() {
+	summarizeFromDoc("country");
+}
+
+/**
+ * Wrapper to get around passing value in addEventListener for selectState
+ */
+var summarizeFromDocState = function() {
+	summarizeFromDoc("state");
+}
+
+/**
+ * Wrapper to get around passing value in addEventListener for selectCounty
+ */
+var summarizeFromDocCounty = function() {
+	summarizeFromDoc("county");
+}
+
+/**
+ * Wrapper to call summarize more easily from the doc
+ */
+var summarizeFromDoc = function(level) {
+  populateSelects(level);
+  
+  var selectedCountry = document.getElementById("selectCountry").selectedOptions[0].label;
+	var selectedState = document.getElementById("selectState").selectedOptions[0].label;
+	var selectedCounty = document.getElementById("selectCounty").selectedOptions[0].label;
+	console.log(selectedCountry, selectedState, selectedCounty);
+  summarize(selectedCountry, selectedState, selectedCounty);
+}
+
+/**
  * Summarize and display the data 
  * @param {*} srchCountry - The country to search for or all for all countries
  * @param {*} srchState - The state to search for or all for all states
@@ -135,7 +213,6 @@ var updateIndexes = function(tobs) {
  */
 var summarize = function(srchCountry, srchState, srchCounty) {
     var selection = "Country="+srchCountry+", State="+srchState+", County="+srchCounty
-    console.log("Summarizing for "+selection);
     var days = [];
     var dayIdx = {};
     var locales = [];
@@ -147,12 +224,12 @@ var summarize = function(srchCountry, srchState, srchCounty) {
     for (var k=0;k<covid.obs.length;k++) {
         var tobs = covid.obs[k];
         var locale = '';
-        if (srchCountry === "all" || srchCountry === tobs.country) {
+        if (srchCountry === "All" || srchCountry === tobs.country) {
             locale += tobs.country;
-            if (srchState === "all" || srchState === tobs.state) {
-                locale += srchCountry !== "all" ? ", " + tobs.state : "";  // if we searched for specific country, include state in locale
-                if (srchCounty === "all" || srchCounty === tobs.county) {
-                    locale += srchState !== "all" ? ", " + tobs.county : "";  // if we searched for specific state, include county in locale
+            if (srchState === "All" || srchState === tobs.state) {
+                locale += srchCountry !== "All" ? ", " + tobs.state : "";  // if we searched for specific country, include state in locale
+                if (srchCounty === "All" || srchCounty === tobs.county) {
+                    locale += srchState !== "All" ? ", " + tobs.county : "";  // if we searched for specific state, include county in locale
                     //tobs.locale = locale; // add in the current locale level
                     //matches.push(tobs); 
                     if (typeof dayIdx[tobs.date] === "undefined") {
@@ -558,7 +635,6 @@ d3.helper.tooltip = function(){
             if (top + rect.height >= yhigh - 20) {  // too high--flip around
                  top = absoluteMousePos[1] - rect.height;
             }
-            console.log(absoluteMousePos[0]+","+absoluteMousePos[1]+" = "+left+","+top);
             tooltipDiv.style("left",left+"px");
             tooltipDiv.style("top",top+"px");
             /*
