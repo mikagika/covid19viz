@@ -28,7 +28,7 @@ if (outcsv.indexOf("/") < 0) {
     outcsv = "html/data/"+outcsv;
 }
 
-print("Reading log file: "+inlog+", writing to "+outcsv);
+console.log("Reading log file: "+inlog+", writing to "+outcsv);
 
 var covid = {obs:[],
     country: {idx:{},list:[]},
@@ -43,12 +43,12 @@ var lines = readFully(inlog).split("\n");
 var version = checkVersion(lines[0]);
 
 if (version === 0) {
-    print("Header unrecognized");
-    print(lines[0]);
+    console.log("Header unrecognized");
+    console.log(lines[0]);
     exit(1);
 }
 
-print("Reading "+lines.length+" new data lines");
+console.log("Reading "+lines.length+" new data lines");
 for (var k=1;k<lines.length;k++) {
     var data = lines[k].split(",");
     data = handleQuotes(data);
@@ -82,8 +82,8 @@ for (var k=1;k<lines.length;k++) {
                 }
             }
             if (k<5) {
-                print(lines[k]);
-                print(tobs.date);
+                console.log(lines[k]);
+                console.log(tobs.date);
             }
         }
         if (!keys[tobs.country+tobs.state+tobs.county+tobs.date]) {
@@ -92,7 +92,7 @@ for (var k=1;k<lines.length;k++) {
             keys[tobs.country+tobs.state+tobs.county+tobs.date] = true;
         }
         else {
-            print("Skipping "+tobs.country+" "+tobs.state+" "+tobs.county+" "+tobs.date)
+            console.log("Skipping "+tobs.country+" "+tobs.state+" "+tobs.county+" "+tobs.date)
         }    
     }
 }
@@ -130,7 +130,7 @@ for (var k=0;k<covid.obs.length;k++) {
 }
 fw.close();
 
-print("Wrote "+covid.obs.length+" lines");
+console.log("Wrote "+covid.obs.length+" lines");
 
 exit(0);
 
@@ -202,7 +202,7 @@ function getCovidData(csv) {
     if (csv.indexOf("\n") >= 0) {
         lines = csv.split("\n");
     }
-    print("Reading "+lines.length+" existing data lines");
+    console.log("Reading "+lines.length+" existing data lines");
     for (var k=1;k<lines.length;k++) {
         var data = lines[k].split(",");
         if (data && data.length >= 9) {
