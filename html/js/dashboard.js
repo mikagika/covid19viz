@@ -232,6 +232,10 @@ var summarize = function(srchCountry, srchState, srchCounty) {
                     locale += srchState !== "All" ? ", " + tobs.county : "";  // if we searched for specific state, include county in locale
                     //tobs.locale = locale; // add in the current locale level
                     //matches.push(tobs); 
+                    var pop = 0;
+                    if (!isNaN(tobs.fips) && popData[tobs.fips*1]) {
+                        pop = popData[tobs.fips*1].popEst * 1;
+                    }
                     if (typeof dayIdx[tobs.date] === "undefined") {
                         dayIdx[tobs.date] = days.length;
                         days.push({
@@ -239,7 +243,8 @@ var summarize = function(srchCountry, srchState, srchCounty) {
                             confirmed: tobs.confirmed * 1,  // really, I want these numeric!
                             died: tobs.died * 1,
                             recovered: tobs.recovered * 1,
-                            active: tobs.active * 1
+                            active: tobs.active * 1,
+                            population: pop
                         });
                         //maxDate = tobs.date > maxDate ? tobs.date : maxDate; 
                     }
@@ -249,6 +254,7 @@ var summarize = function(srchCountry, srchState, srchCounty) {
                         days[d].died += tobs.died * 1;
                         days[d].recovered += tobs.recovered * 1;
                         days[d].active += tobs.active * 1;
+                        days[d].population += pop;
                     }
 
                     // now let's populate the locale data 
@@ -268,7 +274,8 @@ var summarize = function(srchCountry, srchState, srchCounty) {
                             confirmed: tobs.confirmed * 1,  // really, I want these numeric!
                             died: tobs.died * 1,
                             recovered: tobs.recovered * 1,
-                            active: tobs.active * 1
+                            active: tobs.active * 1,
+                            population: pop
                         });
                     }
                     else { // increment the day's totals 
@@ -277,6 +284,7 @@ var summarize = function(srchCountry, srchState, srchCounty) {
                         tloc.days[d].died += tobs.died * 1;
                         tloc.days[d].recovered += tobs.recovered * 1;
                         tloc.days[d].active += tobs.active * 1;
+                        tloc.days[d].population += pop;
                     }
                 }
             }
@@ -299,6 +307,7 @@ var summarize = function(srchCountry, srchState, srchCounty) {
         days[d].diedDelta = days[d].died - days[d0].died;
         days[d].recoveredDelta = days[d].recovered - days[d0].recovered;
         days[d].activeDelta = days[d].active - days[d0].active;
+        days[d].conf100k = days[d].population > 0 ? days[d].confirmed / (days[d].population / 100000) : null;
     }
 
     // iterate through the locales and do the same by locale
@@ -320,6 +329,7 @@ var summarize = function(srchCountry, srchState, srchCounty) {
             tloc.days[d].diedDelta = tloc.days[d].died - tloc.days[d0].died;
             tloc.days[d].recoveredDelta = tloc.days[d].recovered - tloc.days[d0].recovered;
             tloc.days[d].activeDelta = tloc.days[d].active - tloc.days[d0].active;
+            tloc.days[d].conf100k = tloc.days[d].population > 0 ? tloc.days[d].confirmed / (tloc.days[d].population / 100000) : null;
         }
     }
 
@@ -357,6 +367,8 @@ var showData = function(days, locales, selection, dimension) {
         ohtml.push("<td>"+fmt(tobs.recoveredDelta)+"</td>");
         ohtml.push("<td>"+fmt(tobs.active)+"</td>");
         ohtml.push("<td>"+fmt(tobs.activeDelta)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.population)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.conf100k)+"</td>");
         ohtml.push("</tr>");
     }
     $("#daysTBody").html(ohtml.join(""));
@@ -374,6 +386,8 @@ var showData = function(days, locales, selection, dimension) {
         ohtml.push("<td>"+fmt(tobs.recoveredDelta)+"</td>");
         ohtml.push("<td>"+fmt(tobs.active)+"</td>");
         ohtml.push("<td>"+fmt(tobs.activeDelta)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.population)+"</td>");
+        ohtml.push("<td>"+fmt(tobs.conf100k)+"</td>");
         ohtml.push("</tr>");
     }
     $("#localesTBody").html(ohtml.join(""));
@@ -605,12 +619,16 @@ d3.helper.tooltip = function(){
                 'z-index': 1001
             });
             
-            var ohtml = [pData.date+"<br/>"];
+            var ohtml = [pData.date.substr(0,4)+"-"+pData.date.substr(4,2)+"-"+pData.date.substr(6,2)+"<br/>"];
             var fmt = d3.format(",.0f");
+            var fmtPct = d3.format("3.1f");
             ohtml.push("Confirmed: "+fmt(pData.confirmed)+" ("+fmt(pData.confirmedDelta)+")<br>");
             ohtml.push("Died: "+fmt(pData.died)+" ("+fmt(pData.diedDelta)+")<br>");
             ohtml.push("Recovered: "+fmt(pData.recovered)+" ("+fmt(pData.recoveredDelta)+")<br>");
             ohtml.push("Active: "+fmt(pData.active)+" ("+fmt(pData.activeDelta)+")<br>");
+            ohtml.push(fmtPct(100*pData.died/pData.confirmed)+"% of confirmed died<br>");
+            ohtml.push("Population: "+fmt(pData.population)+"<br>");
+            ohtml.push(fmt(pData.conf100k)+" cases / 100K people<br>");
 
             tooltipDiv.html(ohtml.join(""));
         })
@@ -638,19 +656,11 @@ d3.helper.tooltip = function(){
             }
             tooltipDiv.style("left",left+"px");
             tooltipDiv.style("top",top+"px");
-            /*
-            tooltipDiv.style({
-                left: (+left)+'px',
-                top: (+top)+'px'
-            });
-            */
         })
-        /*
         .on('mouseout.tooltip', function(pD, pI){
             // Remove tooltip
             tooltipDiv.remove();
         })
-        */
         ;
 
     }
