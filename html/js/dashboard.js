@@ -360,8 +360,8 @@ var showData = function(days, locales, selection, dimension) {
     console.log("showing data for dimension ", dimension);
     var fmt = d3.format(",.0f");
     var dimDelta = dimension+"Delta";
-    var boxWidth = 800;
-    var boxHeight = 480;
+    var boxWidth = 720;
+    var boxHeight = 430;
     var margin= { t: 100, r: 100, b: 50, l: 100, rAxis: 0};
     var width   = boxWidth - margin.l - margin.r;
     var height  = boxHeight - margin.t - margin.b;
@@ -387,9 +387,12 @@ var showData = function(days, locales, selection, dimension) {
     }
     $("#daysTBody").html(ohtml.join(""));
 
+    var sortedLocales = [];
     ohtml = [];
     for (var k=0;k<locales.length;k++) {
         var tobs = locales[k].days[locales[k].days.length - 1];
+        tobs.locale = locales[k].locale;
+        sortedLocales.push(tobs);
         ohtml.push("<tr>");
         ohtml.push("<td>"+locales[k].locale+"</td>");
         ohtml.push("<td>"+fmt(tobs.confirmed)+"</td>");
@@ -406,14 +409,20 @@ var showData = function(days, locales, selection, dimension) {
     }
     $("#localesTBody").html(ohtml.join(""));
 
+    sortedLocales.sort(function(a,b) {
+        return b[dimension]*1 - a[dimension]*1;
+    });
+
+    // Make the graphs
+
     var svg = d3.select('body').select("#chartDays").selectAll("*").remove(); // be sure to get rid of all children (unhook them too?)
-    var svg = d3.select('body').select("#chartDays").html("");
+    svg = d3.select('body').select("#chartDays").html("");
 
     $("#chartDays").width(boxWidth);
     $("#chartDays").height(boxHeight);
 
 
-    var x, xAxis, y, yAxis, y_2, y2Axis, xExtent, yExtent, yExtent2;  // core axis definitions that will get reused many times
+    var x, xAxis, y, yAxis, y_2, y2Axis, xExtent, yExtent, yExtent2;  // core axis definitions that will get reused 
     var timeParser = d3.timeParse("%Y%m%d");
     var timeFormatter = d3.timeFormat("%Y-%m-%d");
     xExtent = d3.extent(days, d => timeParser(d.date));
@@ -567,12 +576,159 @@ var showData = function(days, locales, selection, dimension) {
         .attr("d",valueline)
         ;
 
+    vis.selectAll("rect.dimObs").call(d3.helper.tooltip());
+    vis.selectAll("rect.dimObsDelta").call(d3.helper.tooltip());
+    
+
+    // ------------------------------------------
+    // Create the second chart
+    // Make the graphs
+    // ------------------------------------------
+    
+    dimension = "confirmed"; // what we always want for this one
+    if (sortedLocales.length > 25) {
+        sortedLocales.splice(25,sortedLocales.length - 25);
+    }
+    
+    var localeIdx = 0;
+    if (selection.indexOf("Country=All") < 0) {
+        localeIdx = 1;
+    }
+    if (selection.indexOf("State=All") < 0) {
+        localeIdx = 2;
+    }
+    for (var k=0;k<sortedLocales.length;k++) {
+        var l = sortedLocales[k].locale.split(",");
+        if (l.length >= localeIdx + 1) {
+            sortedLocales[k].locale = l[localeIdx].trim();
+        }
+    }
+
+    var svg = d3.select('body').select("#chartLocales").selectAll("*").remove(); // be sure to get rid of all children (unhook them too?)
+    svg = d3.select('body').select("#chartLocales").html("");
+
+    $("#chartLocales").width(boxWidth);
+    $("#chartLocales").height(boxHeight);
+
+
+    var x, xAxis, y, yAxis, y_2, y2Axis, xExtent, yExtent, yExtent2;  // core axis definitions that will get reused 
+    var timeParser = d3.timeParse("%Y%m%d");
+    var timeFormatter = d3.timeFormat("%Y-%m-%d");
+    x = d3.scaleBand().domain(sortedLocales.map(d => d.locale)).range([0, width]);
+    xAxis   = d3.axisBottom(x).tickSizeOuter(8).ticks(6);
+    var colWidth = Math.round((x(sortedLocales[1].locale) - x(sortedLocales[0].locale))*.97);
+
+    yExtent = d3.extent(sortedLocales.map(d => d[dimension]));
+    yExtent[0] = 0; // always make it zero based
+    y       = d3.scaleLinear().domain(yExtent).range([height, 0]);
+    yAxis   = d3.axisLeft(y).tickSizeInner(-width).ticks(10);
+    var ticks = y.ticks(); // gets the array of ticks that d3 wants to use
+    if (ticks[ticks.length - 1] < yExtent[1] ) {  // if the last tick isn't at the max of the chart
+        var stride = ticks[1] - ticks[0];                           // determine increment d3 is using
+        y.domain([yExtent[0],ticks[ticks.length - 1] + stride]);  // reset the domain
+    }
+
+    svg = svg.append('svg')
+        .attr("viewBox","0 0 "+boxWidth+" "+boxHeight)
+        .attr("preserveAspectRatio","none")         // decided better to err on side of seeing everything
+        .attr("style","height:100%;width:100%");
+
+    svg.append("rect")
+        .attr("x",0)
+        .attr("y",0)
+        .attr("width",boxWidth)
+        .attr("height",boxHeight)
+        .attr("fill","none")
+        .attr("stroke-width","2")
+        .attr("stroke","#a5a5a5")
+    ;
+
+    var titleg = svg.append("g")
+        .attr("transform","translate("+margin.l+",0)");
+    titleg.append("text")
+        .attr("class","title")
+        .attr("width",width)
+        .attr("x",width/2)
+        .attr("y",33)
+        .text("Top Locales");
+    titleg.append("text")
+        .attr("class","subtitle")
+        .attr("width",width)
+        .attr("x",width/2)
+        .attr("y",60)
+        .text(selection);
+    titleg.append("text")
+        .attr("class","datatitle")
+        .attr("width",width)
+        .attr("x",width/2)
+        .attr("y",90)
+        .text("By confirmed cases, with deaths")
+        ;
+
+    svg.append('g')  // y axis label
+        .append('text')
+        .attr('class','yLabel')
+        .attr('transform','rotate(-90)')
+        .attr('x',0-(height/2)-margin.t-margin.b)
+        .attr('y',16)
+        .text("Total");
+
+    // create the space and labeling for the visualization
+    var vis = svg
+      .append('g')
+      .attr("class","graph")
+      .attr('transform', 'translate(' + margin.l + ',' + margin.t + ')');
+
+    vis.append('g')
+        .attr('class', 'x axis')
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        ;
+
+    vis.append('g')
+        .attr('class', 'y axis')
+        .call(yAxis)
+        .selectAll("text")
+        .append("title").text("Total")
+        ;
+
+    // Add the bars
+    var groups = vis.selectAll("rect")
+        .data(sortedLocales)
+        .enter().append("g");
+    groups.append("rect")
+            .attr("class","dimObs")
+            .attr("x",function(d) {
+                return x(d.locale);
+            })
+            .attr("y",function(d) {
+                return y(d[dimension]);
+            })
+            .attr("height", function(d) {
+                return y(0) - y(d[dimension]);
+            })
+            .attr("width", colWidth);
+    groups.append("rect")  // add the incremental value
+            .attr("class","dimObsDied")
+            .attr("x",function(d) {
+                return x(d.locale);
+            })
+            .attr("y",function(d) {
+                return d.died ? y(d.died) : 0;
+            })
+            .attr("height", function(d) {
+                return d.died ? y(0) - y(d.died) : 0;
+            })
+            .attr("width", colWidth)
+        ;
+
+    vis.selectAll("rect.dimObs").call(d3.helper.tooltip());
+    vis.selectAll("rect.dimObsDied").call(d3.helper.tooltip());
+
     // Hide old tooltip
     d3.select("body").append("div")   
         .attr("class", "tooltip")             
         .style("opacity", 0);
-    vis.selectAll("rect.dimObs").call(d3.helper.tooltip());
-    vis.selectAll("rect.dimObsDelta").call(d3.helper.tooltip());
 
     console.log("Done visualization");
 };
@@ -633,7 +789,8 @@ d3.helper.tooltip = function(){
                 'z-index': 1001
             });
             
-            var ohtml = [pData.date.substr(0,4)+"-"+pData.date.substr(4,2)+"-"+pData.date.substr(6,2)+"<br/>"];
+            var locale = pData.locale ? pData.locale+" @ " : "";
+            var ohtml = [locale+pData.date.substr(0,4)+"-"+pData.date.substr(4,2)+"-"+pData.date.substr(6,2)+"<br/>"];
             var fmt = d3.format(",.0f");
             var fmtPct = d3.format("3.1f");
             ohtml.push("Confirmed: "+fmt(pData.confirmed)+" ("+fmt(pData.confirmedDelta)+")<br>");

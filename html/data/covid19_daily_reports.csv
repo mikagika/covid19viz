@@ -1553,8 +1553,8 @@ FIPS,Country,State,County,Date,Confirmed,Died,Recovered,Active
 ,Croatia,,,2020-04-08,1343,19,179,1145
 ,Croatia,,,2020-04-09,1407,20,219,1168
 ,Croatia,,,2020-04-10,1495,21,231,1243
-,Cruise Ship,Diamond Princess,,2020-03-22,712,8,567,137
-,Cruise Ship,Diamond Princess,,2020-03-23,712,8,567,137
+,Diamond Princess,,,2020-03-22,712,8,567,137
+,Diamond Princess,,,2020-03-23,712,8,567,137
 ,Cuba,,,2020-03-22,35,1,0,34
 ,Cuba,,,2020-03-23,40,1,0,39
 ,Cuba,,,2020-03-24,48,1,1,46
@@ -36221,7 +36221,7 @@ FIPS,Country,State,County,Date,Confirmed,Died,Recovered,Active
 35013,US,New Mexico,Dona Ana,2020-04-08,35,0,0,0
 35013,US,New Mexico,Dona Ana,2020-04-09,39,0,0,0
 35013,US,New Mexico,Dona Ana,2020-04-10,44,0,0,0
-35013,US,New Mexico,Doña Ana,2020-03-23,0,0,0,0
+35013,US,New Mexico,Doï¿½a Ana,2020-03-23,0,0,0,0
 35013,US,New Mexico,Do?a Ana,2020-03-24,0,0,0,0
 35015,US,New Mexico,Eddy,2020-03-22,0,0,0,0
 35015,US,New Mexico,Eddy,2020-03-23,0,0,0,0
