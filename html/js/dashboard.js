@@ -30,8 +30,13 @@ var parsePopData = function(csv) {
 				county: data[2].split(" ")[0],
 				pop2010: data[3],
 				popEst: data[4]
-			}
-			popData[obs.fips] = obs;
+            }
+            if (obs.fips > 0) {
+                popData[obs.fips] = obs;
+            }
+            else {
+                popData[data[1]+"_"+data[2]] = obs;
+            }
 		}
 	}
 	console.log("Populated population data, fetching daily report file");
@@ -235,6 +240,15 @@ var summarize = function(srchCountry, srchState, srchCounty) {
                     var pop = 0;
                     if (!isNaN(tobs.fips) && popData[tobs.fips*1]) {
                         pop = popData[tobs.fips*1].popEst * 1;
+                    }
+                    else {
+                        pop = popData[tobs.country+"_"+tobs.state];
+                        if (pop) {
+                            pop = pop.popEst * 1;
+                        }
+                        if (isNaN(pop)) {  // in case we mess it up
+                            pop = 0;
+                        }
                     }
                     if (typeof dayIdx[tobs.date] === "undefined") {
                         dayIdx[tobs.date] = days.length;
