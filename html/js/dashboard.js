@@ -10,11 +10,13 @@ var covid = {
     country: {idx:{},list:[]},
     date: {idx:{},list:[]}
 };
+var unlocked = true; 
 
 var minDate = "20200322";  // oldest complete data we have, ignore anything older
 // note
 
 var parsePopData = function(csv) {
+
 	console.log("Parsing population data");
     var lines = csv; // assume an array?
     if (csv.indexOf("\n") >= 0) {
@@ -322,6 +324,7 @@ var summarize = function(srchCountry, srchState, srchCounty) {
         days[d].recoveredDelta = days[d].recovered - days[d0].recovered;
         days[d].activeDelta = days[d].active - days[d0].active;
         days[d].conf100k = days[d].population > 0 ? days[d].confirmed / (days[d].population / 100000) : null;
+        days[d].new100k = days[d].population > 0 ? days[d].confirmedDelta / (days[d].population / 100000) : null;
     }
 
     // iterate through the locales and do the same by locale
@@ -344,6 +347,7 @@ var summarize = function(srchCountry, srchState, srchCounty) {
             tloc.days[d].recoveredDelta = tloc.days[d].recovered - tloc.days[d0].recovered;
             tloc.days[d].activeDelta = tloc.days[d].active - tloc.days[d0].active;
             tloc.days[d].conf100k = tloc.days[d].population > 0 ? tloc.days[d].confirmed / (tloc.days[d].population / 100000) : null;
+            tloc.days[d].new100k = tloc.days[d].population > 0 ? tloc.days[d].confirmedDelta / (tloc.days[d].population / 100000) : null;
         }
     }
 
@@ -357,10 +361,9 @@ var summarize = function(srchCountry, srchState, srchCounty) {
  * Display the data selected in both tabular and graphical form 
  */
 var showData = function(days, locales, selection, dimension) {
-    $("#chartDays2").html($("chartDays").html());
-    $("#chartLocales2").html($("chartLocales").html());
     console.log("showing data for dimension ", dimension);
     var fmt = d3.format(",.0f");
+    var fmtPct = d3.format(",.1f");
     var dimDelta = dimension+"Delta";
     var boxWidth = 720;
     var boxHeight = 430;
@@ -369,6 +372,35 @@ var showData = function(days, locales, selection, dimension) {
     var height  = boxHeight - margin.t - margin.b;
     var colWidth = 1; // this will be changed later
 
+    //$("#chartDays2").html($("#chartDays").html());
+    //$("#chartLocales2").html($("#chartLocales").html());
+    $(".chartLines").height(boxHeight+5);
+    var chartsDays = $("#lineDays div");
+    if (unlocked) {  // if unlocked we need to shove the charts around, otherwise we just replace the first one
+        if (chartsDays.length === 2) {
+            $(chartsDays[1]).remove();
+        }
+        if (chartsDays.length >=1 ) {
+            $(chartsDays[0]).css({left: (boxWidth + 5)});
+        }
+        $("#lineDays").prepend("<div class='chart'></div>");
+    
+        var chartsLocales = $("#lineLocales div");
+        if (chartsLocales.length === 2) {
+            $(chartsLocales[1]).remove();
+        }
+        if (chartsLocales.length >= 1) {
+            $(chartsLocales[0]).css({left: (boxWidth + 5)});
+        }
+        $("#lineLocales").prepend("<div class='chart'></div>");
+    }
+
+    var chartDay = $("#lineDays div")[0];
+    $(chartDay).width(boxWidth);
+    $(chartDay).height(boxHeight);
+    var chartLocale = $("#lineLocales div")[0];
+    $(chartLocale).width(boxWidth);
+    $(chartLocale).height(boxHeight);
 
     var ohtml = [];
     for (var k=days.length - 1;k>=0;k--) {
@@ -385,6 +417,7 @@ var showData = function(days, locales, selection, dimension) {
         ohtml.push("<td>"+fmt(tobs.activeDelta)+"</td>");
         ohtml.push("<td>"+fmt(tobs.population)+"</td>");
         ohtml.push("<td>"+fmt(tobs.conf100k)+"</td>");
+        ohtml.push("<td>"+fmtPct(tobs.new100k)+"</td>");
         ohtml.push("</tr>");
     }
     $("#daysTBody").html(ohtml.join(""));
@@ -407,6 +440,7 @@ var showData = function(days, locales, selection, dimension) {
         ohtml.push("<td>"+fmt(tobs.activeDelta)+"</td>");
         ohtml.push("<td>"+fmt(tobs.population)+"</td>");
         ohtml.push("<td>"+fmt(tobs.conf100k)+"</td>");
+        ohtml.push("<td>"+fmtPct(tobs.new100k)+"</td>");
         ohtml.push("</tr>");
     }
     $("#localesTBody").html(ohtml.join(""));
@@ -417,15 +451,8 @@ var showData = function(days, locales, selection, dimension) {
 
     // Make the graphs
 
-    var svg = d3.select('body').select("#chartDays").selectAll("*").remove(); // be sure to get rid of all children (unhook them too?)
-    svg = d3.select('body').select("#chartDays").html("");
-
-    $("#chartDays").width(boxWidth);
-    $("#chartDays").height(boxHeight);
-    $("#chartDays2").width(boxWidth);
-    $("#chartDays2").height(boxHeight);
-
-
+    var svg = d3.select('body').select("#lineDays div").selectAll("*").remove(); // be sure to get rid of all children (unhook them too?)
+    svg = d3.select('body').select("#lineDays div").html("");
 
     var x, xAxis, y, yAxis, y_2, y2Axis, xExtent, yExtent, yExtent2;  // core axis definitions that will get reused 
     var timeParser = d3.timeParse("%Y%m%d");
@@ -609,21 +636,15 @@ var showData = function(days, locales, selection, dimension) {
         }
     }
 
-    var svg = d3.select('body').select("#chartLocales").selectAll("*").remove(); // be sure to get rid of all children (unhook them too?)
-    svg = d3.select('body').select("#chartLocales").html("");
-
-    $("#chartLocales").width(boxWidth);
-    $("#chartLocales").height(boxHeight);
-    $("#chartLocales2").width(boxWidth);
-    $("#chartLocales2").height(boxHeight);
-
+    var svg = d3.select('body').select("#lineLocales div").selectAll("*").remove(); // be sure to get rid of all children (unhook them too?)
+    svg = d3.select('body').select("#lineLocales div").html("");
 
     var x, xAxis, y, yAxis, y_2, y2Axis, xExtent, yExtent, yExtent2;  // core axis definitions that will get reused 
     var timeParser = d3.timeParse("%Y%m%d");
     var timeFormatter = d3.timeFormat("%Y-%m-%d");
     x = d3.scaleBand().domain(sortedLocales.map(d => d.locale)).range([0, width]);
     xAxis   = d3.axisBottom(x).tickSizeOuter(8).ticks(6);
-    var colWidth = Math.round((x(sortedLocales[1].locale) - x(sortedLocales[0].locale))*.97);
+    var colWidth = sortedLocales.length > 1 ? Math.round((x(sortedLocales[1].locale) - x(sortedLocales[0].locale))*.97) : width * .97;
 
     yExtent = d3.extent(sortedLocales.map(d => d[dimension]));
     yExtent[0] = 0; // always make it zero based
@@ -742,6 +763,18 @@ var showData = function(days, locales, selection, dimension) {
 
 return {
 	initialize: function() {
+        $("#lockButton").click(function() {
+            unlocked = !unlocked;
+            if (unlocked) {
+                $("#lock").hide();
+                $("#unlock").show();
+            }
+            else {
+                $("#unlock").hide();
+                $("#lock").show();
+            }
+        })
+
 		$.ajaxSetup ({
 			// Disable caching of AJAX responses
 			cache: false
@@ -806,7 +839,8 @@ d3.helper.tooltip = function(){
             ohtml.push("Active: "+fmt(pData.active)+" ("+fmt(pData.activeDelta)+")<br>");
             ohtml.push(fmtPct(100*pData.died/pData.confirmed)+"% of confirmed died<br>");
             ohtml.push("Population: "+fmt(pData.population)+"<br>");
-            ohtml.push(fmt(pData.conf100k)+" cases / 100K people<br>");
+            ohtml.push(fmt(pData.conf100k)+" total cases / 100K people<br>");
+            ohtml.push(fmtPct(pData.new100k)+" new cases / 100K people<br>");
 
             tooltipDiv.html(ohtml.join(""));
         })

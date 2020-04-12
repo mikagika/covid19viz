@@ -48,8 +48,11 @@
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">COVID-19</a>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-  <ul class="navbar-nav px-3">
+  <span id="lockButton">
+    <svg id="unlock" display="block" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>  
+    <svg id="lock" display="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>      
+  </span>
+<ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
       <a class="nav-link" href="#">Info</a>
     </li>
@@ -81,11 +84,14 @@
       
       <!-- put chart here -->
       <br>
-      <div id="chartDays"></div>
-      <div id="chartDays2"></div>
-      <br>
-      <div id="chartLocales"></div>
-      <div id="chartLocales2"></div>
+      <div id="lineDays" class="chartLines">
+        <div id="chartDays" class="chart"></div>
+        <div id="chartDays2" class="chart"></div>
+      </div>
+      <div id="lineLocales"  class="chartLines">
+        <div id="chartLocales" class="chart"></div>
+        <div id="chartLocales2" class="chart"></div>
+      </div>
       <br>
 
       <div class="table-responsive">
@@ -103,6 +109,7 @@
               <th>Active &Delta;</th>
               <th>Population</th>
               <th>Confirmed/100K</th>
+              <th>New/100K</th>
             </tr>
           </thead>
           <tbody id="daysTBody">
@@ -125,6 +132,7 @@
               <th>Active &Delta;</th>
               <th>Population</th>
               <th>Confirmed/100K</th>
+              <th>New/100K</th>
             </tr>
           </thead>
           <tbody id="localesTBody">
