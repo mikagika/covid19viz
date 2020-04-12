@@ -357,6 +357,8 @@ var summarize = function(srchCountry, srchState, srchCounty) {
  * Display the data selected in both tabular and graphical form 
  */
 var showData = function(days, locales, selection, dimension) {
+    $("#chartDays2").html($("chartDays").html());
+    $("#chartLocales2").html($("chartLocales").html());
     console.log("showing data for dimension ", dimension);
     var fmt = d3.format(",.0f");
     var dimDelta = dimension+"Delta";
@@ -420,6 +422,9 @@ var showData = function(days, locales, selection, dimension) {
 
     $("#chartDays").width(boxWidth);
     $("#chartDays").height(boxHeight);
+    $("#chartDays2").width(boxWidth);
+    $("#chartDays2").height(boxHeight);
+
 
 
     var x, xAxis, y, yAxis, y_2, y2Axis, xExtent, yExtent, yExtent2;  // core axis definitions that will get reused 
@@ -609,6 +614,8 @@ var showData = function(days, locales, selection, dimension) {
 
     $("#chartLocales").width(boxWidth);
     $("#chartLocales").height(boxHeight);
+    $("#chartLocales2").width(boxWidth);
+    $("#chartLocales2").height(boxHeight);
 
 
     var x, xAxis, y, yAxis, y_2, y2Axis, xExtent, yExtent, yExtent2;  // core axis definitions that will get reused 
