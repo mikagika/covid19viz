@@ -375,22 +375,22 @@ var showData = function(days, locales, selection, dimension) {
     //$("#chartDays2").html($("#chartDays").html());
     //$("#chartLocales2").html($("#chartLocales").html());
     $(".chartLines").height(boxHeight+5);
-    var chartsDays = $("#lineDays div");
     if (unlocked) {  // if unlocked we need to shove the charts around, otherwise we just replace the first one
+        var chartsDays = $("#lineDays div");
+        var chartsLocales = $("#lineLocales div");
         if (chartsDays.length === 2) {
             $(chartsDays[1]).remove();
         }
         if (chartsDays.length >=1 ) {
-            $(chartsDays[0]).css({left: (boxWidth + 5)});
+            $(chartsDays[0]).animate({left: (boxWidth + 5)},500);
         }
         $("#lineDays").prepend("<div class='chart'></div>");
     
-        var chartsLocales = $("#lineLocales div");
         if (chartsLocales.length === 2) {
             $(chartsLocales[1]).remove();
         }
         if (chartsLocales.length >= 1) {
-            $(chartsLocales[0]).css({left: (boxWidth + 5)});
+            $(chartsLocales[0]).animate({left: (boxWidth + 5)},500);
         }
         $("#lineLocales").prepend("<div class='chart'></div>");
     }
