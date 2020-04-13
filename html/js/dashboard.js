@@ -67,6 +67,10 @@ var parseCovidData = function(csv) {
     for (var k=1;k<lines.length;k++) {
         var data = lines[k].split(",");
         if (data && data.length >= 9) {
+            if (data[5] == 0 &&
+                (data[3]==="Bronx" || data[3]==="Kings" || data[3]==="Queens" || data[3]==="Richmond" || data[3]==="Seneca" || data[3]==="Yates" )) {
+                continue;  // skip these to avoid adding in their populations
+            }
             var tobs = {
                 fips: data[0],
                 country: data[1], 
