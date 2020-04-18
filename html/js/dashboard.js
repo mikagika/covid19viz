@@ -845,6 +845,7 @@ d3.helper.tooltip = function(){
             ohtml.push("Population: "+fmt(pData.population)+"<br>");
             ohtml.push(fmt(pData.conf100k)+" total cases / 100K people<br>");
             ohtml.push(fmtPct(pData.new100k)+" new cases / 100K people<br>");
+            ohtml.push(fmtPct(pData.died/(pData.population/100000))+" died / 100K people<br>");
 
             tooltipDiv.html(ohtml.join(""));
         })
