@@ -89,12 +89,15 @@ var parseCovidData = function(csv) {
                 keys[tobs.country+tobs.state+tobs.county+tobs.date] = true;
             }
         }
-	}
-  console.log("Daily report data parsed");
-  populateSelects("all");
+    }
+    
+    console.log("Daily report data parsed");
+    populateSelects("all");
+    
 	document.getElementById("selectCountry").addEventListener("change", summarizeFromDocCountry);
 	document.getElementById("selectState").addEventListener("change", summarizeFromDocState);
 	document.getElementById("selectCounty").addEventListener("change", summarizeFromDocCounty);
+	document.getElementById("selectMetric").addEventListener("change", getSelects);
 	summarize("All","All","All");
 };
 
@@ -207,13 +210,20 @@ var summarizeFromDocCounty = function() {
  * Wrapper to call summarize more easily from the doc
  */
 var summarizeFromDoc = function(level) {
-  populateSelects(level);
+    populateSelects(level);
   
-  var selectedCountry = document.getElementById("selectCountry").selectedOptions[0].label;
+    getSelects(); 
+}
+
+/**
+ * Get the selection criteria and then display the requested data
+ */
+var getSelects = function() {
+    var selectedCountry = document.getElementById("selectCountry").selectedOptions[0].label;
 	var selectedState = document.getElementById("selectState").selectedOptions[0].label;
-	var selectedCounty = document.getElementById("selectCounty").selectedOptions[0].label;
+    var selectedCounty = document.getElementById("selectCounty").selectedOptions[0].label;
 	console.log(selectedCountry, selectedState, selectedCounty);
-  summarize(selectedCountry, selectedState, selectedCounty);
+    summarize(selectedCountry, selectedState, selectedCounty);
 }
 
 /**
@@ -329,6 +339,7 @@ var summarize = function(srchCountry, srchState, srchCounty) {
         days[d].activeDelta = days[d].active - days[d0].active;
         days[d].conf100k = days[d].population > 0 ? days[d].confirmed / (days[d].population / 100000) : null;
         days[d].new100k = days[d].population > 0 ? days[d].confirmedDelta / (days[d].population / 100000) : null;
+        days[d].died100k = days[d].population > 0 ? days[d].died / (days[d].population / 100000) : null;
     }
 
     // iterate through the locales and do the same by locale
@@ -352,20 +363,41 @@ var summarize = function(srchCountry, srchState, srchCounty) {
             tloc.days[d].activeDelta = tloc.days[d].active - tloc.days[d0].active;
             tloc.days[d].conf100k = tloc.days[d].population > 0 ? tloc.days[d].confirmed / (tloc.days[d].population / 100000) : null;
             tloc.days[d].new100k = tloc.days[d].population > 0 ? tloc.days[d].confirmedDelta / (tloc.days[d].population / 100000) : null;
+            tloc.days[d].died100k = tloc.days[d].population > 0 ? tloc.days[d].died / (tloc.days[d].population / 100000) : null;
         }
     }
 
     console.log("Done summarization");
 
-    showData(days, locales, selection, "confirmed");
+    var selectMetric = document.getElementById("selectMetric").selectedOptions[0].label;
+    var dim = "confirmed";
+    switch (selectMetric) {
+        case "Confirmed Cases": 
+            dim = "confirmed"; break;
+        case "Deaths": 
+            dim = "died"; break;
+        case "Active": 
+            dim = "active"; break;
+        case "Recovered": 
+            dim = "recovered"; break;
+        case "Confirmed per 100K": 
+            dim = "conf100k"; break;
+        case "Deaths per 100K": 
+            dim = "died100k"; break;
+        case "New per 100K": 
+            dim = "new100k"; break;
+    }
+
+    showData(days, locales, selection, dim, selectMetric);
 
 };
 
 /**
  * Display the data selected in both tabular and graphical form 
  */
-var showData = function(days, locales, selection, dimension) {
+var showData = function(days, locales, selection, dimension, selectMetric) {
     console.log("showing data for dimension ", dimension);
+    var dim100k = dimension.indexOf("100k") >= 0 ? true : false;
     var fmt = d3.format(",.0f");
     var fmtPct = d3.format(",.1f");
     var dimDelta = dimension+"Delta";
@@ -422,6 +454,7 @@ var showData = function(days, locales, selection, dimension) {
         ohtml.push("<td>"+fmt(tobs.population)+"</td>");
         ohtml.push("<td>"+fmt(tobs.conf100k)+"</td>");
         ohtml.push("<td>"+fmtPct(tobs.new100k)+"</td>");
+        ohtml.push("<td>"+fmtPct(tobs.died100k)+"</td>");
         ohtml.push("</tr>");
     }
     $("#daysTBody").html(ohtml.join(""));
@@ -445,6 +478,7 @@ var showData = function(days, locales, selection, dimension) {
         ohtml.push("<td>"+fmt(tobs.population)+"</td>");
         ohtml.push("<td>"+fmt(tobs.conf100k)+"</td>");
         ohtml.push("<td>"+fmtPct(tobs.new100k)+"</td>");
+        ohtml.push("<td>"+fmtPct(tobs.died100k)+"</td>");
         ohtml.push("</tr>");
     }
     $("#localesTBody").html(ohtml.join(""));
@@ -502,6 +536,9 @@ var showData = function(days, locales, selection, dimension) {
         .attr("stroke","#a5a5a5")
     ;
 
+    if (dimension === "confirmed") {
+        selectMetric += ", with deaths";
+    }
     var titleg = svg.append("g")
         .attr("transform","translate("+margin.l+",0)");
     titleg.append("text")
@@ -521,7 +558,7 @@ var showData = function(days, locales, selection, dimension) {
         .attr("width",width)
         .attr("x",width/2)
         .attr("y",90)
-        .text(dimension)
+        .text(selectMetric)
         ;
 
     svg.append('g')  // y axis label
@@ -532,13 +569,15 @@ var showData = function(days, locales, selection, dimension) {
         .attr('y',16)
         .text("Total");
 
-    svg.append('g')  // y2 axis label
+    if (!dim100k) {
+        svg.append('g')  // y2 axis label
         .append('text')
         .attr('class','yLabel')
         .attr('transform','rotate(-90)')
         .attr('x',0-(height/2)-margin.t-margin.b)
         .attr('y',margin.l+width+60)
         .text("Incremental");
+    }
 
 
     // create the space and labeling for the visualization
@@ -560,12 +599,14 @@ var showData = function(days, locales, selection, dimension) {
         .append("title").text("Total")
         ;
 
-    vis.append('g')
+    if (!dim100k) {  // per 100k don't have incremental line
+        vis.append('g')
         .attr('class', 'y axis2')
         .call(y2Axis)
         .selectAll("text")
         .append("title").text("Incremental")
         ;
+    }
 
     // Add the bars
     var groups = vis.selectAll("rect")
@@ -583,37 +624,41 @@ var showData = function(days, locales, selection, dimension) {
                 return y(0) - y(d[dimension]);
             })
             .attr("width", colWidth);
-    groups.append("rect")  // add the incremental value
-            .attr("class","dimObsDelta")
+    if (dimension === "confirmed") {
+        groups.append("rect")  // add the incremental value
+            .attr("class","dimObsDied")
             .attr("x",function(d) {
                 return x(timeParser(d.date));
             })
             .attr("y",function(d) {
-                return d[dimDelta] ? y(d[dimDelta]) : 0;
+                return d.died ? y(d.died) : 0;
             })
             .attr("height", function(d) {
-                return d[dimDelta] ? y(0) - y(d[dimDelta]) : 0;
+                return d.died ? y(0) - y(d.died) : 0;
             })
             .attr("width", colWidth)
         ;
+    }
 
-    // add the line
-    var valueline  = d3.line() 
-            .x(function(d) {
-                return x(timeParser(d.date))+(colWidth/2);
-            })
-            .y(function(d) {
-                return d[dimDelta] ? y_2(d[dimDelta]) : y_2(0);            }) 
+    if (!dim100k) {
+        // add the line
+        var valueline  = d3.line() 
+                .x(function(d) {
+                    return x(timeParser(d.date))+(colWidth/2);
+                })
+                .y(function(d) {
+                    return d[dimDelta] ? y_2(d[dimDelta]) : y_2(0);            }) 
+                ;
+        days.shift(); // get rid of first observation when making the line
+        vis.append("path")
+            .data([days])
+            .attr("class","line")
+            .attr("d",valueline)
             ;
-    days.shift(); // get rid of first observation when making the line
-    vis.append("path")
-        .data([days])
-        .attr("class","line")
-        .attr("d",valueline)
-        ;
+    }
 
     vis.selectAll("rect.dimObs").call(d3.helper.tooltip());
-    vis.selectAll("rect.dimObsDelta").call(d3.helper.tooltip());
+    vis.selectAll("rect.dimObsDied").call(d3.helper.tooltip());
     
 
     // ------------------------------------------
@@ -621,7 +666,7 @@ var showData = function(days, locales, selection, dimension) {
     // Make the graphs
     // ------------------------------------------
     
-    dimension = "confirmed"; // what we always want for this one
+    //dimension = "confirmed"; // what we always want for this one
     if (sortedLocales.length > 25) {
         sortedLocales.splice(25,sortedLocales.length - 25);
     }
@@ -694,7 +739,7 @@ var showData = function(days, locales, selection, dimension) {
         .attr("width",width)
         .attr("x",width/2)
         .attr("y",90)
-        .text("By confirmed cases, with deaths")
+        .text("By "+selectMetric)
         ;
 
     svg.append('g')  // y axis label
@@ -740,7 +785,8 @@ var showData = function(days, locales, selection, dimension) {
                 return y(0) - y(d[dimension]);
             })
             .attr("width", colWidth);
-    groups.append("rect")  // add the incremental value
+    if (dimension === "confirmed") {
+        groups.append("rect")  // add the deaths if we're showing confirmed
             .attr("class","dimObsDied")
             .attr("x",function(d) {
                 return x(d.locale);
@@ -752,8 +798,8 @@ var showData = function(days, locales, selection, dimension) {
                 return d.died ? y(0) - y(d.died) : 0;
             })
             .attr("width", colWidth)
-        ;
-
+            ;
+    }
     vis.selectAll("rect.dimObs").call(d3.helper.tooltip());
     vis.selectAll("rect.dimObsDied").call(d3.helper.tooltip());
 
@@ -845,7 +891,7 @@ d3.helper.tooltip = function(){
             ohtml.push("Population: "+fmt(pData.population)+"<br>");
             ohtml.push(fmt(pData.conf100k)+" total cases / 100K people<br>");
             ohtml.push(fmtPct(pData.new100k)+" new cases / 100K people<br>");
-            ohtml.push(fmtPct(pData.died/(pData.population/100000))+" died / 100K people<br>");
+            ohtml.push(fmtPct(pData.died100k)+" died / 100K people<br>");
 
             tooltipDiv.html(ohtml.join(""));
         })
