@@ -62,10 +62,52 @@
   </span>
 <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Info</a>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#infoModal">
+        Important Info
+      </button>
     </li>
   </ul>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoModalTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          This site was designed for general personal edification. Hopefully it helps you better understand some of the numbers around the COVID-19 pandemic. 
+          There's lots of COVID-19 visualizations out there, but we hope the simpler nature of our visualizations make it easier for you to both find the 
+          data you're looking for as well as understand the trends. 
+        </p>
+        <p>
+          This site uses data from John Hopkins University (JHU), that they make available on <a href="https://github.com/CSSEGISandData/COVID-19">GitHub</a>. 
+          Our intention is to update our data from JHU sometime in the early morning. We may not immediately apply corrected historical data, which usually 
+          only impact a few specific locales by a small (often single-digit) number of cases. 
+        </p>
+        <p>
+          Take all the data with a grain of salt: testing and reporting protocols vary between locales. In the US, the CDC revised guidance for reporting 
+          the week of April 6th, leading some states to report cases with clinical and epidemiological evidence and no other likely diagnosis, even if 
+          there has not been a positive laboratory test. Not all states may be reporting in the same manner though. Additionally, different locales have 
+          different criteria for determining who to test and different locales are using different tests which may have differing levels of accuracy. 
+        </p>
+        <p>
+          This site created and maintained by Scott & Ethan Chapman. Source code for this site, along with our current version of the basic JHU data 
+          can also be found on <a href="https://github.com/mikagika/covid19viz">GitHub</a>. 
+          This site built with <a href="https://getbootstrap.com/">Bootstrap</a> and <a href="https://d3js.org/">D3</a>.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container-fluid">
   <div class="row">
@@ -85,6 +127,21 @@
 		      	<option selected>All</option>
 		      </select>
 		    </div>
+        <p class="instructions">
+          Select the locale level you're interested in using the selection boxes above. The graphs to the right and the data tables below the graphs
+          will change as you select different locales. 
+        </p>
+        <p class="instructions">
+          As you select new locales, the graphs will shift to the right so you can compare your most recent selection to your previous selection. 
+          Click the lock icon at the top of the screen to lock the right hand graph in place.
+        </p>
+        <p class="instructions">
+          The default graphed metric is "Confirmed cases", which also shows the deaths. Selecting confirmed, deaths, active, or recovered will also
+          chart the daily incremental change as a red line as well. Change the graphed metric with the selection box at the top of the page.
+        </p>
+        <p class="instructions">
+          Hover over bars in the graphs to see more details.
+        </p>
       </div>
     </nav>
 
