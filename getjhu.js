@@ -10,6 +10,10 @@ Note that this is set up to work with my personal directory config. Sorry.
 var inlog='03-22-2020.csv';
 var outcsv='covid19_daily_reports.csv';
 
+var now = new Date();
+now.setHours(now.getHours()-24); // yesterday
+inlog = zeroPad(now.getMonth()+1)+"-"+zeroPad(now.getDate())+"-"+now.getFullYear()+".csv";
+
 if ($ARG.length > 0 && $ARG[0] === "--") {
     $ARG.shift(); // because sometimes the come through!?!
 }
