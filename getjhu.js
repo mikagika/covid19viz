@@ -25,6 +25,9 @@ if ($ARG.length > 1) {
     outcsv=$ARG[1];
 }
 
+var fileDate = inlog.substr(6,4)+"-"+inlog.substr(0,2)+"-"+inlog.substr(3,2);
+print("Will use data date of "+fileDate);
+
 if (inlog.indexOf("/") < 0) {
     inlog = "../COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"+inlog;
 }
@@ -64,7 +67,8 @@ for (var k=1;k<lines.length;k++) {
             tobs.country = data[3];
             tobs.state = data[2];
             tobs.county = data[1];
-            tobs.date = data[4];
+            //tobs.date = data[4];  // change as of 4/24 to use the file date, not last update timestamp
+            tobs.date = fileDate;
             tobs.confirmed = data[7];
             tobs.died = data[8];
             tobs.recovered = data[9];
@@ -72,8 +76,9 @@ for (var k=1;k<lines.length;k++) {
             var parts = tobs.date.split("-");
             if (parts.length >= 3) {
                 parts[2] = parts[2] ? parts[2].substr(0,2) : parts[2];
-                tobs.date = parts[0]+"-"+zeroPad(parts[1])+"-"+zeroPad(parts[2]);
+                //tobs.date = parts[0]+"-"+zeroPad(parts[1])+"-"+zeroPad(parts[2]);
             }
+            /*
             else {
                 parts = tobs.date.split("/");
                 if (parts.length < 3) {
@@ -86,6 +91,7 @@ for (var k=1;k<lines.length;k++) {
                     //print("Unexpected old date format "+old+" converted to "+tobs.date);
                 }
             }
+            */
         }
         var thisKey = tobs.country+tobs.state+tobs.county+tobs.date;
         if (!keys[thisKey]) {
@@ -209,16 +215,23 @@ function checkVersion(line0) {
  * 
  */
 function getCovidData(csv) {
+    print("Got existing data");
     var lines = csv; // assume an array?
     //print("csv length: "+csv.length);
     //csv = csv.replace("/\r/g","");
     //print("csv length: "+csv.length);
     if (csv.indexOf("\n") >= 0) {
-        lines = csv.split(/\r?\n/);
+        print("Splitting existing data by newline");
+        lines = csv.split("\n");
     }
     print("Reading "+lines.length+" existing data lines");
+    if (lines.length < 10000) {
+        print("Something went wrong (possible newline change?!?");
+        exit(1);
+    }
     for (var k=1;k<lines.length;k++) {
         var data = lines[k].split(",");
+        data[data.length - 1] = data[data.length - 1].replace("\r","");
         if (data && data.length >= 9) {
             var tobs = {
                 fips: data[0],
