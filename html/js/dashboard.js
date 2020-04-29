@@ -357,13 +357,24 @@ var summarize = function(srchCountry, srchState, srchCounty) {
         // calculate daily changes
         for (var d=1;d<tloc.days.length;d++) {
             var d0 = d - 1;
-            tloc.days[d].confirmedDelta = tloc.days[d].confirmed - tloc.days[d0].confirmed;
-            tloc.days[d].diedDelta = tloc.days[d].died - tloc.days[d0].died;
-            tloc.days[d].recoveredDelta = tloc.days[d].recovered - tloc.days[d0].recovered;
-            tloc.days[d].activeDelta = tloc.days[d].active - tloc.days[d0].active;
-            tloc.days[d].conf100k = tloc.days[d].population > 0 ? tloc.days[d].confirmed / (tloc.days[d].population / 100000) : null;
-            tloc.days[d].new100k = tloc.days[d].population > 0 ? tloc.days[d].confirmedDelta / (tloc.days[d].population / 100000) : null;
-            tloc.days[d].died100k = tloc.days[d].population > 0 ? tloc.days[d].died / (tloc.days[d].population / 100000) : null;
+            if (tloc.days[d0]) {
+                tloc.days[d].confirmedDelta = tloc.days[d].confirmed - tloc.days[d0].confirmed;
+                tloc.days[d].diedDelta = tloc.days[d].died - tloc.days[d0].died;
+                tloc.days[d].recoveredDelta = tloc.days[d].recovered - tloc.days[d0].recovered;
+                tloc.days[d].activeDelta = tloc.days[d].active - tloc.days[d0].active;
+                tloc.days[d].conf100k = tloc.days[d].population > 0 ? tloc.days[d].confirmed / (tloc.days[d].population / 100000) : null;
+                tloc.days[d].new100k = tloc.days[d].population > 0 ? tloc.days[d].confirmedDelta / (tloc.days[d].population / 100000) : null;
+                tloc.days[d].died100k = tloc.days[d].population > 0 ? tloc.days[d].died / (tloc.days[d].population / 100000) : null;
+            }
+            else {
+                tloc.days[d].confirmedDelta = tloc.days[d].confirmed;
+                tloc.days[d].diedDelta = tloc.days[d].died;
+                tloc.days[d].recoveredDelta = tloc.days[d].recovered;
+                tloc.days[d].activeDelta = tloc.days[d].active;
+                tloc.days[d].conf100k = tloc.days[d].population > 0 ? tloc.days[d].confirmed / (tloc.days[d].population / 100000) : null;
+                tloc.days[d].new100k = tloc.days[d].population > 0 ? tloc.days[d].confirmedDelta / (tloc.days[d].population / 100000) : null;
+                tloc.days[d].died100k = tloc.days[d].population > 0 ? tloc.days[d].died / (tloc.days[d].population / 100000) : null;
+            }
         }
     }
 
