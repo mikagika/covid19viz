@@ -77697,4 +77697,1050 @@ FIPS,Country,State,County,Date,Confirmed,Died,Recovered,Active
 38101,US,North Dakota,Ward,2020-04-23,21,1,0,20
 38101,US,North Dakota,Ward,2020-04-24,21,1,0,20
 38101,US,North Dakota,Ward,2020-04-25,21,1,0,20
-38101,US,Nor
+38101,US,North Dakota,Ward,2020-04-28,21,1,0,20
+38103,US,North Dakota,Wells,2020-04-28,2,0,0,2
+38105,US,North Dakota,Williams,2020-04-28,10,0,0,10
+69,US,Northern Mariana Islands,,2020-04-28,14,2,0,12
+39001,US,Ohio,Adams,2020-04-28,4,0,0,4
+39003,US,Ohio,Allen,2020-04-28,103,19,0,84
+39005,US,Ohio,Ashland,2020-04-28,6,0,0,6
+39007,US,Ohio,Ashtabula,2020-04-28,113,11,0,102
+39009,US,Ohio,Athens,2020-04-28,3,1,0,2
+39011,US,Ohio,Auglaize,2020-04-28,32,3,0,29
+39013,US,Ohio,Belmont,2020-04-28,118,7,0,111
+39015,US,Ohio,Brown,2020-04-28,11,1,0,10
+39017,US,Ohio,Butler,2020-04-28,254,5,0,249
+39019,US,Ohio,Carroll,2020-04-28,19,1,0,18
+39021,US,Ohio,Champaign,2020-04-28,14,1,0,13
+39023,US,Ohio,Clark,2020-04-28,48,2,0,46
+39025,US,Ohio,Clermont,2020-04-28,78,2,0,76
+39027,US,Ohio,Clinton,2020-04-28,28,0,0,28
+39029,US,Ohio,Columbiana,2020-04-28,235,21,0,214
+39031,US,Ohio,Coshocton,2020-04-28,17,0,0,17
+39033,US,Ohio,Crawford,2020-04-28,41,0,0,41
+39035,US,Ohio,Cuyahoga,2020-04-28,1984,109,0,1875
+39037,US,Ohio,Darke,2020-04-28,75,13,0,62
+39039,US,Ohio,Defiance,2020-04-28,20,1,0,19
+39041,US,Ohio,Delaware,2020-04-28,151,3,0,148
+39043,US,Ohio,Erie,2020-04-28,52,3,0,49
+39045,US,Ohio,Fairfield,2020-04-28,121,2,0,119
+39047,US,Ohio,Fayette,2020-04-28,15,0,0,15
+39049,US,Ohio,Franklin,2020-04-28,2090,62,0,2028
+39051,US,Ohio,Fulton,2020-04-28,20,0,0,20
+39053,US,Ohio,Gallia,2020-04-28,6,1,0,5
+39055,US,Ohio,Geauga,2020-04-28,148,13,0,135
+39057,US,Ohio,Greene,2020-04-28,45,4,0,41
+39059,US,Ohio,Guernsey,2020-04-28,15,0,0,15
+39061,US,Ohio,Hamilton,2020-04-28,1091,58,0,1033
+39063,US,Ohio,Hancock,2020-04-28,37,1,0,36
+39065,US,Ohio,Hardin,2020-04-28,24,0,0,24
+39067,US,Ohio,Harrison,2020-04-28,4,0,0,4
+39069,US,Ohio,Henry,2020-04-28,5,0,0,5
+39071,US,Ohio,Highland,2020-04-28,10,0,0,10
+39073,US,Ohio,Hocking,2020-04-28,16,1,0,15
+39075,US,Ohio,Holmes,2020-04-28,5,1,0,4
+39077,US,Ohio,Huron,2020-04-28,30,1,0,29
+39079,US,Ohio,Jackson,2020-04-28,4,0,0,4
+39081,US,Ohio,Jefferson,2020-04-28,42,1,0,41
+39083,US,Ohio,Knox,2020-04-28,15,1,0,14
+39085,US,Ohio,Lake,2020-04-28,160,7,0,153
+39087,US,Ohio,Lawrence,2020-04-28,24,0,0,24
+39089,US,Ohio,Licking,2020-04-28,114,5,0,109
+39091,US,Ohio,Logan,2020-04-28,18,0,0,18
+39093,US,Ohio,Lorain,2020-04-28,406,20,0,386
+39095,US,Ohio,Lucas,2020-04-28,1166,66,0,1100
+39097,US,Ohio,Madison,2020-04-28,56,3,0,53
+39099,US,Ohio,Mahoning,2020-04-28,784,67,0,717
+39101,US,Ohio,Marion,2020-04-28,2191,4,0,2187
+39103,US,Ohio,Medina,2020-04-28,162,14,0,148
+39105,US,Ohio,Meigs,2020-04-28,2,0,0,2
+39107,US,Ohio,Mercer,2020-04-28,18,1,0,17
+39109,US,Ohio,Miami,2020-04-28,136,25,0,111
+39111,US,Ohio,Monroe,2020-04-28,2,0,0,2
+39113,US,Ohio,Montgomery,2020-04-28,266,8,0,258
+39115,US,Ohio,Morgan,2020-04-28,4,0,0,4
+39117,US,Ohio,Morrow,2020-04-28,36,1,0,35
+39119,US,Ohio,Muskingum,2020-04-28,10,0,0,10
+39121,US,Ohio,Noble,2020-04-28,5,0,0,5
+39123,US,Ohio,Ottawa,2020-04-28,38,0,0,38
+39125,US,Ohio,Paulding,2020-04-28,8,0,0,8
+39127,US,Ohio,Perry,2020-04-28,13,0,0,13
+39129,US,Ohio,Pickaway,2020-04-28,1706,7,0,1699
+39131,US,Ohio,Pike,2020-04-28,3,0,0,3
+39133,US,Ohio,Portage,2020-04-28,226,35,0,191
+39135,US,Ohio,Preble,2020-04-28,25,1,0,24
+39137,US,Ohio,Putnam,2020-04-28,63,6,0,57
+39139,US,Ohio,Richland,2020-04-28,80,1,0,79
+39141,US,Ohio,Ross,2020-04-28,36,1,0,35
+39143,US,Ohio,Sandusky,2020-04-28,19,4,0,15
+39145,US,Ohio,Scioto,2020-04-28,6,0,0,6
+39147,US,Ohio,Seneca,2020-04-28,14,1,0,13
+39149,US,Ohio,Shelby,2020-04-28,30,1,0,29
+39151,US,Ohio,Stark,2020-04-28,324,36,0,288
+39153,US,Ohio,Summit,2020-04-28,542,43,0,499
+39155,US,Ohio,Trumbull,2020-04-28,299,27,0,272
+39157,US,Ohio,Tuscarawas,2020-04-28,59,0,0,59
+90039,US,Ohio,Unassigned,2020-04-28,0,0,0,0
+39159,US,Ohio,Union,2020-04-28,18,0,0,18
+39161,US,Ohio,Van Wert,2020-04-28,3,0,0,3
+39163,US,Ohio,Vinton,2020-04-28,3,0,0,3
+39165,US,Ohio,Warren,2020-04-28,131,11,0,120
+39167,US,Ohio,Washington,2020-04-28,95,10,0,85
+39169,US,Ohio,Wayne,2020-04-28,119,23,0,96
+39171,US,Ohio,Williams,2020-04-28,31,1,0,30
+39173,US,Ohio,Wood,2020-04-28,145,19,0,126
+39175,US,Ohio,Wyandot,2020-04-28,24,2,0,22
+40001,US,Oklahoma,Adair,2020-04-28,64,3,0,61
+40003,US,Oklahoma,Alfalfa,2020-04-28,1,0,0,1
+40005,US,Oklahoma,Atoka,2020-04-28,1,0,0,1
+40007,US,Oklahoma,Beaver,2020-04-28,5,0,0,5
+40009,US,Oklahoma,Beckham,2020-04-28,5,0,0,5
+40013,US,Oklahoma,Bryan,2020-04-28,8,1,0,7
+40015,US,Oklahoma,Caddo,2020-04-28,61,7,0,54
+40017,US,Oklahoma,Canadian,2020-04-28,96,3,0,93
+40019,US,Oklahoma,Carter,2020-04-28,2,1,0,1
+40021,US,Oklahoma,Cherokee,2020-04-28,26,1,0,25
+40023,US,Oklahoma,Choctaw,2020-04-28,3,0,0,3
+40025,US,Oklahoma,Cimarron,2020-04-28,1,0,0,1
+40027,US,Oklahoma,Cleveland,2020-04-28,410,28,0,382
+40031,US,Oklahoma,Comanche,2020-04-28,79,1,0,78
+40033,US,Oklahoma,Cotton,2020-04-28,5,1,0,4
+40035,US,Oklahoma,Craig,2020-04-28,10,0,0,10
+40037,US,Oklahoma,Creek,2020-04-28,76,6,0,70
+40039,US,Oklahoma,Custer,2020-04-28,10,0,0,10
+40041,US,Oklahoma,Delaware,2020-04-28,90,11,0,79
+40043,US,Oklahoma,Dewey,2020-04-28,2,0,0,2
+40047,US,Oklahoma,Garfield,2020-04-28,15,1,0,14
+40049,US,Oklahoma,Garvin,2020-04-28,13,0,0,13
+40051,US,Oklahoma,Grady,2020-04-28,35,1,0,34
+40053,US,Oklahoma,Grant,2020-04-28,2,0,0,2
+40055,US,Oklahoma,Greer,2020-04-28,64,6,0,58
+40059,US,Oklahoma,Harper,2020-04-28,1,0,0,1
+40061,US,Oklahoma,Haskell,2020-04-28,5,0,0,5
+40065,US,Oklahoma,Jackson,2020-04-28,15,0,0,15
+40067,US,Oklahoma,Jefferson,2020-04-28,2,0,0,2
+40069,US,Oklahoma,Johnston,2020-04-28,3,0,0,3
+40071,US,Oklahoma,Kay,2020-04-28,47,6,0,41
+40073,US,Oklahoma,Kingfisher,2020-04-28,8,0,0,8
+40075,US,Oklahoma,Kiowa,2020-04-28,4,0,0,4
+40077,US,Oklahoma,Latimer,2020-04-28,5,1,0,4
+40079,US,Oklahoma,Le Flore,2020-04-28,10,0,0,10
+40081,US,Oklahoma,Lincoln,2020-04-28,11,0,0,11
+40083,US,Oklahoma,Logan,2020-04-28,13,0,0,13
+40085,US,Oklahoma,Love,2020-04-28,2,0,0,2
+40093,US,Oklahoma,Major,2020-04-28,3,1,0,2
+40095,US,Oklahoma,Marshall,2020-04-28,2,0,0,2
+40097,US,Oklahoma,Mayes,2020-04-28,21,3,0,18
+40087,US,Oklahoma,McClain,2020-04-28,35,0,0,35
+40089,US,Oklahoma,McCurtain,2020-04-28,8,0,0,8
+40091,US,Oklahoma,McIntosh,2020-04-28,2,0,0,2
+40099,US,Oklahoma,Murray,2020-04-28,1,0,0,1
+40101,US,Oklahoma,Muskogee,2020-04-28,26,4,0,22
+40103,US,Oklahoma,Noble,2020-04-28,6,0,0,6
+40105,US,Oklahoma,Nowata,2020-04-28,20,0,0,20
+40107,US,Oklahoma,Okfuskee,2020-04-28,1,0,0,1
+40109,US,Oklahoma,Oklahoma,2020-04-28,729,29,0,700
+40111,US,Oklahoma,Okmulgee,2020-04-28,16,0,0,16
+40113,US,Oklahoma,Osage,2020-04-28,72,8,0,64
+40115,US,Oklahoma,Ottawa,2020-04-28,32,1,0,31
+80040,US,Oklahoma,Out of OK,2020-04-28,0,0,0,0
+40117,US,Oklahoma,Pawnee,2020-04-28,29,2,0,27
+40119,US,Oklahoma,Payne,2020-04-28,44,1,0,43
+40121,US,Oklahoma,Pittsburg,2020-04-28,27,2,0,25
+40123,US,Oklahoma,Pontotoc,2020-04-28,10,1,0,9
+40125,US,Oklahoma,Pottawatomie,2020-04-28,43,4,0,39
+40127,US,Oklahoma,Pushmataha,2020-04-28,1,0,0,1
+40131,US,Oklahoma,Rogers,2020-04-28,50,3,0,47
+40133,US,Oklahoma,Seminole,2020-04-28,10,1,0,9
+40135,US,Oklahoma,Sequoyah,2020-04-28,12,3,0,9
+40137,US,Oklahoma,Stephens,2020-04-28,22,1,0,21
+40139,US,Oklahoma,Texas,2020-04-28,107,1,0,106
+40141,US,Oklahoma,Tillman,2020-04-28,1,0,0,1
+40143,US,Oklahoma,Tulsa,2020-04-28,506,32,0,474
+90040,US,Oklahoma,Unassigned,2020-04-28,0,0,0,0
+40145,US,Oklahoma,Wagoner,2020-04-28,116,14,0,102
+40147,US,Oklahoma,Washington,2020-04-28,244,18,0,226
+40149,US,Oklahoma,Washita,2020-04-28,0,0,0,0
+40151,US,Oklahoma,Woods,2020-04-28,3,0,0,3
+40153,US,Oklahoma,Woodward,2020-04-28,1,0,0,1
+41003,US,Oregon,Benton,2020-04-28,29,5,0,24
+41005,US,Oregon,Clackamas,2020-04-28,205,7,0,198
+41007,US,Oregon,Clatsop,2020-04-28,6,0,0,6
+41009,US,Oregon,Columbia,2020-04-28,14,0,0,14
+41011,US,Oregon,Coos,2020-04-28,15,0,0,15
+41013,US,Oregon,Crook,2020-04-28,1,0,0,1
+41015,US,Oregon,Curry,2020-04-28,4,0,0,4
+41017,US,Oregon,Deschutes,2020-04-28,75,0,0,75
+41019,US,Oregon,Douglas,2020-04-28,23,0,0,23
+41023,US,Oregon,Grant,2020-04-28,1,0,0,1
+41025,US,Oregon,Harney,2020-04-28,1,0,0,1
+41027,US,Oregon,Hood River,2020-04-28,5,0,0,5
+41029,US,Oregon,Jackson,2020-04-28,49,0,0,49
+41031,US,Oregon,Jefferson,2020-04-28,6,0,0,6
+41033,US,Oregon,Josephine,2020-04-28,20,1,0,19
+41035,US,Oregon,Klamath,2020-04-28,37,0,0,37
+41039,US,Oregon,Lane,2020-04-28,50,2,0,48
+41041,US,Oregon,Lincoln,2020-04-28,5,0,0,5
+41043,US,Oregon,Linn,2020-04-28,81,7,0,74
+41045,US,Oregon,Malheur,2020-04-28,7,0,0,7
+41047,US,Oregon,Marion,2020-04-28,456,17,0,439
+41049,US,Oregon,Morrow,2020-04-28,6,0,0,6
+41051,US,Oregon,Multnomah,2020-04-28,677,40,0,637
+41053,US,Oregon,Polk,2020-04-28,38,1,0,37
+41055,US,Oregon,Sherman,2020-04-28,1,0,0,1
+41057,US,Oregon,Tillamook,2020-04-28,6,0,0,6
+41059,US,Oregon,Umatilla,2020-04-28,37,0,0,37
+90041,US,Oregon,Unassigned,2020-04-28,0,0,0,0
+41061,US,Oregon,Union,2020-04-28,4,0,0,4
+41063,US,Oregon,Wallowa,2020-04-28,1,0,0,1
+41065,US,Oregon,Wasco,2020-04-28,13,1,0,12
+41067,US,Oregon,Washington,2020-04-28,474,11,0,463
+41071,US,Oregon,Yamhill,2020-04-28,38,7,0,31
+42001,US,Pennsylvania,Adams,2020-04-28,124,1,0,123
+42003,US,Pennsylvania,Allegheny,2020-04-28,1235,87,0,1148
+42005,US,Pennsylvania,Armstrong,2020-04-28,50,2,0,48
+42007,US,Pennsylvania,Beaver,2020-04-28,388,59,0,329
+42009,US,Pennsylvania,Bedford,2020-04-28,22,1,0,21
+42011,US,Pennsylvania,Berks,2020-04-28,2605,91,0,2514
+42013,US,Pennsylvania,Blair,2020-04-28,21,0,0,21
+42015,US,Pennsylvania,Bradford,2020-04-28,28,2,0,26
+42017,US,Pennsylvania,Bucks,2020-04-28,2675,168,0,2507
+42019,US,Pennsylvania,Butler,2020-04-28,174,6,0,168
+42021,US,Pennsylvania,Cambria,2020-04-28,22,1,0,21
+42023,US,Pennsylvania,Cameron,2020-04-28,1,0,0,1
+42025,US,Pennsylvania,Carbon,2020-04-28,169,13,0,156
+42027,US,Pennsylvania,Centre,2020-04-28,93,1,0,92
+42029,US,Pennsylvania,Chester,2020-04-28,1256,85,0,1171
+42031,US,Pennsylvania,Clarion,2020-04-28,23,1,0,22
+42033,US,Pennsylvania,Clearfield,2020-04-28,11,0,0,11
+42035,US,Pennsylvania,Clinton,2020-04-28,29,0,0,29
+42037,US,Pennsylvania,Columbia,2020-04-28,279,8,0,271
+42039,US,Pennsylvania,Crawford,2020-04-28,19,0,0,19
+42041,US,Pennsylvania,Cumberland,2020-04-28,296,10,0,286
+42043,US,Pennsylvania,Dauphin,2020-04-28,553,20,0,533
+42045,US,Pennsylvania,Delaware,2020-04-28,3463,161,0,3302
+42047,US,Pennsylvania,Elk,2020-04-28,3,0,0,3
+42049,US,Pennsylvania,Erie,2020-04-28,86,2,0,84
+42051,US,Pennsylvania,Fayette,2020-04-28,79,4,0,75
+42053,US,Pennsylvania,Forest,2020-04-28,7,0,0,7
+42055,US,Pennsylvania,Franklin,2020-04-28,237,4,0,233
+42057,US,Pennsylvania,Fulton,2020-04-28,3,0,0,3
+42059,US,Pennsylvania,Greene,2020-04-28,26,0,0,26
+42061,US,Pennsylvania,Huntingdon,2020-04-28,26,0,0,26
+42063,US,Pennsylvania,Indiana,2020-04-28,62,4,0,58
+42065,US,Pennsylvania,Jefferson,2020-04-28,4,0,0,4
+42067,US,Pennsylvania,Juniata,2020-04-28,81,0,0,81
+42069,US,Pennsylvania,Lackawanna,2020-04-28,854,71,0,783
+42071,US,Pennsylvania,Lancaster,2020-04-28,1678,164,0,1514
+42073,US,Pennsylvania,Lawrence,2020-04-28,63,5,0,58
+42075,US,Pennsylvania,Lebanon,2020-04-28,635,8,0,627
+42077,US,Pennsylvania,Lehigh,2020-04-28,2685,64,0,2621
+42079,US,Pennsylvania,Luzerne,2020-04-28,2078,74,0,2004
+42081,US,Pennsylvania,Lycoming,2020-04-28,58,0,0,58
+42083,US,Pennsylvania,McKean,2020-04-28,5,0,0,5
+42085,US,Pennsylvania,Mercer,2020-04-28,66,1,0,65
+42087,US,Pennsylvania,Mifflin,2020-04-28,34,0,0,34
+42089,US,Pennsylvania,Monroe,2020-04-28,1097,48,0,1049
+42091,US,Pennsylvania,Montgomery,2020-04-28,4043,249,0,3794
+42093,US,Pennsylvania,Montour,2020-04-28,47,0,0,47
+42095,US,Pennsylvania,Northampton,2020-04-28,1970,55,0,1915
+42097,US,Pennsylvania,Northumberland,2020-04-28,92,0,0,92
+42099,US,Pennsylvania,Perry,2020-04-28,27,1,0,26
+42101,US,Pennsylvania,Philadelphia,2020-04-28,13445,516,0,12929
+42103,US,Pennsylvania,Pike,2020-04-28,362,12,0,350
+42105,US,Pennsylvania,Potter,2020-04-28,4,0,0,4
+42107,US,Pennsylvania,Schuylkill,2020-04-28,330,5,0,325
+42109,US,Pennsylvania,Snyder,2020-04-28,33,1,0,32
+42111,US,Pennsylvania,Somerset,2020-04-28,26,0,0,26
+42113,US,Pennsylvania,Sullivan,2020-04-28,1,0,0,1
+42115,US,Pennsylvania,Susquehanna,2020-04-28,82,4,0,78
+42117,US,Pennsylvania,Tioga,2020-04-28,14,1,0,13
+90042,US,Pennsylvania,Unassigned,2020-04-28,0,0,0,0
+42119,US,Pennsylvania,Union,2020-04-28,33,0,0,33
+42121,US,Pennsylvania,Venango,2020-04-28,7,0,0,7
+42123,US,Pennsylvania,Warren,2020-04-28,1,0,0,1
+42125,US,Pennsylvania,Washington,2020-04-28,109,2,0,107
+42127,US,Pennsylvania,Wayne,2020-04-28,93,3,0,90
+42129,US,Pennsylvania,Westmoreland,2020-04-28,383,20,0,363
+42131,US,Pennsylvania,Wyoming,2020-04-28,18,2,0,16
+42133,US,Pennsylvania,York,2020-04-28,614,9,0,605
+72,US,Puerto Rico,,2020-04-28,1400,86,0,1314
+,US,Recovered,,2020-04-28,0,0,115936,-115936
+44001,US,Rhode Island,Bristol,2020-04-28,115,0,0,115
+44003,US,Rhode Island,Kent,2020-04-28,574,0,0,574
+44005,US,Rhode Island,Newport,2020-04-28,138,0,0,138
+44007,US,Rhode Island,Providence,2020-04-28,5520,0,0,5520
+90044,US,Rhode Island,Unassigned,2020-04-28,1267,239,0,1028
+44009,US,Rhode Island,Washington,2020-04-28,313,0,0,313
+45001,US,South Carolina,Abbeville,2020-04-28,29,0,0,29
+45003,US,South Carolina,Aiken,2020-04-28,94,6,0,88
+45005,US,South Carolina,Allendale,2020-04-28,10,1,0,9
+45007,US,South Carolina,Anderson,2020-04-28,152,6,0,146
+45009,US,South Carolina,Bamberg,2020-04-28,9,0,0,9
+45011,US,South Carolina,Barnwell,2020-04-28,17,0,0,17
+45013,US,South Carolina,Beaufort,2020-04-28,259,10,0,249
+45015,US,South Carolina,Berkeley,2020-04-28,174,9,0,165
+45017,US,South Carolina,Calhoun,2020-04-28,6,1,0,5
+45019,US,South Carolina,Charleston,2020-04-28,438,7,0,431
+45021,US,South Carolina,Cherokee,2020-04-28,15,0,0,15
+45023,US,South Carolina,Chester,2020-04-28,27,0,0,27
+45025,US,South Carolina,Chesterfield,2020-04-28,47,0,0,47
+45027,US,South Carolina,Clarendon,2020-04-28,194,14,0,180
+45029,US,South Carolina,Colleton,2020-04-28,26,4,0,22
+45031,US,South Carolina,Darlington,2020-04-28,110,2,0,108
+45033,US,South Carolina,Dillon,2020-04-28,44,0,0,44
+45035,US,South Carolina,Dorchester,2020-04-28,91,2,0,89
+45037,US,South Carolina,Edgefield,2020-04-28,26,1,0,25
+45039,US,South Carolina,Fairfield,2020-04-28,33,2,0,31
+45041,US,South Carolina,Florence,2020-04-28,273,10,0,263
+45043,US,South Carolina,Georgetown,2020-04-28,40,2,0,38
+45045,US,South Carolina,Greenville,2020-04-28,661,22,0,639
+45047,US,South Carolina,Greenwood,2020-04-28,46,0,0,46
+45049,US,South Carolina,Hampton,2020-04-28,22,0,0,22
+45051,US,South Carolina,Horry,2020-04-28,211,15,0,196
+45053,US,South Carolina,Jasper,2020-04-28,19,1,0,18
+45055,US,South Carolina,Kershaw,2020-04-28,229,10,0,219
+45057,US,South Carolina,Lancaster,2020-04-28,90,4,0,86
+45059,US,South Carolina,Laurens,2020-04-28,38,1,0,37
+45061,US,South Carolina,Lee,2020-04-28,58,7,0,51
+45063,US,South Carolina,Lexington,2020-04-28,347,12,0,335
+45067,US,South Carolina,Marion,2020-04-28,32,1,0,31
+45069,US,South Carolina,Marlboro,2020-04-28,42,0,0,42
+45065,US,South Carolina,McCormick,2020-04-28,6,1,0,5
+45071,US,South Carolina,Newberry,2020-04-28,23,1,0,22
+45073,US,South Carolina,Oconee,2020-04-28,24,0,0,24
+45075,US,South Carolina,Orangeburg,2020-04-28,63,1,0,62
+45077,US,South Carolina,Pickens,2020-04-28,54,0,0,54
+45079,US,South Carolina,Richland,2020-04-28,864,21,0,843
+45081,US,South Carolina,Saluda,2020-04-28,41,0,0,41
+45083,US,South Carolina,Spartanburg,2020-04-28,258,8,0,250
+45085,US,South Carolina,Sumter,2020-04-28,220,7,0,213
+90045,US,South Carolina,Unassigned,2020-04-28,0,0,0,0
+45087,US,South Carolina,Union,2020-04-28,25,0,0,25
+45089,US,South Carolina,Williamsburg,2020-04-28,60,0,0,60
+45091,US,South Carolina,York,2020-04-28,188,3,0,185
+46003,US,South Dakota,Aurora,2020-04-28,1,0,0,1
+46005,US,South Dakota,Beadle,2020-04-28,21,2,0,19
+46009,US,South Dakota,Bon Homme,2020-04-28,4,0,0,4
+46011,US,South Dakota,Brookings,2020-04-28,12,0,0,12
+46013,US,South Dakota,Brown,2020-04-28,30,0,0,30
+46015,US,South Dakota,Brule,2020-04-28,0,0,0,0
+46017,US,South Dakota,Buffalo,2020-04-28,1,0,0,1
+46019,US,South Dakota,Butte,2020-04-28,0,0,0,0
+46023,US,South Dakota,Charles Mix,2020-04-28,4,0,0,4
+46025,US,South Dakota,Clark,2020-04-28,1,0,0,1
+46027,US,South Dakota,Clay,2020-04-28,5,0,0,5
+46029,US,South Dakota,Codington,2020-04-28,14,0,0,14
+46031,US,South Dakota,Corson,2020-04-28,1,0,0,1
+46035,US,South Dakota,Davison,2020-04-28,5,0,0,5
+46037,US,South Dakota,Day,2020-04-28,0,0,0,0
+46039,US,South Dakota,Deuel,2020-04-28,1,0,0,1
+46043,US,South Dakota,Douglas,2020-04-28,1,0,0,1
+46047,US,South Dakota,Fall River,2020-04-28,1,0,0,1
+46049,US,South Dakota,Faulk,2020-04-28,1,0,0,1
+46057,US,South Dakota,Hamlin,2020-04-28,2,0,0,2
+46059,US,South Dakota,Hand,2020-04-28,1,0,0,1
+46065,US,South Dakota,Hughes,2020-04-28,7,0,0,7
+46067,US,South Dakota,Hutchinson,2020-04-28,3,0,0,3
+46069,US,South Dakota,Hyde,2020-04-28,1,0,0,1
+46073,US,South Dakota,Jerauld,2020-04-28,6,1,0,5
+46077,US,South Dakota,Kingsbury,2020-04-28,0,0,0,0
+46079,US,South Dakota,Lake,2020-04-28,4,0,0,4
+46081,US,South Dakota,Lawrence,2020-04-28,9,0,0,9
+46083,US,South Dakota,Lincoln,2020-04-28,133,0,0,133
+46085,US,South Dakota,Lyman,2020-04-28,2,0,0,2
+46091,US,South Dakota,Marshall,2020-04-28,1,0,0,1
+46087,US,South Dakota,McCook,2020-04-28,4,1,0,3
+46089,US,South Dakota,McPherson,2020-04-28,1,0,0,1
+46093,US,South Dakota,Meade,2020-04-28,1,0,0,1
+46097,US,South Dakota,Miner,2020-04-28,1,0,0,1
+46099,US,South Dakota,Minnehaha,2020-04-28,1939,6,0,1933
+46101,US,South Dakota,Moody,2020-04-28,3,0,0,3
+46102,US,South Dakota,Oglala Lakota,2020-04-28,1,0,0,1
+46103,US,South Dakota,Pennington,2020-04-28,12,1,0,11
+46109,US,South Dakota,Roberts,2020-04-28,4,0,0,4
+46111,US,South Dakota,Sanborn,2020-04-28,3,0,0,3
+46115,US,South Dakota,Spink,2020-04-28,3,0,0,3
+46117,US,South Dakota,Stanley,2020-04-28,6,0,0,6
+46119,US,South Dakota,Sully,2020-04-28,1,0,0,1
+46121,US,South Dakota,Todd,2020-04-28,1,0,0,1
+46125,US,South Dakota,Turner,2020-04-28,15,0,0,15
+90046,US,South Dakota,Unassigned,2020-04-28,0,0,0,0
+46127,US,South Dakota,Union,2020-04-28,14,0,0,14
+46129,US,South Dakota,Walworth,2020-04-28,5,0,0,5
+46135,US,South Dakota,Yankton,2020-04-28,27,0,0,27
+47001,US,Tennessee,Anderson,2020-04-28,24,1,0,23
+47003,US,Tennessee,Bedford,2020-04-28,167,2,0,165
+47005,US,Tennessee,Benton,2020-04-28,6,1,0,5
+47007,US,Tennessee,Bledsoe,2020-04-28,589,0,0,589
+47009,US,Tennessee,Blount,2020-04-28,55,3,0,52
+47011,US,Tennessee,Bradley,2020-04-28,46,1,0,45
+47013,US,Tennessee,Campbell,2020-04-28,14,1,0,13
+47015,US,Tennessee,Cannon,2020-04-28,11,0,0,11
+47017,US,Tennessee,Carroll,2020-04-28,18,1,0,17
+47019,US,Tennessee,Carter,2020-04-28,12,1,0,11
+47021,US,Tennessee,Cheatham,2020-04-28,42,0,0,42
+47023,US,Tennessee,Chester,2020-04-28,10,0,0,10
+47025,US,Tennessee,Claiborne,2020-04-28,5,0,0,5
+47027,US,Tennessee,Clay,2020-04-28,5,0,0,5
+47029,US,Tennessee,Cocke,2020-04-28,16,0,0,16
+47031,US,Tennessee,Coffee,2020-04-28,33,0,0,33
+47033,US,Tennessee,Crockett,2020-04-28,7,0,0,7
+47035,US,Tennessee,Cumberland,2020-04-28,70,1,0,69
+47037,US,Tennessee,Davidson,2020-04-28,2383,25,0,2358
+47041,US,Tennessee,DeKalb,2020-04-28,14,0,0,14
+47039,US,Tennessee,Decatur,2020-04-28,4,0,0,4
+47043,US,Tennessee,Dickson,2020-04-28,71,0,0,71
+47045,US,Tennessee,Dyer,2020-04-28,33,0,0,33
+47047,US,Tennessee,Fayette,2020-04-28,53,1,0,52
+47049,US,Tennessee,Fentress,2020-04-28,4,0,0,4
+47051,US,Tennessee,Franklin,2020-04-28,32,1,0,31
+47053,US,Tennessee,Gibson,2020-04-28,41,1,0,40
+47055,US,Tennessee,Giles,2020-04-28,5,0,0,5
+47057,US,Tennessee,Grainger,2020-04-28,5,0,0,5
+47059,US,Tennessee,Greene,2020-04-28,42,2,0,40
+47061,US,Tennessee,Grundy,2020-04-28,28,1,0,27
+47063,US,Tennessee,Hamblen,2020-04-28,17,2,0,15
+47065,US,Tennessee,Hamilton,2020-04-28,149,13,0,136
+47067,US,Tennessee,Hancock,2020-04-28,0,0,0,0
+47069,US,Tennessee,Hardeman,2020-04-28,11,0,0,11
+47071,US,Tennessee,Hardin,2020-04-28,5,0,0,5
+47073,US,Tennessee,Hawkins,2020-04-28,30,2,0,28
+47075,US,Tennessee,Haywood,2020-04-28,19,1,0,18
+47077,US,Tennessee,Henderson,2020-04-28,6,0,0,6
+47079,US,Tennessee,Henry,2020-04-28,11,0,0,11
+47081,US,Tennessee,Hickman,2020-04-28,43,0,0,43
+47083,US,Tennessee,Houston,2020-04-28,4,0,0,4
+47085,US,Tennessee,Humphreys,2020-04-28,10,1,0,9
+47087,US,Tennessee,Jackson,2020-04-28,7,0,0,7
+47089,US,Tennessee,Jefferson,2020-04-28,18,0,0,18
+47091,US,Tennessee,Johnson,2020-04-28,3,0,0,3
+47093,US,Tennessee,Knox,2020-04-28,214,5,0,209
+47095,US,Tennessee,Lake,2020-04-28,50,0,0,50
+47097,US,Tennessee,Lauderdale,2020-04-28,17,0,0,17
+47099,US,Tennessee,Lawrence,2020-04-28,17,0,0,17
+47101,US,Tennessee,Lewis,2020-04-28,2,0,0,2
+47103,US,Tennessee,Lincoln,2020-04-28,12,0,0,12
+47105,US,Tennessee,Loudon,2020-04-28,28,0,0,28
+47111,US,Tennessee,Macon,2020-04-28,39,3,0,36
+47113,US,Tennessee,Madison,2020-04-28,128,1,0,127
+47115,US,Tennessee,Marion,2020-04-28,28,1,0,27
+47117,US,Tennessee,Marshall,2020-04-28,22,1,0,21
+47119,US,Tennessee,Maury,2020-04-28,40,0,0,40
+47107,US,Tennessee,McMinn,2020-04-28,70,0,0,70
+47109,US,Tennessee,McNairy,2020-04-28,11,0,0,11
+47121,US,Tennessee,Meigs,2020-04-28,6,0,0,6
+47123,US,Tennessee,Monroe,2020-04-28,14,1,0,13
+47125,US,Tennessee,Montgomery,2020-04-28,139,2,0,137
+47127,US,Tennessee,Moore,2020-04-28,3,0,0,3
+47129,US,Tennessee,Morgan,2020-04-28,6,0,0,6
+47131,US,Tennessee,Obion,2020-04-28,12,1,0,11
+80047,US,Tennessee,Out of TN,2020-04-28,251,2,0,249
+47133,US,Tennessee,Overton,2020-04-28,8,0,0,8
+47135,US,Tennessee,Perry,2020-04-28,8,0,0,8
+47139,US,Tennessee,Polk,2020-04-28,8,0,0,8
+47141,US,Tennessee,Putnam,2020-04-28,115,5,0,110
+47143,US,Tennessee,Rhea,2020-04-28,3,0,0,3
+47145,US,Tennessee,Roane,2020-04-28,7,0,0,7
+47147,US,Tennessee,Robertson,2020-04-28,139,0,0,139
+47149,US,Tennessee,Rutherford,2020-04-28,434,10,0,424
+47151,US,Tennessee,Scott,2020-04-28,11,0,0,11
+47153,US,Tennessee,Sequatchie,2020-04-28,5,0,0,5
+47155,US,Tennessee,Sevier,2020-04-28,46,1,0,45
+47157,US,Tennessee,Shelby,2020-04-28,2376,44,0,2332
+47159,US,Tennessee,Smith,2020-04-28,20,1,0,19
+47161,US,Tennessee,Stewart,2020-04-28,7,0,0,7
+47163,US,Tennessee,Sullivan,2020-04-28,47,1,0,46
+47165,US,Tennessee,Sumner,2020-04-28,608,35,0,573
+47167,US,Tennessee,Tipton,2020-04-28,96,0,0,96
+47169,US,Tennessee,Trousdale,2020-04-28,50,1,0,49
+90047,US,Tennessee,Unassigned,2020-04-28,35,0,0,35
+47171,US,Tennessee,Unicoi,2020-04-28,1,0,0,1
+47173,US,Tennessee,Union,2020-04-28,3,0,0,3
+47175,US,Tennessee,Van Buren,2020-04-28,2,0,0,2
+47177,US,Tennessee,Warren,2020-04-28,7,0,0,7
+47179,US,Tennessee,Washington,2020-04-28,54,0,0,54
+47181,US,Tennessee,Wayne,2020-04-28,4,0,0,4
+47183,US,Tennessee,Weakley,2020-04-28,18,0,0,18
+47185,US,Tennessee,White,2020-04-28,5,0,0,5
+47187,US,Tennessee,Williamson,2020-04-28,399,8,0,391
+47189,US,Tennessee,Wilson,2020-04-28,249,3,0,246
+48001,US,Texas,Anderson,2020-04-28,26,0,0,26
+48003,US,Texas,Andrews,2020-04-28,19,0,0,19
+48005,US,Texas,Angelina,2020-04-28,46,0,0,46
+48007,US,Texas,Aransas,2020-04-28,2,0,0,2
+48011,US,Texas,Armstrong,2020-04-28,2,0,0,2
+48013,US,Texas,Atascosa,2020-04-28,16,1,0,15
+48015,US,Texas,Austin,2020-04-28,12,0,0,12
+48019,US,Texas,Bandera,2020-04-28,6,0,0,6
+48021,US,Texas,Bastrop,2020-04-28,59,2,0,57
+48025,US,Texas,Bee,2020-04-28,5,0,0,5
+48027,US,Texas,Bell,2020-04-28,173,3,0,170
+48029,US,Texas,Bexar,2020-04-28,1275,44,0,1231
+48031,US,Texas,Blanco,2020-04-28,6,0,0,6
+48035,US,Texas,Bosque,2020-04-28,4,0,0,4
+48037,US,Texas,Bowie,2020-04-28,69,1,0,68
+48039,US,Texas,Brazoria,2020-04-28,464,5,0,459
+48041,US,Texas,Brazos,2020-04-28,182,16,0,166
+48047,US,Texas,Brooks,2020-04-28,1,0,0,1
+48049,US,Texas,Brown,2020-04-28,34,3,0,31
+48051,US,Texas,Burleson,2020-04-28,12,0,0,12
+48053,US,Texas,Burnet,2020-04-28,15,0,0,15
+48055,US,Texas,Caldwell,2020-04-28,11,0,0,11
+48057,US,Texas,Calhoun,2020-04-28,30,3,0,27
+48059,US,Texas,Callahan,2020-04-28,2,0,0,2
+48061,US,Texas,Cameron,2020-04-28,376,14,0,362
+48063,US,Texas,Camp,2020-04-28,6,0,0,6
+48065,US,Texas,Carson,2020-04-28,1,0,0,1
+48067,US,Texas,Cass,2020-04-28,13,0,0,13
+48069,US,Texas,Castro,2020-04-28,13,1,0,12
+48071,US,Texas,Chambers,2020-04-28,41,0,0,41
+48073,US,Texas,Cherokee,2020-04-28,14,1,0,13
+48075,US,Texas,Childress,2020-04-28,1,0,0,1
+48077,US,Texas,Clay,2020-04-28,3,0,0,3
+48079,US,Texas,Cochran,2020-04-28,1,0,0,1
+48083,US,Texas,Coleman,2020-04-28,1,0,0,1
+48085,US,Texas,Collin,2020-04-28,676,17,0,659
+48089,US,Texas,Colorado,2020-04-28,10,0,0,10
+48091,US,Texas,Comal,2020-04-28,49,6,0,43
+48093,US,Texas,Comanche,2020-04-28,4,0,0,4
+48095,US,Texas,Concho,2020-04-28,1,0,0,1
+48097,US,Texas,Cooke,2020-04-28,4,0,0,4
+48099,US,Texas,Coryell,2020-04-28,105,1,0,104
+48101,US,Texas,Cottle,2020-04-28,1,0,0,1
+48103,US,Texas,Crane,2020-04-28,2,0,0,2
+48107,US,Texas,Crosby,2020-04-28,2,1,0,1
+48111,US,Texas,Dallam,2020-04-28,8,1,0,7
+48113,US,Texas,Dallas,2020-04-28,3240,94,0,3146
+48115,US,Texas,Dawson,2020-04-28,21,1,0,20
+48123,US,Texas,DeWitt,2020-04-28,15,1,0,14
+48117,US,Texas,Deaf Smith,2020-04-28,26,0,0,26
+48119,US,Texas,Delta,2020-04-28,1,0,0,1
+48121,US,Texas,Denton,2020-04-28,725,20,0,705
+48125,US,Texas,Dickens,2020-04-28,1,0,0,1
+48127,US,Texas,Dimmit,2020-04-28,1,0,0,1
+48129,US,Texas,Donley,2020-04-28,24,0,0,24
+48131,US,Texas,Duval,2020-04-28,2,0,0,2
+48133,US,Texas,Eastland,2020-04-28,3,0,0,3
+48135,US,Texas,Ector,2020-04-28,76,4,0,72
+48141,US,Texas,El Paso,2020-04-28,829,12,0,817
+48139,US,Texas,Ellis,2020-04-28,133,5,0,128
+48143,US,Texas,Erath,2020-04-28,12,1,0,11
+48145,US,Texas,Falls,2020-04-28,3,0,0,3
+48147,US,Texas,Fannin,2020-04-28,17,0,0,17
+48149,US,Texas,Fayette,2020-04-28,15,1,0,14
+48153,US,Texas,Floyd,2020-04-28,3,0,0,3
+48157,US,Texas,Fort Bend,2020-04-28,957,22,0,935
+48159,US,Texas,Franklin,2020-04-28,1,0,0,1
+48161,US,Texas,Freestone,2020-04-28,3,0,0,3
+48163,US,Texas,Frio,2020-04-28,4,0,0,4
+48165,US,Texas,Gaines,2020-04-28,2,0,0,2
+48167,US,Texas,Galveston,2020-04-28,548,24,0,524
+48171,US,Texas,Gillespie,2020-04-28,1,0,0,1
+48175,US,Texas,Goliad,2020-04-28,7,0,0,7
+48177,US,Texas,Gonzales,2020-04-28,14,2,0,12
+48179,US,Texas,Gray,2020-04-28,38,0,0,38
+48181,US,Texas,Grayson,2020-04-28,24,0,0,24
+48183,US,Texas,Gregg,2020-04-28,69,0,0,69
+48185,US,Texas,Grimes,2020-04-28,16,1,0,15
+48187,US,Texas,Guadalupe,2020-04-28,69,0,0,69
+48189,US,Texas,Hale,2020-04-28,24,4,0,20
+48193,US,Texas,Hamilton,2020-04-28,5,0,0,5
+48195,US,Texas,Hansford,2020-04-28,5,0,0,5
+48199,US,Texas,Hardin,2020-04-28,96,3,0,93
+48201,US,Texas,Harris,2020-04-28,5827,98,0,5729
+48203,US,Texas,Harrison,2020-04-28,83,7,0,76
+48205,US,Texas,Hartley,2020-04-28,4,0,0,4
+48209,US,Texas,Hays,2020-04-28,155,1,0,154
+48211,US,Texas,Hemphill,2020-04-28,1,0,0,1
+48213,US,Texas,Henderson,2020-04-28,24,0,0,24
+48215,US,Texas,Hidalgo,2020-04-28,310,5,0,305
+48217,US,Texas,Hill,2020-04-28,15,1,0,14
+48219,US,Texas,Hockley,2020-04-28,20,1,0,19
+48221,US,Texas,Hood,2020-04-28,17,3,0,14
+48223,US,Texas,Hopkins,2020-04-28,4,0,0,4
+48225,US,Texas,Houston,2020-04-28,5,0,0,5
+48227,US,Texas,Howard,2020-04-28,4,1,0,3
+48231,US,Texas,Hunt,2020-04-28,44,3,0,41
+48233,US,Texas,Hutchinson,2020-04-28,13,0,0,13
+48237,US,Texas,Jack,2020-04-28,4,0,0,4
+48239,US,Texas,Jackson,2020-04-28,6,0,0,6
+48241,US,Texas,Jasper,2020-04-28,21,2,0,19
+48245,US,Texas,Jefferson,2020-04-28,288,19,0,269
+48247,US,Texas,Jim Hogg,2020-04-28,3,0,0,3
+48249,US,Texas,Jim Wells,2020-04-28,3,0,0,3
+48251,US,Texas,Johnson,2020-04-28,62,3,0,59
+48253,US,Texas,Jones,2020-04-28,13,0,0,13
+48255,US,Texas,Karnes,2020-04-28,3,0,0,3
+48257,US,Texas,Kaufman,2020-04-28,75,0,0,75
+48259,US,Texas,Kendall,2020-04-28,16,0,0,16
+48265,US,Texas,Kerr,2020-04-28,5,0,0,5
+48273,US,Texas,Kleberg,2020-04-28,9,1,0,8
+48275,US,Texas,Knox,2020-04-28,1,0,0,1
+48283,US,Texas,La Salle,2020-04-28,1,0,0,1
+48277,US,Texas,Lamar,2020-04-28,51,0,0,51
+48279,US,Texas,Lamb,2020-04-28,3,0,0,3
+48281,US,Texas,Lampasas,2020-04-28,3,0,0,3
+48285,US,Texas,Lavaca,2020-04-28,5,1,0,4
+48287,US,Texas,Lee,2020-04-28,2,0,0,2
+48289,US,Texas,Leon,2020-04-28,5,0,0,5
+48291,US,Texas,Liberty,2020-04-28,39,0,0,39
+48293,US,Texas,Limestone,2020-04-28,13,1,0,12
+48297,US,Texas,Live Oak,2020-04-28,5,0,0,5
+48299,US,Texas,Llano,2020-04-28,3,0,0,3
+48303,US,Texas,Lubbock,2020-04-28,504,43,0,461
+48305,US,Texas,Lynn,2020-04-28,5,1,0,4
+48313,US,Texas,Madison,2020-04-28,2,0,0,2
+48315,US,Texas,Marion,2020-04-28,9,0,0,9
+48317,US,Texas,Martin,2020-04-28,2,0,0,2
+48319,US,Texas,Mason,2020-04-28,5,0,0,5
+48321,US,Texas,Matagorda,2020-04-28,60,3,0,57
+48323,US,Texas,Maverick,2020-04-28,16,0,0,16
+48307,US,Texas,McCulloch,2020-04-28,3,0,0,3
+48309,US,Texas,McLennan,2020-04-28,87,4,0,83
+48325,US,Texas,Medina,2020-04-28,19,2,0,17
+48329,US,Texas,Midland,2020-04-28,74,5,0,69
+48331,US,Texas,Milam,2020-04-28,14,1,0,13
+48335,US,Texas,Mitchell,2020-04-28,1,0,0,1
+48337,US,Texas,Montague,2020-04-28,6,1,0,5
+48339,US,Texas,Montgomery,2020-04-28,562,12,0,550
+48341,US,Texas,Moore,2020-04-28,294,3,0,291
+48343,US,Texas,Morris,2020-04-28,5,0,0,5
+48345,US,Texas,Motley,2020-04-28,1,0,0,1
+48347,US,Texas,Nacogdoches,2020-04-28,141,7,0,134
+48349,US,Texas,Navarro,2020-04-28,28,2,0,26
+48351,US,Texas,Newton,2020-04-28,2,0,0,2
+48353,US,Texas,Nolan,2020-04-28,1,0,0,1
+48355,US,Texas,Nueces,2020-04-28,99,3,0,96
+48357,US,Texas,Ochiltree,2020-04-28,24,1,0,23
+48359,US,Texas,Oldham,2020-04-28,3,1,0,2
+48361,US,Texas,Orange,2020-04-28,64,0,0,64
+48363,US,Texas,Palo Pinto,2020-04-28,7,1,0,6
+48365,US,Texas,Panola,2020-04-28,80,7,0,73
+48367,US,Texas,Parker,2020-04-28,25,0,0,25
+48369,US,Texas,Parmer,2020-04-28,6,0,0,6
+48371,US,Texas,Pecos,2020-04-28,9,0,0,9
+48373,US,Texas,Polk,2020-04-28,18,0,0,18
+48375,US,Texas,Potter,2020-04-28,396,6,0,390
+48379,US,Texas,Rains,2020-04-28,2,0,0,2
+48381,US,Texas,Randall,2020-04-28,191,3,0,188
+48387,US,Texas,Red River,2020-04-28,1,0,0,1
+48389,US,Texas,Reeves,2020-04-28,5,0,0,5
+48393,US,Texas,Roberts,2020-04-28,2,0,0,2
+48395,US,Texas,Robertson,2020-04-28,2,0,0,2
+48397,US,Texas,Rockwall,2020-04-28,58,1,0,57
+48399,US,Texas,Runnels,2020-04-28,1,0,0,1
+48401,US,Texas,Rusk,2020-04-28,33,1,0,32
+48403,US,Texas,Sabine,2020-04-28,1,0,0,1
+48405,US,Texas,San Augustine,2020-04-28,16,1,0,15
+48407,US,Texas,San Jacinto,2020-04-28,9,0,0,9
+48409,US,Texas,San Patricio,2020-04-28,13,0,0,13
+48415,US,Texas,Scurry,2020-04-28,2,0,0,2
+48419,US,Texas,Shelby,2020-04-28,101,0,0,101
+48421,US,Texas,Sherman,2020-04-28,14,0,0,14
+48423,US,Texas,Smith,2020-04-28,139,3,0,136
+48427,US,Texas,Starr,2020-04-28,8,0,0,8
+48429,US,Texas,Stephens,2020-04-28,1,0,0,1
+48437,US,Texas,Swisher,2020-04-28,9,0,0,9
+48439,US,Texas,Tarrant,2020-04-28,2019,53,0,1966
+48441,US,Texas,Taylor,2020-04-28,255,3,0,252
+48445,US,Texas,Terry,2020-04-28,10,0,0,10
+48449,US,Texas,Titus,2020-04-28,15,0,0,15
+48451,US,Texas,Tom Green,2020-04-28,44,1,0,43
+48453,US,Texas,Travis,2020-04-28,1464,42,0,1422
+48455,US,Texas,Trinity,2020-04-28,8,0,0,8
+48457,US,Texas,Tyler,2020-04-28,6,0,0,6
+90048,US,Texas,Unassigned,2020-04-28,0,0,0,0
+48459,US,Texas,Upshur,2020-04-28,13,0,0,13
+48463,US,Texas,Uvalde,2020-04-28,6,0,0,6
+48465,US,Texas,Val Verde,2020-04-28,13,0,0,13
+48467,US,Texas,Van Zandt,2020-04-28,14,1,0,13
+48469,US,Texas,Victoria,2020-04-28,127,3,0,124
+48471,US,Texas,Walker,2020-04-28,200,2,0,198
+48473,US,Texas,Waller,2020-04-28,31,0,0,31
+48477,US,Texas,Washington,2020-04-28,136,11,0,125
+48479,US,Texas,Webb,2020-04-28,346,15,0,331
+48481,US,Texas,Wharton,2020-04-28,36,0,0,36
+48483,US,Texas,Wheeler,2020-04-28,5,0,0,5
+48485,US,Texas,Wichita,2020-04-28,63,2,0,61
+48487,US,Texas,Wilbarger,2020-04-28,1,0,0,1
+48489,US,Texas,Willacy,2020-04-28,13,1,0,12
+48491,US,Texas,Williamson,2020-04-28,287,6,0,281
+48493,US,Texas,Wilson,2020-04-28,29,2,0,27
+48495,US,Texas,Winkler,2020-04-28,3,0,0,3
+48497,US,Texas,Wise,2020-04-28,15,2,0,13
+48499,US,Texas,Wood,2020-04-28,7,0,0,7
+48501,US,Texas,Yoakum,2020-04-28,1,0,0,1
+48503,US,Texas,Young,2020-04-28,4,1,0,3
+48505,US,Texas,Zapata,2020-04-28,7,0,0,7
+48507,US,Texas,Zavala,2020-04-28,1,0,0,1
+,US,Utah,Bear River,2020-04-28,60,1,0,59
+,US,Utah,Central Utah,2020-04-28,22,0,0,22
+49011,US,Utah,Davis,2020-04-28,278,2,0,276
+49035,US,Utah,Salt Lake,2020-04-28,2256,24,0,2232
+49037,US,Utah,San Juan,2020-04-28,45,2,0,43
+,US,Utah,Southeast Utah,2020-04-28,13,0,0,13
+90049,US,Utah,Southwest,2020-04-28,0,0,0,0
+,US,Utah,Southwest Utah,2020-04-28,91,2,0,89
+49043,US,Utah,Summit,2020-04-28,359,0,0,359
+49045,US,Utah,Tooele,2020-04-28,58,0,0,58
+,US,Utah,TriCounty,2020-04-28,11,0,0,11
+90049,US,Utah,Unassigned,2020-04-28,0,0,0,0
+49049,US,Utah,Utah,2020-04-28,862,7,0,855
+49051,US,Utah,Wasatch,2020-04-28,142,1,0,141
+,US,Utah,Weber-Morgan,2020-04-28,148,2,0,146
+50001,US,Vermont,Addison,2020-04-28,61,2,0,59
+50003,US,Vermont,Bennington,2020-04-28,44,1,0,43
+50005,US,Vermont,Caledonia,2020-04-28,13,0,0,13
+50007,US,Vermont,Chittenden,2020-04-28,416,31,0,385
+50009,US,Vermont,Essex,2020-04-28,2,0,0,2
+50011,US,Vermont,Franklin,2020-04-28,91,5,0,86
+50013,US,Vermont,Grand Isle,2020-04-28,3,0,0,3
+50015,US,Vermont,Lamoille,2020-04-28,26,2,0,24
+50017,US,Vermont,Orange,2020-04-28,7,0,0,7
+50019,US,Vermont,Orleans,2020-04-28,9,0,0,9
+50021,US,Vermont,Rutland,2020-04-28,44,1,0,43
+90050,US,Vermont,Unassigned,2020-04-28,3,0,0,3
+50023,US,Vermont,Washington,2020-04-28,32,1,0,31
+50025,US,Vermont,Windham,2020-04-28,71,2,0,69
+50027,US,Vermont,Windsor,2020-04-28,40,2,0,38
+78,US,Virgin Islands,,2020-04-28,57,4,0,53
+51001,US,Virginia,Accomack,2020-04-28,223,4,0,219
+51003,US,Virginia,Albemarle,2020-04-28,80,4,0,76
+51510,US,Virginia,Alexandria,2020-04-28,653,20,0,633
+51005,US,Virginia,Alleghany,2020-04-28,5,0,0,5
+51007,US,Virginia,Amelia,2020-04-28,15,1,0,14
+51009,US,Virginia,Amherst,2020-04-28,9,0,0,9
+51011,US,Virginia,Appomattox,2020-04-28,17,0,0,17
+51013,US,Virginia,Arlington,2020-04-28,865,32,0,833
+51015,US,Virginia,Augusta,2020-04-28,39,1,0,38
+51017,US,Virginia,Bath,2020-04-28,0,0,0,0
+51019,US,Virginia,Bedford,2020-04-28,25,0,0,25
+51021,US,Virginia,Bland,2020-04-28,0,0,0,0
+51023,US,Virginia,Botetourt,2020-04-28,27,3,0,24
+51520,US,Virginia,Bristol,2020-04-28,1,0,0,1
+51025,US,Virginia,Brunswick,2020-04-28,13,0,0,13
+51027,US,Virginia,Buchanan,2020-04-28,16,0,0,16
+51029,US,Virginia,Buckingham,2020-04-28,55,0,0,55
+51530,US,Virginia,Buena Vista,2020-04-28,5,0,0,5
+51031,US,Virginia,Campbell,2020-04-28,11,0,0,11
+51033,US,Virginia,Caroline,2020-04-28,22,0,0,22
+51035,US,Virginia,Carroll,2020-04-28,4,0,0,4
+51036,US,Virginia,Charles City,2020-04-28,13,1,0,12
+51037,US,Virginia,Charlotte,2020-04-28,7,0,0,7
+51540,US,Virginia,Charlottesville,2020-04-28,51,2,0,49
+51550,US,Virginia,Chesapeake,2020-04-28,220,6,0,214
+51041,US,Virginia,Chesterfield,2020-04-28,488,19,0,469
+51043,US,Virginia,Clarke,2020-04-28,7,0,0,7
+51570,US,Virginia,Colonial Heights,2020-04-28,47,4,0,43
+51580,US,Virginia,Covington,2020-04-28,1,0,0,1
+51045,US,Virginia,Craig,2020-04-28,2,0,0,2
+51047,US,Virginia,Culpeper,2020-04-28,126,2,0,124
+51049,US,Virginia,Cumberland,2020-04-28,11,0,0,11
+51590,US,Virginia,Danville,2020-04-28,33,1,0,32
+51051,US,Virginia,Dickenson,2020-04-28,0,0,0,0
+51053,US,Virginia,Dinwiddie,2020-04-28,15,0,0,15
+51595,US,Virginia,Emporia,2020-04-28,20,2,0,18
+51057,US,Virginia,Essex,2020-04-28,6,0,0,6
+51059,US,Virginia,Fairfax,2020-04-28,3278,114,0,3164
+51600,US,Virginia,Fairfax City,2020-04-28,27,2,0,25
+51610,US,Virginia,Falls Church,2020-04-28,26,2,0,24
+51061,US,Virginia,Fauquier,2020-04-28,105,2,0,103
+51063,US,Virginia,Floyd,2020-04-28,1,0,0,1
+51065,US,Virginia,Fluvanna,2020-04-28,73,5,0,68
+51067,US,Virginia,Franklin,2020-04-28,20,0,0,20
+51620,US,Virginia,Franklin City,2020-04-28,18,0,0,18
+51069,US,Virginia,Frederick,2020-04-28,97,1,0,96
+51630,US,Virginia,Fredericksburg,2020-04-28,27,0,0,27
+51640,US,Virginia,Galax,2020-04-28,4,0,0,4
+51071,US,Virginia,Giles,2020-04-28,4,0,0,4
+51073,US,Virginia,Gloucester,2020-04-28,22,1,0,21
+51075,US,Virginia,Goochland,2020-04-28,74,3,0,71
+51077,US,Virginia,Grayson,2020-04-28,1,0,0,1
+51079,US,Virginia,Greene,2020-04-28,9,1,0,8
+51081,US,Virginia,Greensville,2020-04-28,36,6,0,30
+51083,US,Virginia,Halifax,2020-04-28,17,0,0,17
+51650,US,Virginia,Hampton,2020-04-28,108,1,0,107
+51085,US,Virginia,Hanover,2020-04-28,109,9,0,100
+51660,US,Virginia,Harrisonburg,2020-04-28,406,9,0,397
+51087,US,Virginia,Henrico,2020-04-28,835,95,0,740
+51089,US,Virginia,Henry,2020-04-28,16,1,0,15
+51091,US,Virginia,Highland,2020-04-28,2,0,0,2
+51670,US,Virginia,Hopewell,2020-04-28,24,0,0,24
+51093,US,Virginia,Isle of Wight,2020-04-28,96,2,0,94
+51095,US,Virginia,James City,2020-04-28,155,12,0,143
+51099,US,Virginia,King George,2020-04-28,30,4,0,26
+51101,US,Virginia,King William,2020-04-28,5,0,0,5
+51097,US,Virginia,King and Queen,2020-04-28,2,0,0,2
+51103,US,Virginia,Lancaster,2020-04-28,1,0,0,1
+51105,US,Virginia,Lee,2020-04-28,9,0,0,9
+51678,US,Virginia,Lexington,2020-04-28,3,0,0,3
+51107,US,Virginia,Loudoun,2020-04-28,688,12,0,676
+51109,US,Virginia,Louisa,2020-04-28,41,0,0,41
+51111,US,Virginia,Lunenburg,2020-04-28,4,0,0,4
+51680,US,Virginia,Lynchburg,2020-04-28,51,1,0,50
+51113,US,Virginia,Madison,2020-04-28,14,0,0,14
+51683,US,Virginia,Manassas,2020-04-28,175,2,0,173
+51685,US,Virginia,Manassas Park,2020-04-28,53,1,0,52
+51690,US,Virginia,Martinsville,2020-04-28,2,0,0,2
+51115,US,Virginia,Mathews,2020-04-28,4,0,0,4
+51117,US,Virginia,Mecklenburg,2020-04-28,100,9,0,91
+51119,US,Virginia,Middlesex,2020-04-28,4,0,0,4
+51121,US,Virginia,Montgomery,2020-04-28,54,1,0,53
+51125,US,Virginia,Nelson,2020-04-28,7,0,0,7
+51127,US,Virginia,New Kent,2020-04-28,21,1,0,20
+51700,US,Virginia,Newport News,2020-04-28,112,7,0,105
+51710,US,Virginia,Norfolk,2020-04-28,188,3,0,185
+51131,US,Virginia,Northampton,2020-04-28,35,0,0,35
+51133,US,Virginia,Northumberland,2020-04-28,8,0,0,8
+51720,US,Virginia,Norton,2020-04-28,2,0,0,2
+51135,US,Virginia,Nottoway,2020-04-28,11,0,0,11
+51137,US,Virginia,Orange,2020-04-28,27,0,0,27
+51139,US,Virginia,Page,2020-04-28,89,0,0,89
+51141,US,Virginia,Patrick,2020-04-28,2,0,0,2
+51730,US,Virginia,Petersburg,2020-04-28,30,2,0,28
+51143,US,Virginia,Pittsylvania,2020-04-28,11,1,0,10
+51735,US,Virginia,Poquoson,2020-04-28,6,0,0,6
+51740,US,Virginia,Portsmouth,2020-04-28,149,5,0,144
+51145,US,Virginia,Powhatan,2020-04-28,11,0,0,11
+51147,US,Virginia,Prince Edward,2020-04-28,41,2,0,39
+51149,US,Virginia,Prince George,2020-04-28,31,0,0,31
+51153,US,Virginia,Prince William,2020-04-28,1449,20,0,1429
+51155,US,Virginia,Pulaski,2020-04-28,9,0,0,9
+51750,US,Virginia,Radford,2020-04-28,3,0,0,3
+51157,US,Virginia,Rappahannock,2020-04-28,3,0,0,3
+51159,US,Virginia,Richmond,2020-04-28,141,0,0,141
+51760,US,Virginia,Richmond City,2020-04-28,312,14,0,298
+51161,US,Virginia,Roanoke,2020-04-28,41,0,0,41
+51770,US,Virginia,Roanoke City,2020-04-28,35,0,0,35
+51163,US,Virginia,Rockbridge,2020-04-28,5,0,0,5
+51165,US,Virginia,Rockingham,2020-04-28,216,1,0,215
+51167,US,Virginia,Russell,2020-04-28,3,0,0,3
+51775,US,Virginia,Salem,2020-04-28,12,0,0,12
+51169,US,Virginia,Scott,2020-04-28,7,1,0,6
+51171,US,Virginia,Shenandoah,2020-04-28,79,2,0,77
+51173,US,Virginia,Smyth,2020-04-28,13,0,0,13
+51175,US,Virginia,Southampton,2020-04-28,115,1,0,114
+51177,US,Virginia,Spotsylvania,2020-04-28,126,3,0,123
+51179,US,Virginia,Stafford,2020-04-28,221,2,0,219
+51790,US,Virginia,Staunton,2020-04-28,11,0,0,11
+51800,US,Virginia,Suffolk,2020-04-28,152,8,0,144
+51181,US,Virginia,Surry,2020-04-28,4,1,0,3
+51183,US,Virginia,Sussex,2020-04-28,30,1,0,29
+51185,US,Virginia,Tazewell,2020-04-28,5,0,0,5
+90051,US,Virginia,Unassigned,2020-04-28,0,0,0,0
+51810,US,Virginia,Virginia Beach,2020-04-28,359,12,0,347
+51187,US,Virginia,Warren,2020-04-28,47,0,0,47
+51191,US,Virginia,Washington,2020-04-28,34,3,0,31
+51820,US,Virginia,Waynesboro,2020-04-28,11,0,0,11
+51193,US,Virginia,Westmoreland,2020-04-28,21,0,0,21
+51830,US,Virginia,Williamsburg,2020-04-28,18,1,0,17
+51840,US,Virginia,Winchester,2020-04-28,36,0,0,36
+51195,US,Virginia,Wise,2020-04-28,22,1,0,21
+51197,US,Virginia,Wythe,2020-04-28,11,1,0,10
+51199,US,Virginia,York,2020-04-28,45,1,0,44
+53001,US,Washington,Adams,2020-04-28,46,0,0,46
+53003,US,Washington,Asotin,2020-04-28,17,2,0,15
+53005,US,Washington,Benton,2020-04-28,415,39,0,376
+53007,US,Washington,Chelan,2020-04-28,96,5,0,91
+53009,US,Washington,Clallam,2020-04-28,17,0,0,17
+53011,US,Washington,Clark,2020-04-28,313,18,0,295
+53013,US,Washington,Columbia,2020-04-28,1,0,0,1
+53015,US,Washington,Cowlitz,2020-04-28,39,0,0,39
+53017,US,Washington,Douglas,2020-04-28,75,1,0,74
+53019,US,Washington,Ferry,2020-04-28,1,0,0,1
+53021,US,Washington,Franklin,2020-04-28,265,7,0,258
+53023,US,Washington,Garfield,2020-04-28,0,0,0,0
+53025,US,Washington,Grant,2020-04-28,155,3,0,152
+53027,US,Washington,Grays Harbor,2020-04-28,12,0,0,12
+53029,US,Washington,Island,2020-04-28,168,9,0,159
+53031,US,Washington,Jefferson,2020-04-28,28,0,0,28
+53033,US,Washington,King,2020-04-28,6001,429,0,5572
+53035,US,Washington,Kitsap,2020-04-28,148,2,0,146
+53037,US,Washington,Kittitas,2020-04-28,15,0,0,15
+53039,US,Washington,Klickitat,2020-04-28,16,3,0,13
+53041,US,Washington,Lewis,2020-04-28,29,3,0,26
+53043,US,Washington,Lincoln,2020-04-28,2,0,0,2
+53045,US,Washington,Mason,2020-04-28,23,1,0,22
+53047,US,Washington,Okanogan,2020-04-28,21,1,0,20
+53049,US,Washington,Pacific,2020-04-28,4,0,0,4
+53051,US,Washington,Pend Oreille,2020-04-28,2,0,0,2
+53053,US,Washington,Pierce,2020-04-28,1293,48,0,1245
+53055,US,Washington,San Juan,2020-04-28,14,0,0,14
+53057,US,Washington,Skagit,2020-04-28,308,12,0,296
+53059,US,Washington,Skamania,2020-04-28,3,0,0,3
+53061,US,Washington,Snohomish,2020-04-28,2365,108,0,2257
+53063,US,Washington,Spokane,2020-04-28,350,20,0,330
+53065,US,Washington,Stevens,2020-04-28,9,1,0,8
+53067,US,Washington,Thurston,2020-04-28,100,1,0,99
+90053,US,Washington,Unassigned,2020-04-28,79,0,0,79
+53069,US,Washington,Wahkiakum,2020-04-28,2,0,0,2
+53071,US,Washington,Walla Walla,2020-04-28,57,0,0,57
+53073,US,Washington,Whatcom,2020-04-28,293,28,0,265
+53075,US,Washington,Whitman,2020-04-28,14,0,0,14
+53077,US,Washington,Yakima,2020-04-28,1046,45,0,1001
+54001,US,West Virginia,Barbour,2020-04-28,4,1,0,3
+54003,US,West Virginia,Berkeley,2020-04-28,141,1,0,140
+54005,US,West Virginia,Boone,2020-04-28,2,0,0,2
+54007,US,West Virginia,Braxton,2020-04-28,2,0,0,2
+54009,US,West Virginia,Brooke,2020-04-28,3,0,0,3
+54011,US,West Virginia,Cabell,2020-04-28,41,0,0,41
+54019,US,West Virginia,Fayette,2020-04-28,12,0,0,12
+54021,US,West Virginia,Gilmer,2020-04-28,2,0,0,2
+54023,US,West Virginia,Grant,2020-04-28,1,0,0,1
+54025,US,West Virginia,Greenbrier,2020-04-28,3,0,0,3
+54027,US,West Virginia,Hampshire,2020-04-28,7,1,0,6
+54029,US,West Virginia,Hancock,2020-04-28,8,0,0,8
+54031,US,West Virginia,Hardy,2020-04-28,4,0,0,4
+54033,US,West Virginia,Harrison,2020-04-28,30,1,0,29
+54035,US,West Virginia,Jackson,2020-04-28,129,12,0,117
+54037,US,West Virginia,Jefferson,2020-04-28,77,1,0,76
+54039,US,West Virginia,Kanawha,2020-04-28,157,4,0,153
+54041,US,West Virginia,Lewis,2020-04-28,4,0,0,4
+54043,US,West Virginia,Lincoln,2020-04-28,1,0,0,1
+54045,US,West Virginia,Logan,2020-04-28,12,1,0,11
+54049,US,West Virginia,Marion,2020-04-28,45,2,0,43
+54051,US,West Virginia,Marshall,2020-04-28,11,0,0,11
+54053,US,West Virginia,Mason,2020-04-28,12,0,0,12
+54047,US,West Virginia,McDowell,2020-04-28,6,0,0,6
+54055,US,West Virginia,Mercer,2020-04-28,9,0,0,9
+54057,US,West Virginia,Mineral,2020-04-28,15,0,0,15
+54059,US,West Virginia,Mingo,2020-04-28,2,1,0,1
+54061,US,West Virginia,Monongalia,2020-04-28,103,4,0,99
+54063,US,West Virginia,Monroe,2020-04-28,5,0,0,5
+54065,US,West Virginia,Morgan,2020-04-28,9,0,0,9
+54067,US,West Virginia,Nicholas,2020-04-28,6,0,0,6
+54069,US,West Virginia,Ohio,2020-04-28,26,1,0,25
+54071,US,West Virginia,Pendleton,2020-04-28,3,0,0,3
+54073,US,West Virginia,Pleasants,2020-04-28,2,0,0,2
+54075,US,West Virginia,Pocahontas,2020-04-28,2,0,0,2
+54077,US,West Virginia,Preston,2020-04-28,13,0,0,13
+54079,US,West Virginia,Putnam,2020-04-28,22,0,0,22
+54081,US,West Virginia,Raleigh,2020-04-28,8,0,0,8
+54083,US,West Virginia,Randolph,2020-04-28,4,0,0,4
+54087,US,West Virginia,Roane,2020-04-28,4,0,0,4
+54089,US,West Virginia,Summers,2020-04-28,1,0,0,1
+54091,US,West Virginia,Taylor,2020-04-28,6,0,0,6
+54093,US,West Virginia,Tucker,2020-04-28,4,0,0,4
+54095,US,West Virginia,Tyler,2020-04-28,3,0,0,3
+90054,US,West Virginia,Unassigned,2020-04-28,0,0,0,0
+54097,US,West Virginia,Upshur,2020-04-28,4,0,0,4
+54099,US,West Virginia,Wayne,2020-04-28,84,6,0,78
+54103,US,West Virginia,Wetzel,2020-04-28,3,0,0,3
+54105,US,West Virginia,Wirt,2020-04-28,3,0,0,3
+54107,US,West Virginia,Wood,2020-04-28,39,2,0,37
+54109,US,West Virginia,Wyoming,2020-04-28,1,0,0,1
+55001,US,Wisconsin,Adams,2020-04-28,4,1,0,3
+55003,US,Wisconsin,Ashland,2020-04-28,2,0,0,2
+55005,US,Wisconsin,Barron,2020-04-28,6,0,0,6
+55007,US,Wisconsin,Bayfield,2020-04-28,3,1,0,2
+55009,US,Wisconsin,Brown,2020-04-28,920,3,0,917
+55011,US,Wisconsin,Buffalo,2020-04-28,4,1,0,3
+55015,US,Wisconsin,Calumet,2020-04-28,10,0,0,10
+55017,US,Wisconsin,Chippewa,2020-04-28,21,0,0,21
+55019,US,Wisconsin,Clark,2020-04-28,20,3,0,17
+55021,US,Wisconsin,Columbia,2020-04-28,27,1,0,26
+55023,US,Wisconsin,Crawford,2020-04-28,3,0,0,3
+55025,US,Wisconsin,Dane,2020-04-28,417,22,0,395
+55027,US,Wisconsin,Dodge,2020-04-28,32,1,0,31
+55029,US,Wisconsin,Door,2020-04-28,12,1,0,11
+55031,US,Wisconsin,Douglas,2020-04-28,9,0,0,9
+55033,US,Wisconsin,Dunn,2020-04-28,9,0,0,9
+55035,US,Wisconsin,Eau Claire,2020-04-28,27,0,0,27
+55037,US,Wisconsin,Florence,2020-04-28,2,0,0,2
+55039,US,Wisconsin,Fond du Lac,2020-04-28,69,3,0,66
+55043,US,Wisconsin,Grant,2020-04-28,32,5,0,27
+55045,US,Wisconsin,Green,2020-04-28,11,0,0,11
+55047,US,Wisconsin,Green Lake,2020-04-28,2,0,0,2
+55049,US,Wisconsin,Iowa,2020-04-28,7,0,0,7
+55051,US,Wisconsin,Iron,2020-04-28,2,1,0,1
+55053,US,Wisconsin,Jackson,2020-04-28,12,1,0,11
+55055,US,Wisconsin,Jefferson,2020-04-28,42,0,0,42
+55057,US,Wisconsin,Juneau,2020-04-28,13,1,0,12
+55059,US,Wisconsin,Kenosha,2020-04-28,348,9,0,339
+55061,US,Wisconsin,Kewaunee,2020-04-28,11,1,0,10
+55063,US,Wisconsin,La Crosse,2020-04-28,27,0,0,27
+55065,US,Wisconsin,Lafayette,2020-04-28,4,0,0,4
+55071,US,Wisconsin,Manitowoc,2020-04-28,11,1,0,10
+55073,US,Wisconsin,Marathon,2020-04-28,17,1,0,16
+55075,US,Wisconsin,Marinette,2020-04-28,7,1,0,6
+55077,US,Wisconsin,Marquette,2020-04-28,3,1,0,2
+55078,US,Wisconsin,Menominee,2020-04-28,1,0,0,1
+55079,US,Wisconsin,Milwaukee,2020-04-28,2722,174,0,2548
+55081,US,Wisconsin,Monroe,2020-04-28,14,1,0,13
+55083,US,Wisconsin,Oconto,2020-04-28,8,0,0,8
+55085,US,Wisconsin,Oneida,2020-04-28,6,0,0,6
+55087,US,Wisconsin,Outagamie,2020-04-28,50,2,0,48
+55089,US,Wisconsin,Ozaukee,2020-04-28,86,9,0,77
+55091,US,Wisconsin,Pepin,2020-04-28,0,0,0,0
+55093,US,Wisconsin,Pierce,2020-04-28,9,0,0,9
+55095,US,Wisconsin,Polk,2020-04-28,4,0,0,4
+55097,US,Wisconsin,Portage,2020-04-28,4,0,0,4
+55099,US,Wisconsin,Price,2020-04-28,1,0,0,1
+55101,US,Wisconsin,Racine,2020-04-28,308,12,0,296
+55103,US,Wisconsin,Richland,2020-04-28,11,2,0,9
+55105,US,Wisconsin,Rock,2020-04-28,178,6,0,172
+55107,US,Wisconsin,Rusk,2020-04-28,4,0,0,4
+55111,US,Wisconsin,Sauk,2020-04-28,44,3,0,41
+55113,US,Wisconsin,Sawyer,2020-04-28,3,0,0,3
+55115,US,Wisconsin,Shawano,2020-04-28,8,0,0,8
+55117,US,Wisconsin,Sheboygan,2020-04-28,46,2,0,44
+55109,US,Wisconsin,St. Croix,2020-04-28,13,0,0,13
+55121,US,Wisconsin,Trempealeau,2020-04-28,2,0,0,2
+90055,US,Wisconsin,Unassigned,2020-04-28,0,0,0,0
+55123,US,Wisconsin,Vernon,2020-04-28,1,0,0,1
+55125,US,Wisconsin,Vilas,2020-04-28,4,0,0,4
+55127,US,Wisconsin,Walworth,2020-04-28,139,8,0,131
+55129,US,Wisconsin,Washburn,2020-04-28,1,0,0,1
+55131,US,Wisconsin,Washington,2020-04-28,96,4,0,92
+55133,US,Wisconsin,Waukesha,2020-04-28,321,16,0,305
+55135,US,Wisconsin,Waupaca,2020-04-28,7,1,0,6
+55137,US,Wisconsin,Waushara,2020-04-28,2,0,0,2
+55139,US,Wisconsin,Winnebago,2020-04-28,48,1,0,47
+55141,US,Wisconsin,Wood,2020-04-28,2,0,0,2
+56001,US,Wyoming,Albany,2020-04-28,8,0,0,8
+56003,US,Wyoming,Big Horn,2020-04-28,2,0,0,2
+56005,US,Wyoming,Campbell,2020-04-28,23,0,0,23
+56007,US,Wyoming,Carbon,2020-04-28,4,0,0,4
+56009,US,Wyoming,Converse,2020-04-28,21,0,0,21
+56011,US,Wyoming,Crook,2020-04-28,5,0,0,5
+56013,US,Wyoming,Fremont,2020-04-28,109,0,0,109
+56015,US,Wyoming,Goshen,2020-04-28,4,0,0,4
+56017,US,Wyoming,Hot Springs,2020-04-28,3,0,0,3
+56019,US,Wyoming,Johnson,2020-04-28,15,1,0,14
+56021,US,Wyoming,Laramie,2020-04-28,134,0,0,134
+56023,US,Wyoming,Lincoln,2020-04-28,9,0,0,9
+56025,US,Wyoming,Natrona,2020-04-28,49,0,0,49
+56027,US,Wyoming,Niobrara,2020-04-28,2,0,0,2
+56029,US,Wyoming,Park,2020-04-28,1,0,0,1
+56031,US,Wyoming,Platte,2020-04-28,0,0,0,0
+56033,US,Wyoming,Sheridan,2020-04-28,16,0,0,16
+56035,US,Wyoming,Sublette,2020-04-28,3,0,0,3
+56037,US,Wyoming,Sweetwater,2020-04-28,16,0,0,16
+56039,US,Wyoming,Teton,2020-04-28,96,0,0,96
+56041,US,Wyoming,Uinta,2020-04-28,8,0,0,8
+90056,US,Wyoming,Unassigned,2020-04-28,0,6,0,-6
+56043,US,Wyoming,Washakie,2020-04-28,8,0,0,8
+,Uganda,,,2020-04-28,79,0,52,27
+,Ukraine,,,2020-04-28,9410,239,992,8179
+,United Arab Emirates,,,2020-04-28,11380,89,2181,9110
+,United Kingdom,,,2020-04-28,161145,21678,0,139467
+,United Kingdom,Anguilla,,2020-04-28,3,0,3,0
+,United Kingdom,Bermuda,,2020-04-28,110,6,44,60
+,United Kingdom,British Virgin Islands,,2020-04-28,6,1,3,2
+,United Kingdom,Cayman Islands,,2020-04-28,70,1,10,59
+,United Kingdom,Channel Islands,,2020-04-28,530,36,352,142
+,United Kingdom,Falkland Islands (Malvinas),,2020-04-28,13,0,11,2
+,United Kingdom,Gibraltar,,2020-04-28,141,0,131,10
+,United Kingdom,Isle of Man,,2020-04-28,309,21,252,36
+,United Kingdom,Montserrat,,2020-04-28,11,1,2,8
+,United Kingdom,Turks and Caicos Islands,,2020-04-28,12,1,5,6
+,Uruguay,,,2020-04-28,625,15,394,216
+,Uzbekistan,,,2020-04-28,1939,8,992,939
+,Venezuela,,,2020-04-28,329,10,142,177
+,Vietnam,,,2020-04-28,270,0,222,48
+,West Bank and Gaza,,,2020-04-28,343,2,71,270
+,Western Sahara,,,2020-04-28,6,0,5,1
+,Yemen,,,2020-04-28,1,0,1,0
+,Zambia,,,2020-04-28,95,3,42,50
+,Zimbabwe,,,2020-04-28,32,4,5,23
