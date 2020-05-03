@@ -15,6 +15,61 @@ var unlocked = true;
 var minDate = "20200322";  // oldest complete data we have, ignore anything older
 // note
 
+var stateXref = {
+    'Alabama':'AL',
+    'Alaska':'AK',
+    'Arizona':'AZ',
+    'Arkansas':'AR',
+    'California':'CA',
+    'Colorado':'CO',
+    'Connecticut':'CT',
+    'Delaware':'DE',
+    'Florida':'FL',
+    'Georgia':'GA',
+    'Hawaii':'HI',
+    'Idaho':'ID',
+    'Illinois':'IL',
+    'Indiana':'IN',
+    'Iowa':'IA',
+    'Kansas':'KS',
+    'Kentucky':'KY',
+    'Louisiana':'LA',
+    'Maine':'ME',
+    'Maryland':'MD',
+    'Massachusetts':'MA',
+    'Michigan':'MI',
+    'Minnesota':'MN',
+    'Mississippi':'MS',
+    'Missouri':'MO',
+    'Montana':'MT',
+    'Nebraska':'NE',
+    'Nevada':'NV',
+    'New Hampshire':'NH',
+    'New Jersey':'NJ',
+    'New Mexico':'NM',
+    'New York':'NY',
+    'North Carolina':'NC',
+    'North Dakota':'ND',
+    'Ohio':'OH',
+    'Oklahoma':'OK',
+    'Oregon':'OR',
+    'Pennsylvania':'PA',
+    'Rhode Island':'RI',
+    'South Carolina':'SC',
+    'South Dakota':'SD',
+    'Tennessee':'TN',
+    'Texas':'TX',
+    'Utah':'UT',
+    'Vermont':'VT',
+    'Virginia':'VA',
+    'Washington':'WA',
+    'West Virginia':'WV',
+    'Wisconsin':'WI',
+    'Wyoming':'WY',
+    'District of Columbia':'DC',
+    'Marshall Islands':'MH',
+}
+
 var parsePopData = function(csv) {
 
 	console.log("Parsing population data");
@@ -47,6 +102,7 @@ var parsePopData = function(csv) {
         'global': false,
         'url': 'data/covid19_daily_reports.csv',
         'dataType': "text",
+        'cache': false,
         'success': function (data) {
             parseCovidData(data);
         },
@@ -58,7 +114,23 @@ var parsePopData = function(csv) {
 };
 
 var parseCovidData = function(csv) {
-	console.log("Fetched daily report, parsing...");
+	console.log("Fetched daily JHU report, now fetching COVID Tracking project data");
+    $.ajax({
+        'async': true,
+        'global': false,
+        'url': 'https://covidtracking.com/api/v1/states/daily.json',
+        'dataType': "text",
+        'cache': false,
+        'success': function (data) {
+            parseTrackingData(data);
+        },
+        'error': function(resp) {
+            console.log("Error retrieving popEstimate.csv, status: "+resp.status+" "+resp.statusText);
+            console.log(resp.responseText);
+        }
+    });
+    console.log("Parsing JHU Data");
+    
     var lines = csv; // assume an array?
     if (csv.indexOf("\n") >= 0) {
         lines = csv.split("\n");
@@ -91,7 +163,21 @@ var parseCovidData = function(csv) {
         }
     }
     
-    console.log("Daily report data parsed");
+    console.log("Daily JHU report data parsed");
+};
+
+var parseTrackingData = function(data) {
+    console.log("Daily COVID Tracking Project data received, building index");
+    covid.tracking = {};
+    covid.tracking.data = JSON.parse(data);
+    covid.tracking.index = {};
+    for (var k=0;k<covid.tracking.data.length;k++) {
+        var tobs = covid.tracking.data[k];
+        var idx = tobs.state+"_"+tobs.date;
+        covid.tracking.index[idx] = k;
+    }
+
+    console.log("Daily COVID Tracking Project data index created");
     populateSelects("all");
     
 	document.getElementById("selectCountry").addEventListener("change", summarizeFromDocCountry);
@@ -99,7 +185,8 @@ var parseCovidData = function(csv) {
 	document.getElementById("selectCounty").addEventListener("change", summarizeFromDocCounty);
 	document.getElementById("selectMetric").addEventListener("change", getSelects);
 	summarize("All","All","All");
-};
+    
+}
 
 /**
  * Populates the select boxes
@@ -157,6 +244,7 @@ var populateSelects = function(level) {
 
 /**
  * Updates the covid object indexes based on a current observation
+ * These indexes are primarily used to build the selection drop-downs
  * @param {object} tobs this observation
  */
 var updateIndexes = function(tobs) {
@@ -340,6 +428,21 @@ var summarize = function(srchCountry, srchState, srchCounty) {
         days[d].conf100k = days[d].population > 0 ? days[d].confirmed / (days[d].population / 100000) : null;
         days[d].new100k = days[d].population > 0 ? days[d].confirmedDelta / (days[d].population / 100000) : null;
         days[d].died100k = days[d].population > 0 ? days[d].died / (days[d].population / 100000) : null;
+        if (srchCountry === "US") {
+            if (srchState !== "All") {
+                var stAbrv = stateXref[srchState];
+                if (stAbrv && covid.tracking.index[stAbrv+"_"+days[d].date]) {
+                    var ttrack = covid.tracking.data[covid.tracking.index[stAbrv+"_"+days[d].date]];
+                    days[d].newHosp = ttrack.hospitalizedIncrease ? ttrack.hospitalizedIncrease * 1 : 0;
+                    days[d].newTests = ttrack.totalTestResultsIncrease ? ttrack.totalTestResultsIncrease * 1 : 0;
+                    days[d].newNeg = ttrack.negativeIncrease ? ttrack.negativeIncrease * 1 : 0;
+                    days[d].newPos = ttrack.positiveIncrease ? ttrack.positiveIncrease * 1 : 0;
+                    days[d].totalTests = ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
+                    days[d].totalNeg = ttrack.negative ? ttrack.negative * 1 : 0;
+                    days[d].totalPos = ttrack.positive ? ttrack.positive * 1 : 0;
+                }
+            }
+        }
     }
 
     // iterate through the locales and do the same by locale
