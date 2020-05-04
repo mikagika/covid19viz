@@ -432,14 +432,15 @@ var summarize = function(srchCountry, srchState, srchCounty) {
             if (srchState !== "All") {
                 var stAbrv = stateXref[srchState];
                 if (stAbrv && covid.tracking.index[stAbrv+"_"+days[d].date]) {
-                    var ttrack = covid.tracking.data[covid.tracking.index[stAbrv+"_"+days[d].date]];
-                    days[d].newHosp = ttrack.hospitalizedIncrease ? ttrack.hospitalizedIncrease * 1 : 0;
-                    days[d].newTests = ttrack.totalTestResultsIncrease ? ttrack.totalTestResultsIncrease * 1 : 0;
-                    days[d].newNeg = ttrack.negativeIncrease ? ttrack.negativeIncrease * 1 : 0;
-                    days[d].newPos = ttrack.positiveIncrease ? ttrack.positiveIncrease * 1 : 0;
-                    days[d].totalTests = ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
-                    days[d].totalNeg = ttrack.negative ? ttrack.negative * 1 : 0;
-                    days[d].totalPos = ttrack.positive ? ttrack.positive * 1 : 0;
+                    updateObsTracking(days[d],stAbrv);
+                }
+            }
+            else {
+                for (var state in stateXref) {
+                    var stAbrv = stateXref[srchState];
+                    if (stAbrv && covid.tracking.index[stAbrv+"_"+days[d].date]) {
+                        updateObsTracking(days[d],stAbrv);
+                    }
                 }
             }
         }
@@ -505,6 +506,34 @@ var summarize = function(srchCountry, srchState, srchCounty) {
     showData(days, locales, selection, dim, selectMetric);
 
 };
+
+/**
+ * Update a particular observation with tracking data
+ * @param {*} obs 
+ * @param {*} stAbrv 
+ */
+var updateObsTracking = function(obs,stAbrv) {
+    var ttrack = covid.tracking.data[covid.tracking.index[stAbrv+"_"+obs.date]];
+    if (obs.hasTracking) {
+        obs.newHosp += ttrack.hospitalizedIncrease ? ttrack.hospitalizedIncrease * 1 : 0;
+        obs.newTests += ttrack.totalTestResultsIncrease ? ttrack.totalTestResultsIncrease * 1 : 0;
+        obs.newNeg += ttrack.negativeIncrease ? ttrack.negativeIncrease * 1 : 0;
+        obs.newPos += ttrack.positiveIncrease ? ttrack.positiveIncrease * 1 : 0;
+        obs.totalTests += ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
+        obs.totalNeg += ttrack.negative ? ttrack.negative * 1 : 0;
+        obs.totalPos += ttrack.positive ? ttrack.positive * 1 : 0;
+    }
+    else {
+        obs.hasTracking = true;
+        obs.newHosp = ttrack.hospitalizedIncrease ? ttrack.hospitalizedIncrease * 1 : 0;
+        obs.newTests = ttrack.totalTestResultsIncrease ? ttrack.totalTestResultsIncrease * 1 : 0;
+        obs.newNeg = ttrack.negativeIncrease ? ttrack.negativeIncrease * 1 : 0;
+        obs.newPos = ttrack.positiveIncrease ? ttrack.positiveIncrease * 1 : 0;
+        obs.totalTests = ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
+        obs.totalNeg = ttrack.negative ? ttrack.negative * 1 : 0;
+        obs.totalPos = ttrack.positive ? ttrack.positive * 1 : 0;
+    }
+}
 
 /**
  * Display the data selected in both tabular and graphical form 
