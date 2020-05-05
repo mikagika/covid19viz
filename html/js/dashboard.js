@@ -522,7 +522,7 @@ var updateObsTracking = function(obs,stAbrv) {
         obs.totalTests += ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
         obs.totalNeg += ttrack.negative ? ttrack.negative * 1 : 0;
         obs.totalPos += ttrack.positive ? ttrack.positive * 1 : 0;
-        obs.posPct = obs.newPos / obs.newTests;
+        obs.posPct = 100 * obs.newPos / obs.newTests;
     }
     else {
         obs.hasTracking = true;
@@ -533,7 +533,7 @@ var updateObsTracking = function(obs,stAbrv) {
         obs.totalTests = ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
         obs.totalNeg = ttrack.negative ? ttrack.negative * 1 : 0;
         obs.totalPos = ttrack.positive ? ttrack.positive * 1 : 0;
-        obs.posPct = obs.newPos / obs.newTests;
+        obs.posPct = 100 * obs.newPos / obs.newTests;
     }
 }
 
@@ -1029,7 +1029,6 @@ d3.helper.tooltip = function(){
             var ohtml = [locale+pData.date.substr(0,4)+"-"+pData.date.substr(4,2)+"-"+pData.date.substr(6,2)+"<br/>"];
             var fmt = d3.format(",.0f");
             var fmtPct = d3.format("3.1f");
-            var fmtPct2 = d3.format("3.2f");
             ohtml.push("Confirmed: "+fmt(pData.confirmed)+" ("+fmt(pData.confirmedDelta)+")<br>");
             ohtml.push("Died: "+fmt(pData.died)+" ("+fmt(pData.diedDelta)+")<br>");
             ohtml.push("Recovered: "+fmt(pData.recovered)+" ("+fmt(pData.recoveredDelta)+")<br>");
@@ -1042,8 +1041,8 @@ d3.helper.tooltip = function(){
             if (pData.hasTracking) {
                 ohtml.push(fmt(pData.newHosp)+" new hospitalizations<br>");
                 ohtml.push(fmt(pData.newPos)+" new positives of "+pData.newTests+"<br>");
-                ohtml.push(fmtPct2(pData.posPct)+"% of new cases positive <br>");
-                ohtml.push(fmtPct2(pData.totalPos/pData.totalTests)+"% pos of "+fmt(pData.totalTests)+" total<br>");
+                ohtml.push(fmtPct(pData.posPct)+"% of new cases positive <br>");
+                ohtml.push(fmtPct(100*pData.totalPos/pData.totalTests)+"% pos of "+fmt(pData.totalTests)+" total<br>");
             }
 
             tooltipDiv.html(ohtml.join(""));
