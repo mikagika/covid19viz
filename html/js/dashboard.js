@@ -522,6 +522,7 @@ var updateObsTracking = function(obs,stAbrv) {
         obs.totalTests += ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
         obs.totalNeg += ttrack.negative ? ttrack.negative * 1 : 0;
         obs.totalPos += ttrack.positive ? ttrack.positive * 1 : 0;
+        obs.posPct = obs.newPos / obs.newTests;
     }
     else {
         obs.hasTracking = true;
@@ -532,6 +533,7 @@ var updateObsTracking = function(obs,stAbrv) {
         obs.totalTests = ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
         obs.totalNeg = ttrack.negative ? ttrack.negative * 1 : 0;
         obs.totalPos = ttrack.positive ? ttrack.positive * 1 : 0;
+        obs.posPct = obs.newPos / obs.newTests;
     }
 }
 
@@ -543,6 +545,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
     var dim100k = dimension.indexOf("100k") >= 0 ? true : false;
     var fmt = d3.format(",.0f");
     var fmtPct = d3.format(",.1f");
+    var fmtPct2 = d3.format(",.2f");
     var dimDelta = dimension+"Delta";
     var boxWidth = 720;
     var boxHeight = 430;
@@ -1026,6 +1029,7 @@ d3.helper.tooltip = function(){
             var ohtml = [locale+pData.date.substr(0,4)+"-"+pData.date.substr(4,2)+"-"+pData.date.substr(6,2)+"<br/>"];
             var fmt = d3.format(",.0f");
             var fmtPct = d3.format("3.1f");
+            var fmtPct2 = d3.format("3.2f");
             ohtml.push("Confirmed: "+fmt(pData.confirmed)+" ("+fmt(pData.confirmedDelta)+")<br>");
             ohtml.push("Died: "+fmt(pData.died)+" ("+fmt(pData.diedDelta)+")<br>");
             ohtml.push("Recovered: "+fmt(pData.recovered)+" ("+fmt(pData.recoveredDelta)+")<br>");
@@ -1035,6 +1039,12 @@ d3.helper.tooltip = function(){
             ohtml.push(fmt(pData.conf100k)+" total cases / 100K people<br>");
             ohtml.push(fmtPct(pData.new100k)+" new cases / 100K people<br>");
             ohtml.push(fmtPct(pData.died100k)+" died / 100K people<br>");
+            if (pData.hasTracking) {
+                ohtml.push(fmt(pData.newHosp)+" new hospitalizations<br>");
+                ohtml.push(fmt(pData.newPos)+" new positives of "+pData.newTests+"<br>");
+                ohtml.push(fmtPct2(pData.posPct)+"% of new cases positive <br>");
+                ohtml.push(fmtPct2(pData.totalPos/pData.totalTests)+"% pos of "+fmt(pData.totalTests)+" total<br>");
+            }
 
             tooltipDiv.html(ohtml.join(""));
         })
