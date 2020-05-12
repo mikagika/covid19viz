@@ -497,6 +497,8 @@ var summarize = function(srchCountry, srchState, srchCounty) {
             dim = "recovered"; break;
         case "Tests": 
             dim = "totalTests"; break;
+        case "Positivity": 
+            dim = "positivity"; break;
         case "Confirmed per 100K": 
             dim = "conf100k"; break;
         case "Deaths per 100K": 
@@ -524,6 +526,7 @@ var updateObsTracking = function(obs,stAbrv) {
         obs.totalTests += ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
         obs.totalNeg += ttrack.negative ? ttrack.negative * 1 : 0;
         obs.totalPos += ttrack.positive ? ttrack.positive * 1 : 0;
+        obs.positivity = 100 * obs.totalPos / obs.totalTests;
         obs.posPct = 100 * obs.newPos / obs.newTests;
     }
     else {
@@ -535,6 +538,7 @@ var updateObsTracking = function(obs,stAbrv) {
         obs.totalTests = ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
         obs.totalNeg = ttrack.negative ? ttrack.negative * 1 : 0;
         obs.totalPos = ttrack.positive ? ttrack.positive * 1 : 0;
+        obs.positivity = 100 * obs.totalPos / obs.totalTests;
         obs.posPct = 100 * obs.newPos / obs.newTests;
     }
 }
@@ -551,6 +555,9 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
     var dimDelta = dimension+"Delta";
     if (dimension === "totalTests") {
         dimDelta = "newTests";
+    }
+    if (dimension === "positivity") {
+        dimDelta = "posPct";
     }
     var boxWidth = 720;
     var boxHeight = 430;
@@ -779,7 +786,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
             })
             .attr("width", colWidth);
     if (dimension === "confirmed") {
-        groups.append("rect")  // add the incremental value
+        groups.append("rect")  // add the deaths
             .attr("class","dimObsDied")
             .attr("x",function(d) {
                 return x(timeParser(d.date));
@@ -794,7 +801,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         ;
     }
     if (dimension === "totalTests") {
-        groups.append("rect")  // add the incremental value
+        groups.append("rect")  // add the total positives
             .attr("class","dimObsDied")
             .attr("x",function(d) {
                 return x(timeParser(d.date));
