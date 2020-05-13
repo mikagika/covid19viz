@@ -495,6 +495,10 @@ var summarize = function(srchCountry, srchState, srchCounty) {
             dim = "active"; break;
         case "Recovered": 
             dim = "recovered"; break;
+        case "Tests": 
+            dim = "totalTests"; break;
+        case "Positivity": 
+            dim = "positivity"; break;
         case "Confirmed per 100K": 
             dim = "conf100k"; break;
         case "Deaths per 100K": 
@@ -522,6 +526,7 @@ var updateObsTracking = function(obs,stAbrv) {
         obs.totalTests += ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
         obs.totalNeg += ttrack.negative ? ttrack.negative * 1 : 0;
         obs.totalPos += ttrack.positive ? ttrack.positive * 1 : 0;
+        obs.positivity = 100 * obs.totalPos / obs.totalTests;
         obs.posPct = 100 * obs.newPos / obs.newTests;
     }
     else {
@@ -533,6 +538,7 @@ var updateObsTracking = function(obs,stAbrv) {
         obs.totalTests = ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
         obs.totalNeg = ttrack.negative ? ttrack.negative * 1 : 0;
         obs.totalPos = ttrack.positive ? ttrack.positive * 1 : 0;
+        obs.positivity = 100 * obs.totalPos / obs.totalTests;
         obs.posPct = 100 * obs.newPos / obs.newTests;
     }
 }
@@ -547,6 +553,12 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
     var fmtPct = d3.format(",.1f");
     var fmtPct2 = d3.format(",.2f");
     var dimDelta = dimension+"Delta";
+    if (dimension === "totalTests") {
+        dimDelta = "newTests";
+    }
+    if (dimension === "positivity") {
+        dimDelta = "posPct";
+    }
     var boxWidth = 720;
     var boxHeight = 430;
     var margin= { t: 100, r: 100, b: 50, l: 100, rAxis: 0};
@@ -685,6 +697,9 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
     if (dimension === "confirmed") {
         selectMetric += ", with deaths";
     }
+    if (dimension === "totalTests") {
+        selectMetric += ", with positives";
+    }
     var titleg = svg.append("g")
         .attr("transform","translate("+margin.l+",0)");
     titleg.append("text")
@@ -771,7 +786,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
             })
             .attr("width", colWidth);
     if (dimension === "confirmed") {
-        groups.append("rect")  // add the incremental value
+        groups.append("rect")  // add the deaths
             .attr("class","dimObsDied")
             .attr("x",function(d) {
                 return x(timeParser(d.date));
@@ -781,6 +796,21 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
             })
             .attr("height", function(d) {
                 return d.died ? y(0) - y(d.died) : 0;
+            })
+            .attr("width", colWidth)
+        ;
+    }
+    if (dimension === "totalTests") {
+        groups.append("rect")  // add the total positives
+            .attr("class","dimObsDied")
+            .attr("x",function(d) {
+                return x(timeParser(d.date));
+            })
+            .attr("y",function(d) {
+                return d.totalPos ? y(d.totalPos) : 0;
+            })
+            .attr("height", function(d) {
+                return d.totalPos ? y(0) - y(d.totalPos) : 0;
             })
             .attr("width", colWidth)
         ;
