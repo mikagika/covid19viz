@@ -541,6 +541,8 @@ var updateObsTracking = function(obs,stAbrv) {
         obs.positivity = 100 * obs.totalPos / obs.totalTests;
         obs.posPct = 100 * obs.newPos / obs.newTests;
     }
+    obs.tests100k = obs.totalTests / (obs.population / 100000);
+    obs.newTests100k = obs.newTests / (obs.population / 100000);
 }
 
 /**
@@ -558,6 +560,8 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
     }
     if (dimension === "positivity") {
         dimDelta = "posPct";
+        selectMetric = "Positivity, shown over Daily Tests";
+        dimension = "newTests";
     }
     var boxWidth = 720;
     var boxHeight = 430;
@@ -1059,10 +1063,10 @@ d3.helper.tooltip = function(){
             var ohtml = [locale+pData.date.substr(0,4)+"-"+pData.date.substr(4,2)+"-"+pData.date.substr(6,2)+"<br/>"];
             var fmt = d3.format(",.0f");
             var fmtPct = d3.format("3.1f");
-            ohtml.push("Confirmed: "+fmt(pData.confirmed)+" ("+fmt(pData.confirmedDelta)+")<br>");
-            ohtml.push("Died: "+fmt(pData.died)+" ("+fmt(pData.diedDelta)+")<br>");
-            ohtml.push("Recovered: "+fmt(pData.recovered)+" ("+fmt(pData.recoveredDelta)+")<br>");
-            ohtml.push("Active: "+fmt(pData.active)+" ("+fmt(pData.activeDelta)+")<br>");
+            ohtml.push("Confirmed: "+fmt(pData.confirmed)+" ("+fmt(pData.confirmedDelta)+" new)<br>");
+            ohtml.push("Died: "+fmt(pData.died)+" ("+fmt(pData.diedDelta)+" new)<br>");
+            ohtml.push("Recovered: "+fmt(pData.recovered)+" ("+fmt(pData.recoveredDelta)+" new)<br>");
+            ohtml.push("Active: "+fmt(pData.active)+" ("+fmt(pData.activeDelta)+" new)<br>");
             ohtml.push(fmtPct(100*pData.died/pData.confirmed)+"% of confirmed died<br>");
             ohtml.push("Population: "+fmt(pData.population)+"<br>");
             ohtml.push(fmt(pData.conf100k)+" total cases / 100K people<br>");
@@ -1070,8 +1074,9 @@ d3.helper.tooltip = function(){
             ohtml.push(fmtPct(pData.died100k)+" died / 100K people<br>");
             if (pData.hasTracking) {
                 ohtml.push(fmt(pData.newHosp)+" new hospitalizations<br>");
-                ohtml.push(fmt(pData.newPos)+" new positives of "+pData.newTests+"<br>");
-                ohtml.push(fmtPct(pData.posPct)+"% of new cases positive <br>");
+                ohtml.push(fmt(pData.newPos)+" new positives of "+pData.newTests+" tests<br>");
+                ohtml.push(fmt(pData.tests100k)+" tests / 100K people ("+fmt(pData.newTests100k)+" new)<br>");
+                ohtml.push(fmtPct(pData.posPct)+"% of new tests positive <br>");
                 ohtml.push(fmtPct(100*pData.totalPos/pData.totalTests)+"% pos of "+fmt(pData.totalTests)+" total<br>");
             }
 
