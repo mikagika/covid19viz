@@ -184,6 +184,7 @@ var parseTrackingData = function(data) {
 	document.getElementById("selectState").addEventListener("change", summarizeFromDocState);
 	document.getElementById("selectCounty").addEventListener("change", summarizeFromDocCounty);
 	document.getElementById("selectMetric").addEventListener("change", getSelects);
+	document.getElementById("selectMA").addEventListener("change", getSelects);
 	summarize("All","All","All");
     
 }
@@ -570,6 +571,12 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         selectMetric = "New hospitalizations, shown over new cases";
         dimension = "confirmedDelta";
     }
+    var sMA = document.getElementById("selectMA").selectedOptions[0].label.split(" ");
+    var maCnt = sMA[0];
+    if (maCnt === "none") {
+        maCnt = 0;
+    }
+    
     var boxWidth = 720;
     var boxHeight = 430;
     var margin= { t: 100, r: 100, b: 50, l: 100, rAxis: 0};
@@ -730,7 +737,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         .attr("width",width)
         .attr("x",width/2)
         .attr("y",90)
-        .text(selectMetric)
+        .text(selectMetric+" ("+maCnt+" day MA)")
         ;
 
     svg.append('g')  // y axis label
@@ -830,18 +837,19 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
     if (dimDelta && !dim100k) {
         // calculate moving average
         var maSum = 0;
-        var maCnt = 7;
         var maData = [];
-        for (var k=0;k<days.length;k++) {
-            var obs = days[k][dimDelta];
-            if (typeof obs !== "undefined" && !isNaN(obs)) {
-                maSum += obs;                   // increment sum
-                maData.push(obs);               // add to the list of values
-                if (maData.length > maCnt) {    // too many observations, remove oldest one from list and sum
-                    maSum -= maData.shift(); 
-                }
-                if (maData.length == maCnt) {   // right number of observations, calculate moving average
-                    days[k].movingAvg = maSum / maCnt;
+        if (maCnt > 0) {
+            for (var k=0;k<days.length;k++) {
+                var obs = days[k][dimDelta];
+                if (typeof obs !== "undefined" && !isNaN(obs)) {
+                    maSum += obs;                   // increment sum
+                    maData.push(obs);               // add to the list of values
+                    if (maData.length > maCnt) {    // too many observations, remove oldest one from list and sum
+                        maSum -= maData.shift(); 
+                    }
+                    if (maData.length == maCnt) {   // right number of observations, calculate moving average
+                        days[k].movingAvg = maSum / maCnt;
+                    }
                 }
             }
         }
@@ -854,6 +862,10 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
                     return d[dimDelta] ? y_2(d[dimDelta]) : y_2(0);            }) 
                 ;
         var maline  = d3.line() 
+                .curve(d3.curveNatural)
+                .defined(function(d) {
+                    return d.movingAvg && !isNaN(d.movingAvg);
+                })
                 .x(function(d) {
                     return x(timeParser(d.date))+(colWidth/2);
                 })
@@ -866,11 +878,13 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
             .attr("class","line")
             .attr("d",valueline)
             ;
-        vis.append("path")
+        if (maCnt > 0) {
+            vis.append("path")
             .data([days])
             .attr("class","lineMa")
             .attr("d",maline)
             ;
+        }
     }
 
     vis.selectAll("rect.dimObs").call(d3.helper.tooltip());
