@@ -131,7 +131,14 @@ div.tooltip {
   }
   
   
-  .line {
+.lineMa {
+    stroke-width: 3px;
+    fill: none;
+    opacity: 0.8;
+    stroke: #920000;
+}
+
+.line {
       stroke-width: 3px;
       fill: none;
       opacity: 0.9;

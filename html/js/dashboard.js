@@ -499,6 +499,8 @@ var summarize = function(srchCountry, srchState, srchCounty) {
             dim = "totalTests"; break;
         case "Positivity": 
             dim = "positivity"; break;
+        case "Hospitalizations": 
+            dim = "confirmedDelta"; break;
         case "Confirmed per 100K": 
             dim = "conf100k"; break;
         case "Deaths per 100K": 
@@ -562,6 +564,11 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         dimDelta = "posPct";
         selectMetric = "Positivity, shown over Daily Tests";
         dimension = "newTests";
+    }
+    if (selectMetric === "Hospitalizations") {
+        dimDelta = "newHosp";
+        selectMetric = "New hospitalizations, shown over new cases";
+        dimension = "confirmedDelta";
     }
     var boxWidth = 720;
     var boxHeight = 430;
@@ -820,7 +827,24 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         ;
     }
 
-    if (!dim100k) {
+    if (dimDelta && !dim100k) {
+        // calculate moving average
+        var maSum = 0;
+        var maCnt = 7;
+        var maData = [];
+        for (var k=0;k<days.length;k++) {
+            var obs = days[k][dimDelta];
+            if (typeof obs !== "undefined" && !isNaN(obs)) {
+                maSum += obs;                   // increment sum
+                maData.push(obs);               // add to the list of values
+                if (maData.length > maCnt) {    // too many observations, remove oldest one from list and sum
+                    maSum -= maData.shift(); 
+                }
+                if (maData.length == maCnt) {   // right number of observations, calculate moving average
+                    days[k].movingAvg = maSum / maCnt;
+                }
+            }
+        }
         // add the line
         var valueline  = d3.line() 
                 .x(function(d) {
@@ -829,11 +853,23 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
                 .y(function(d) {
                     return d[dimDelta] ? y_2(d[dimDelta]) : y_2(0);            }) 
                 ;
+        var maline  = d3.line() 
+                .x(function(d) {
+                    return x(timeParser(d.date))+(colWidth/2);
+                })
+                .y(function(d) {
+                    return d.movingAvg ? y_2(d.movingAvg) : y_2(0);            }) 
+                ;
         days.shift(); // get rid of first observation when making the line
         vis.append("path")
             .data([days])
             .attr("class","line")
             .attr("d",valueline)
+            ;
+        vis.append("path")
+            .data([days])
+            .attr("class","lineMa")
+            .attr("d",maline)
             ;
     }
 
