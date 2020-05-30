@@ -353,6 +353,9 @@ var summarize = function(srchCountry, srchState, srchCounty) {
                         }
                         if (isNaN(pop)) {  // in case we mess it up
                             pop = 0;
+                            if (tobs.country !== "US") {
+                                writeMessageOnce("Warning: no population found for "+tobs.country+"_"+tobs.state);
+                            }
                         }
                     }
                     if (typeof dayIdx[tobs.date] === "undefined") {
@@ -1180,7 +1183,6 @@ d3.helper.tooltip = function(){
     return tooltip;
 };
 
-
 // Custom event polyfill required for IE
 (function () {
 
@@ -1197,3 +1199,13 @@ d3.helper.tooltip = function(){
 
   window.CustomEvent = CustomEvent;
 })();
+
+function writeMessageOnce(msg) {
+    if (typeof messagesWritten === "undefined") {
+        messagesWritten = {};
+    }
+    if (!messagesWritten[msg]) {
+        console.log(msg);
+        messagesWritten[msg] = true;
+    }
+}
