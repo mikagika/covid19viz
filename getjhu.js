@@ -62,7 +62,7 @@ for (var k=1;k<lines.length;k++) {
     data = handleQuotes(data);
     if (data && data.length >= 11) {
         var tobs = {};
-        if (version === 2) {
+        if (version >= 2) {
             tobs.fips = data[0];
             tobs.country = data[3];
             tobs.state = data[2];
@@ -92,6 +92,11 @@ for (var k=1;k<lines.length;k++) {
                 }
             }
             */
+        }
+        if (version === 3) {
+            // not currently using these
+            tobs.incidence = data[12];
+            tobs.cfr = data[13];
         }
         var thisKey = tobs.country+tobs.state+tobs.county+tobs.date;
         if (!keys[thisKey]) {
@@ -191,6 +196,9 @@ function checkVersion(line0) {
     */
     if (lines[0].trim() == "FIPS,Admin2,Province_State,Country_Region,Last_Update,Lat,Long_,Confirmed,Deaths,Recovered,Active,Combined_Key") {
         v = 2;
+    }
+    if (lines[0].trim() == "FIPS,Admin2,Province_State,Country_Region,Last_Update,Lat,Long_,Confirmed,Deaths,Recovered,Active,Combined_Key,Incidence_Rate,Case-Fatality_Ratio") {
+        v = 3;
     }
     return v;
 }
