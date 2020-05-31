@@ -359,6 +359,9 @@ var summarize = function(srchCountry, srchState, srchCounty) {
                         }
                     }
                     if (typeof dayIdx[tobs.date] === "undefined") {
+                        if (pop === 0 && popData[tobs.country+"_"]) {  // do for first one only 
+                            pop = popData[tobs.country+"_"].popEst * 1;
+                        }
                         dayIdx[tobs.date] = days.length;
                         days.push({
                             date:tobs.date,
@@ -390,6 +393,9 @@ var summarize = function(srchCountry, srchState, srchCounty) {
                     }
                     var tloc = locales[localeIdx[locale]];
                     if (typeof tloc.dayIdx[tobs.date] === "undefined") {
+                        if (pop === 0 && popData[tobs.country+"_"]) {  // do for first one only 
+                            pop = popData[tobs.country+"_"].popEst * 1;
+                        }
                         tloc.dayIdx[tobs.date] = tloc.days.length;
                         tloc.days.push({
                             date:tobs.date,
