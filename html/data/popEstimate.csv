@@ -3201,6 +3201,8 @@
 0,Argentina,,,44293293
 0,Armenia,,,3045191
 0,Australia,Australian Capital Territory,,426709
+0,Australia,External territories,,4303
+0,Australia,Jervis Bay Territory,,405
 0,Australia,New South Wales,,8089526
 0,Australia,Northern Territory,,245869
 0,Australia,Queensland,,5095100
@@ -3266,6 +3268,7 @@
 0,China,Tianjin,,15570000
 0,China,Zhejiang,,56570000
 0,Colombia,,,47698524
+0,Comoros,,,846281
 0,Congo (Brazzaville),,,4954674
 0,Congo (Kinshasa),,,83301151
 0,Costa Rica,,,4930258
@@ -3337,6 +3340,7 @@
 0,Laos,,,7126706
 0,Latvia,,,1944643
 0,Lebanon,,,6229794
+0,Lesotho,,,1969334
 0,Liberia,,,4689021
 0,Libya,,,6653210
 0,Liechtenstein,,,38244
@@ -3408,6 +3412,7 @@
 0,Switzerland,,,8236303
 0,Syria,,,18028549
 0,Taiwan*,,,23508428
+0,Tajikistan,,,8873669
 0,Tanzania,,,53950935
 0,Thailand,,,68414135
 0,Timor-Leste,,,1291358
@@ -3425,6 +3430,7 @@
 0,United Kingdom,Cayman Islands,,61559
 0,United Kingdom,Channel Islands,,173512
 0,United Kingdom,Falkland Islands (Malvinas),,3398
+0,United Kingdom,Falkland Islands (Islas Malvinas),,3398
 0,United Kingdom,Gibraltar,,34571
 0,United Kingdom,Isle of Man,,84287
 0,United Kingdom,Montserrat,,5900
@@ -3435,5 +3441,6 @@
 0,Vietnam,,,96160163
 0,West Bank and Gaza,,,4543126
 0,Western Sahara,,,603253
+0,Yemen,,,29884405
 0,Zambia,,,15972001
 0,Zimbabwe,,,13805084
