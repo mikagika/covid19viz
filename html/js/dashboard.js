@@ -139,6 +139,38 @@ var parseCovidData = function(csv) {
     for (var k=1;k<lines.length;k++) {
         var data = lines[k].split(",");
         if (data && data.length >= 9) {
+            if (data[1] === "Diamond Princess") { 
+                console.log("Skipping now less interesting Diamond Princess");
+                continue;
+            }
+            if (data[2] === "Diamond Princess") { 
+                console.log("Skipping now less interesting Diamond Princess");
+                continue;
+            }
+            if (data[2] === "Grand Princess") { 
+                console.log("Skipping now less interesting Grand Princess");
+                continue;
+            }
+            if (data[2] === "Veteran Hospitals") { 
+                console.log("Skipping now less interesting Veteran Hospitals");
+                continue;
+            }
+            if (data[2] === "US Military") { 
+                console.log("Skipping now less interesting US Military");
+                continue;
+            }
+            if (data[2] === "Wuhan Evacuee") { 
+                console.log("Skipping now less interesting Wuhan Evacuee");
+                continue;
+            }
+            if (data[2] === "Federal Bureau of Prisons") { 
+                console.log("Skipping now less interesting Federal Bureau of Prisons");
+                continue;
+            }
+            if (data[1] === "MS Zaandam") { 
+                console.log("Skipping now less interesting MS Zaandam");
+                continue;
+            }
             if (data[5] == 0 &&
                 (data[3]==="Bronx" || data[3]==="Kings" || data[3]==="Queens" || data[3]==="Richmond" || data[3]==="Seneca" || data[3]==="Yates" )) {
                 continue;  // skip these to avoid adding in their populations
