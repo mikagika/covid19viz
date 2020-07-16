@@ -468,7 +468,7 @@ var summarize = function(srchCountry, srchState, srchCounty) {
         days[d].recoveredDelta = days[d].recovered - days[d0].recovered;
         days[d].activeDelta = days[d].active - days[d0].active;
         days[d].conf100k = days[d].population > 0 ? days[d].confirmed / (days[d].population / 100000) : null;
-        days[d].new100k = days[d].population > 0 ? days[d].confirmedDelta / (days[d].population / 100000) : null;
+        days[d].conf100kDelta = days[d].population > 0 ? days[d].confirmedDelta / (days[d].population / 100000) : null;
         days[d].died100k = days[d].population > 0 ? days[d].died / (days[d].population / 100000) : null;
         if (srchCountry === "US") {
             if (srchState !== "All") {
@@ -509,8 +509,9 @@ var summarize = function(srchCountry, srchState, srchCounty) {
                 tloc.days[d].recoveredDelta = tloc.days[d].recovered - tloc.days[d0].recovered;
                 tloc.days[d].activeDelta = tloc.days[d].active - tloc.days[d0].active;
                 tloc.days[d].conf100k = tloc.days[d].population > 0 ? tloc.days[d].confirmed / (tloc.days[d].population / 100000) : null;
-                tloc.days[d].new100k = tloc.days[d].population > 0 ? tloc.days[d].confirmedDelta / (tloc.days[d].population / 100000) : null;
+                tloc.days[d].conf100kDelta = tloc.days[d].population > 0 ? tloc.days[d].confirmedDelta / (tloc.days[d].population / 100000) : null;
                 tloc.days[d].died100k = tloc.days[d].population > 0 ? tloc.days[d].died / (tloc.days[d].population / 100000) : null;
+                tloc.days[d].died100kDelta = tloc.days[d].population > 0 ? tloc.days[d].diedDelta / (tloc.days[d].population / 100000) : null;
             }
             else {
                 tloc.days[d].confirmedDelta = tloc.days[d].confirmed;
@@ -518,8 +519,9 @@ var summarize = function(srchCountry, srchState, srchCounty) {
                 tloc.days[d].recoveredDelta = tloc.days[d].recovered;
                 tloc.days[d].activeDelta = tloc.days[d].active;
                 tloc.days[d].conf100k = tloc.days[d].population > 0 ? tloc.days[d].confirmed / (tloc.days[d].population / 100000) : null;
-                tloc.days[d].new100k = tloc.days[d].population > 0 ? tloc.days[d].confirmedDelta / (tloc.days[d].population / 100000) : null;
+                tloc.days[d].conf100kDelta = tloc.days[d].population > 0 ? tloc.days[d].confirmedDelta / (tloc.days[d].population / 100000) : null;
                 tloc.days[d].died100k = tloc.days[d].population > 0 ? tloc.days[d].died / (tloc.days[d].population / 100000) : null;
+                tloc.days[d].died100kDelta = tloc.days[d].population > 0 ? tloc.days[d].diedDelta / (tloc.days[d].population / 100000) : null;
             }
         }
     }
@@ -548,7 +550,7 @@ var summarize = function(srchCountry, srchState, srchCounty) {
         case "Deaths per 100K": 
             dim = "died100k"; break;
         case "New per 100K": 
-            dim = "new100k"; break;
+            dim = "conf100kDelta"; break;
     }
 
     showData(days, locales, selection, dim, selectMetric);
@@ -594,7 +596,6 @@ var updateObsTracking = function(obs,stAbrv) {
  */
 var showData = function(days, locales, selection, dimension, selectMetric) {
     console.log("showing data for dimension ", dimension);
-    var dim100k = dimension.indexOf("100k") >= 0 ? true : false;
     var fmt = d3.format(",.0f");
     var fmtPct = d3.format(",.1f");
     var fmtPct2 = d3.format(",.2f");
@@ -670,7 +671,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         ohtml.push("<td>"+fmt(tobs.activeDelta)+"</td>");
         ohtml.push("<td>"+fmt(tobs.population)+"</td>");
         ohtml.push("<td>"+fmt(tobs.conf100k)+"</td>");
-        ohtml.push("<td>"+fmtPct(tobs.new100k)+"</td>");
+        ohtml.push("<td>"+fmtPct(tobs.conf100kDelta)+"</td>");
         ohtml.push("<td>"+fmtPct(tobs.died100k)+"</td>");
         ohtml.push("</tr>");
     }
@@ -694,7 +695,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         ohtml.push("<td>"+fmt(tobs.activeDelta)+"</td>");
         ohtml.push("<td>"+fmt(tobs.population)+"</td>");
         ohtml.push("<td>"+fmt(tobs.conf100k)+"</td>");
-        ohtml.push("<td>"+fmtPct(tobs.new100k)+"</td>");
+        ohtml.push("<td>"+fmtPct(tobs.conf100kDelta)+"</td>");
         ohtml.push("<td>"+fmtPct(tobs.died100k)+"</td>");
         ohtml.push("</tr>");
     }
@@ -789,15 +790,13 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         .attr('y',16)
         .text("Total");
 
-    if (!dim100k) {
-        svg.append('g')  // y2 axis label
+    svg.append('g')  // y2 axis label
         .append('text')
         .attr('class','yLabel')
         .attr('transform','rotate(-90)')
         .attr('x',0-(height/2)-margin.t-margin.b)
         .attr('y',margin.l+width+60)
         .text("Incremental");
-    }
 
 
     // create the space and labeling for the visualization
@@ -819,14 +818,12 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         .append("title").text("Total")
         ;
 
-    if (!dim100k) {  // per 100k don't have incremental line
-        vis.append('g')
+    vis.append('g')
         .attr('class', 'y axis2')
         .call(y2Axis)
         .selectAll("text")
         .append("title").text("Incremental")
         ;
-    }
 
     // Add the bars
     var groups = vis.selectAll("rect")
@@ -875,58 +872,57 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         ;
     }
 
-    if (dimDelta && !dim100k) {
-        // calculate moving average
-        var maSum = 0;
-        var maData = [];
-        if (maCnt > 0) {
-            for (var k=0;k<days.length;k++) {
-                var obs = days[k][dimDelta];
-                if (typeof obs !== "undefined" && !isNaN(obs)) {
-                    maSum += obs;                   // increment sum
-                    maData.push(obs);               // add to the list of values
-                    if (maData.length > maCnt) {    // too many observations, remove oldest one from list and sum
-                        maSum -= maData.shift(); 
-                    }
-                    if (maData.length == maCnt) {   // right number of observations, calculate moving average
-                        days[k].movingAvg = maSum / maCnt;
-                    }
+    // calculate moving average
+    var maSum = 0;
+    var maData = [];
+    if (maCnt > 0) {
+        for (var k=0;k<days.length;k++) {
+            var obs = days[k][dimDelta];
+            if (typeof obs !== "undefined" && !isNaN(obs)) {
+                maSum += obs;                   // increment sum
+                maData.push(obs);               // add to the list of values
+                if (maData.length > maCnt) {    // too many observations, remove oldest one from list and sum
+                    maSum -= maData.shift(); 
+                }
+                if (maData.length == maCnt) {   // right number of observations, calculate moving average
+                    days[k].movingAvg = maSum / maCnt;
                 }
             }
         }
-        // add the line
-        var valueline  = d3.line() 
-                .x(function(d) {
-                    return x(timeParser(d.date))+(colWidth/2);
-                })
-                .y(function(d) {
-                    return d[dimDelta] ? y_2(d[dimDelta]) : y_2(0);            }) 
-                ;
-        var maline  = d3.line() 
-                .curve(d3.curveNatural)
-                .defined(function(d) {
-                    return d.movingAvg && !isNaN(d.movingAvg);
-                })
-                .x(function(d) {
-                    return x(timeParser(d.date))+(colWidth/2);
-                })
-                .y(function(d) {
-                    return d.movingAvg ? y_2(d.movingAvg) : y_2(0);            }) 
-                ;
-        days.shift(); // get rid of first observation when making the line
-        vis.append("path")
-            .data([days])
-            .attr("class","line")
-            .attr("d",valueline)
-            ;
-        if (maCnt > 0) {
-            vis.append("path")
-            .data([days])
-            .attr("class","lineMa")
-            .attr("d",maline)
-            ;
-        }
     }
+    // add the line
+    var valueline  = d3.line() 
+            .x(function(d) {
+                return x(timeParser(d.date))+(colWidth/2);
+            })
+            .y(function(d) {
+                return d[dimDelta] ? y_2(d[dimDelta]) : y_2(0);            }) 
+            ;
+    var maline  = d3.line() 
+            .curve(d3.curveNatural)
+            .defined(function(d) {
+                return d.movingAvg && !isNaN(d.movingAvg);
+            })
+            .x(function(d) {
+                return x(timeParser(d.date))+(colWidth/2);
+            })
+            .y(function(d) {
+                return d.movingAvg ? y_2(d.movingAvg) : y_2(0);            }) 
+            ;
+    days.shift(); // get rid of first observation when making the line
+    vis.append("path")
+        .data([days])
+        .attr("class","line")
+        .attr("d",valueline)
+        ;
+    if (maCnt > 0) {
+        vis.append("path")
+        .data([days])
+        .attr("class","lineMa")
+        .attr("d",maline)
+        ;
+    }
+
 
     vis.selectAll("rect.dimObs").call(d3.helper.tooltip());
     vis.selectAll("rect.dimObsDied").call(d3.helper.tooltip());
@@ -1161,7 +1157,7 @@ d3.helper.tooltip = function(){
             ohtml.push(fmtPct(100*pData.died/pData.confirmed)+"% of confirmed died<br>");
             ohtml.push("Population: "+fmt(pData.population)+"<br>");
             ohtml.push(fmt(pData.conf100k)+" total cases / 100K people<br>");
-            ohtml.push(fmtPct(pData.new100k)+" new cases / 100K people<br>");
+            ohtml.push(fmtPct(pData.conf100kDelta)+" new cases / 100K people<br>");
             ohtml.push(fmtPct(pData.died100k)+" died / 100K people<br>");
             if (pData.hasTracking) {
                 ohtml.push(fmt(pData.newHosp)+" new hospitalizations<br>");
