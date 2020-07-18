@@ -217,6 +217,7 @@ var parseTrackingData = function(data) {
 	document.getElementById("selectCounty").addEventListener("change", summarizeFromDocCounty);
 	document.getElementById("selectMetric").addEventListener("change", getSelects);
 	document.getElementById("selectMA").addEventListener("change", getSelects);
+	document.getElementById("selectAgg").addEventListener("change", getSelects);
 	summarize("All","All","All");
     
 }
@@ -618,6 +619,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
     if (maCnt === "none") {
         maCnt = 0;
     }
+    var maType = document.getElementById("selectAgg").selectedOptions[0].label.split(" ")[1];
     
     var boxWidth = 720;
     var boxHeight = 430;
@@ -729,6 +731,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         y.domain([yExtent[0],ticks[ticks.length - 1] + stride]);  // reset the domain
     }
 
+    /*
     yExtent2 = d3.extent(days, d => d[dimDelta]);
     yExtent2[0] = 0; // always make it zero based
     y_2     = d3.scaleLinear().domain(yExtent2).range([height, 0]);
@@ -738,6 +741,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         var stride = ticks[1] - ticks[0];                           // determine increment d3 is using
         y_2.domain([yExtent2[0],ticks[ticks.length - 1] + stride]);  // reset the domain
     }
+    */
 
     svg = svg.append('svg')
         .attr("viewBox","0 0 "+boxWidth+" "+boxHeight)
@@ -779,7 +783,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         .attr("width",width)
         .attr("x",width/2)
         .attr("y",90)
-        .text(selectMetric+" ("+maCnt+" day MA)")
+        .text(selectMetric+" ("+maCnt+" day Moving "+maType+")")
         ;
 
     svg.append('g')  // y axis label
@@ -816,13 +820,6 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         .call(yAxis)
         .selectAll("text")
         .append("title").text("Total")
-        ;
-
-    vis.append('g')
-        .attr('class', 'y axis2')
-        .call(y2Axis)
-        .selectAll("text")
-        .append("title").text("Incremental")
         ;
 
     // Add the bars
@@ -885,11 +882,30 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
                     maSum -= maData.shift(); 
                 }
                 if (maData.length == maCnt) {   // right number of observations, calculate moving average
-                    days[k].movingAvg = maSum / maCnt;
+                    days[k].movingAvg = maType === "Sum" ? maSum : maSum / maCnt;
                 }
             }
         }
     }
+
+    yExtent2 = d3.extent(days, d => Math.max(d[dimDelta],d.movingAvg));
+    yExtent2[0] = 0; // always make it zero based
+    y_2     = d3.scaleLinear().domain(yExtent2).range([height, 0]);
+    y2Axis  = d3.axisRight(y_2).tickSizeInner(0).ticks(10).tickPadding(width+10);
+    var ticks = y_2.ticks(); // gets the array of ticks that d3 wants to use
+    if (ticks[ticks.length - 1] < yExtent2[1] ) {  // if the last tick isn't at the max of the chart
+        var stride = ticks[1] - ticks[0];                           // determine increment d3 is using
+        y_2.domain([yExtent2[0],ticks[ticks.length - 1] + stride]);  // reset the domain
+    }
+
+    vis.append('g')
+        .attr('class', 'y axis2')
+        .call(y2Axis)
+        .selectAll("text")
+        .append("title").text("Incremental")
+        ;
+
+
     // add the line
     var valueline  = d3.line() 
             .x(function(d) {
