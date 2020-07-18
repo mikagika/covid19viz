@@ -796,8 +796,8 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
 
     svg.append('g')  // y2 axis label
         .append('text')
-        .attr('class','yLabel')
-        .attr('transform','rotate(-90)')
+        .attr('class','yLabel2')
+        .attr('transform','translate(10,0),rotate(-90)')
         .attr('x',0-(height/2)-margin.t-margin.b)
         .attr('y',margin.l+width+60)
         .text("Incremental");

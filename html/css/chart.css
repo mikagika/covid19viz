@@ -14,7 +14,7 @@ div.tooltip {
 .axis text {
     fill:#333333;
     font-family:"Arial",sans-serif;
-    font-size:12px;
+    font-size:11px;
 }
 .axis line {
     stroke:#999999;
@@ -55,7 +55,7 @@ div.tooltip {
 	text-anchor: middle;
 }
 .x.axis text {
-        transform: translate(0px,10px) rotate(15deg);
+        transform: translate(10px,10px) rotate(30deg);
 }
 .y.axis {
 	text-anchor: end;
@@ -113,8 +113,15 @@ div.tooltip {
       font-size: 16px;
       font-family: "Arial",sans-serif;
       text-align: middle;
+      stroke: #816ee8;
   }
-  
+  .yLabel2 {
+    font-size: 14px;
+    font-family: "Arial",sans-serif;
+    text-align: middle;
+    stroke: red;
+}
+
   .area-line {
       opacity: 1;
       fill: none;
