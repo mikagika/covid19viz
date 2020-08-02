@@ -13,6 +13,8 @@ var covid = {
 var unlocked = true; 
 
 var minDate = "20200322";  // oldest complete data we have, ignore anything older
+var selectedMinDate = minDate; 
+var avgMinDate = minDate;
 // note
 
 var stateXref = {
@@ -218,6 +220,7 @@ var parseTrackingData = function(data) {
 	document.getElementById("selectMetric").addEventListener("change", getSelects);
 	document.getElementById("selectMA").addEventListener("change", getSelects);
 	document.getElementById("selectAgg").addEventListener("change", getSelects);
+	document.getElementById("selectDates").addEventListener("change", getSelects);
 	summarize("All","All","All");
     
 }
@@ -344,8 +347,28 @@ var getSelects = function() {
     var selectedCountry = document.getElementById("selectCountry").selectedOptions[0].label;
 	var selectedState = document.getElementById("selectState").selectedOptions[0].label;
     var selectedCounty = document.getElementById("selectCounty").selectedOptions[0].label;
-	console.log(selectedCountry, selectedState, selectedCounty);
-    summarize(selectedCountry, selectedState, selectedCounty);
+    var selDate = document.getElementById("selectDates").selectedOptions[0].label;
+    if (selDate === "All") {
+        selectedMinDate = minDate;
+        avgMinDate = minDate;
+    }
+    else {
+        var days = selDate.substring(0,selDate.indexOf(" "));
+        var now = new Date();
+        now.setDate(now.getDate() - days);
+        var iso = now.toISOString();
+        selectedMinDate = iso.substr(0,4)+iso.substr(5,2)+iso.substr(8,2);
+        var selAvg = document.getElementById("selectMA").selectedOptions[0].label;
+        var avgDays = 0;
+        if (selAvg !== "none") {
+            avgDays = selAvg.substring(0,selAvg.indexOf(" "));
+        }
+        now.setDate(now.getDate() - avgDays);
+        iso = now.toISOString();
+        avgMinDate = iso.substr(0,4)+iso.substr(5,2)+iso.substr(8,2);
+    }
+	console.log("Selections: ", selectedCountry, selectedState, selectedCounty, selectedMinDate);
+    summarize(selectedCountry, selectedState, selectedCounty, selectedMinDate);
 }
 
 /**
@@ -367,6 +390,9 @@ var summarize = function(srchCountry, srchState, srchCounty) {
     for (var k=0;k<covid.obs.length;k++) {
         var tobs = covid.obs[k];
         var locale = '';
+        if (tobs.date < avgMinDate) {  // select dates before what we'll show so we can calculate the moving average
+            continue;
+        }
         if (srchCountry === "All" || srchCountry === tobs.country) {
             locale += tobs.country;
             if (srchState === "All" || srchState === tobs.state) {
@@ -715,13 +741,13 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
     var x, xAxis, y, yAxis, y_2, y2Axis, xExtent, yExtent, yExtent2;  // core axis definitions that will get reused 
     var timeParser = d3.timeParse("%Y%m%d");
     var timeFormatter = d3.timeFormat("%Y-%m-%d");
-    xExtent = d3.extent(days, d => timeParser(d.date));
+    xExtent = d3.extent(days, d => d.date < selectedMinDate ? null : timeParser(d.date));  // note null ignored, so ignore days we don't want to show
     xExtent[1] = xExtent[1].getTime()+(86400*1000); // because days are one day wide, so need to fit an extra day on x axis
     x = d3.scaleTime().domain(xExtent).range([0, width]);
     xAxis   = d3.axisBottom(x).tickSizeOuter(8).tickFormat(timeFormatter).ticks(6);
     var colWidth = Math.round((x(timeParser("20200323")) - x(timeParser("20200322")))*.97);
 
-    yExtent = d3.extent(days, d => d[dimension]);
+    yExtent = d3.extent(days, d => d.date < selectedMinDate ? null : d[dimension]);  // ignore dates we don't want to show
     yExtent[0] = 0; // always make it zero based
     y       = d3.scaleLinear().domain(yExtent).range([height, 0]);
     yAxis   = d3.axisLeft(y).tickSizeInner(-width).ticks(10);
@@ -824,7 +850,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
 
     // Add the bars
     var groups = vis.selectAll("rect")
-        .data(days)
+        .data(days.filter(d => !(d.date < selectedMinDate)))
         .enter().append("g");
     groups.append("rect")
             .attr("class","dimObs")
@@ -888,7 +914,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         }
     }
 
-    yExtent2 = d3.extent(days, d => Math.max(d[dimDelta],d.movingAvg));
+    yExtent2 = d3.extent(days, d => d.date < selectedMinDate ? null : Math.max(d[dimDelta],d.movingAvg));
     yExtent2[0] = 0; // always make it zero based
     y_2     = d3.scaleLinear().domain(yExtent2).range([height, 0]);
     y2Axis  = d3.axisRight(y_2).tickSizeInner(0).ticks(10).tickPadding(width+10);
@@ -927,13 +953,13 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
             ;
     days.shift(); // get rid of first observation when making the line
     vis.append("path")
-        .data([days])
+        .data([days.filter(d => !(d.date < selectedMinDate))])
         .attr("class","line")
         .attr("d",valueline)
         ;
     if (maCnt > 0) {
         vis.append("path")
-        .data([days])
+        .data([days.filter(d => !(d.date < selectedMinDate))])
         .attr("class","lineMa")
         .attr("d",maline)
         ;
