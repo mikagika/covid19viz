@@ -61,6 +61,7 @@ for (var k=1;k<lines.length;k++) {
     var data = lines[k].split(",");
     data = handleQuotes(data);
     if (data && data.length >= 11) {
+        data[data.length - 1] = data[data.length - 1].replace("\r","");
         var tobs = {};
         if (version >= 2) {
             tobs.fips = data[0];
@@ -95,8 +96,8 @@ for (var k=1;k<lines.length;k++) {
         }
         if (version === 3) {
             // not currently using these
-            tobs.incidence = data[12];
-            tobs.cfr = data[13];
+            //tobs.incidence = data[12];
+            //tobs.cfr = data[13];
         }
         var thisKey = tobs.country+tobs.state+tobs.county+tobs.date;
         if (!keys[thisKey]) {
@@ -239,8 +240,11 @@ function getCovidData(csv) {
     }
     for (var k=1;k<lines.length;k++) {
         var data = lines[k].split(",");
-        data[data.length - 1] = data[data.length - 1].replace("\r","");
         if (data && data.length >= 9) {
+            //print(data[8].length+" "+data[8]);
+            if (data.length === 9) { // we can skip the fixing carriage returns if we have more columns than we use
+                data[8] = data[8].replace("\r","");
+            }
             var tobs = {
                 fips: data[0],
                 country: data[1], 
@@ -258,6 +262,7 @@ function getCovidData(csv) {
             keys[tobs.country+tobs.state+tobs.county+tobs.date] = covid.obs.length;    
         }
     }
+    print("Done reading existing data");
 }
 
 /**
