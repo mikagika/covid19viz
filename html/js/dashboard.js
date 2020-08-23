@@ -120,7 +120,7 @@ var parseCovidData = function(csv) {
     $.ajax({
         'async': true,
         'global': false,
-        'url': 'https://covidtracking.com/api/v1/states/daily.json',
+        'url': 'https://api.covidtracking.com/v1/states/daily.json',
         'dataType': "text",
         'cache': false,
         'success': function (data) {
