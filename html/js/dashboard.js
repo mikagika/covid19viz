@@ -1,7 +1,9 @@
 /* globals Chart:false, feather:false */
+'use strict'
 
-we3 = (function () {
-  'use strict'
+var messagesWritten = {};
+
+var we3 = (function () {
 
 var popData = {};
 var keys = {};
@@ -142,35 +144,35 @@ var parseCovidData = function(csv) {
         var data = lines[k].split(",");
         if (data && data.length >= 9) {
             if (data[1] === "Diamond Princess") { 
-                console.log("Skipping now less interesting Diamond Princess");
+                writeMessageOnce("Skipping now less interesting Diamond Princess");
                 continue;
             }
             if (data[2] === "Diamond Princess") { 
-                console.log("Skipping now less interesting Diamond Princess");
+                writeMessageOnce("Skipping now less interesting Diamond Princess");
                 continue;
             }
             if (data[2] === "Grand Princess") { 
-                console.log("Skipping now less interesting Grand Princess");
+                writeMessageOnce("Skipping now less interesting Grand Princess");
                 continue;
             }
             if (data[2] === "Veteran Hospitals") { 
-                console.log("Skipping now less interesting Veteran Hospitals");
+                writeMessageOnce("Skipping now less interesting Veteran Hospitals");
                 continue;
             }
             if (data[2] === "US Military") { 
-                console.log("Skipping now less interesting US Military");
+                writeMessageOnce("Skipping now less interesting US Military");
                 continue;
             }
             if (data[2] === "Wuhan Evacuee") { 
-                console.log("Skipping now less interesting Wuhan Evacuee");
+                writeMessageOnce("Skipping now less interesting Wuhan Evacuee");
                 continue;
             }
             if (data[2] === "Federal Bureau of Prisons") { 
-                console.log("Skipping now less interesting Federal Bureau of Prisons");
+                writeMessageOnce("Skipping now less interesting Federal Bureau of Prisons");
                 continue;
             }
             if (data[1] === "MS Zaandam") { 
-                console.log("Skipping now less interesting MS Zaandam");
+                writeMessageOnce("Skipping now less interesting MS Zaandam");
                 continue;
             }
             /* JHU data changed 2020-08-31 to include these counties and not a New York City number            */
@@ -221,7 +223,8 @@ var parseTrackingData = function(data) {
 	document.getElementById("selectMetric").addEventListener("change", getSelects);
 	document.getElementById("selectMA").addEventListener("change", getSelects);
 	document.getElementById("selectAgg").addEventListener("change", getSelects);
-	document.getElementById("selectDates").addEventListener("change", getSelects);
+    document.getElementById("selectDates").addEventListener("change", getSelects);
+    getSelectDates();
 	summarize("All","All","All");
     
 }
@@ -348,6 +351,12 @@ var getSelects = function() {
     var selectedCountry = document.getElementById("selectCountry").selectedOptions[0].label;
 	var selectedState = document.getElementById("selectState").selectedOptions[0].label;
     var selectedCounty = document.getElementById("selectCounty").selectedOptions[0].label;
+    getSelectDates();
+	console.log("Selections: ", selectedCountry, selectedState, selectedCounty, selectedMinDate);
+    summarize(selectedCountry, selectedState, selectedCounty, selectedMinDate);
+}
+
+var getSelectDates = function() {
     var selDate = document.getElementById("selectDates").selectedOptions[0].label;
     if (selDate === "All") {
         selectedMinDate = minDate;
@@ -368,8 +377,6 @@ var getSelects = function() {
         iso = now.toISOString();
         avgMinDate = iso.substr(0,4)+iso.substr(5,2)+iso.substr(8,2);
     }
-	console.log("Selections: ", selectedCountry, selectedState, selectedCounty, selectedMinDate);
-    summarize(selectedCountry, selectedState, selectedCounty, selectedMinDate);
 }
 
 /**
