@@ -173,7 +173,8 @@ var parseCovidData = function(csv) {
                 console.log("Skipping now less interesting MS Zaandam");
                 continue;
             }
-            if (data[5] == 0 &&
+            /* JHU data changed 2020-08-31 to include these counties and not a New York City number            */
+            if (data[5] == 0 && data[4] < '2020-08-31' &&
                 (data[3]==="Bronx" || data[3]==="Kings" || data[3]==="Queens" || data[3]==="Richmond" || data[3]==="Seneca" || data[3]==="Yates" )) {
                 continue;  // skip these to avoid adding in their populations
             }
@@ -403,7 +404,12 @@ var summarize = function(srchCountry, srchState, srchCounty) {
                     //matches.push(tobs); 
                     var pop = 0;
                     if (!isNaN(tobs.fips) && popData[tobs.fips*1]) {
-                        pop = popData[tobs.fips*1].popEst * 1;
+                        if (tobs.county === "New York" && tobs.date >= '20200831') {
+                            pop = popData[tobs.fips*1].pop2010 * 1;
+                        }
+                        else {
+                            pop = popData[tobs.fips*1].popEst * 1;
+                        }
                     }
                     else {
                         pop = popData[tobs.country+"_"+tobs.state];
