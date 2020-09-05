@@ -143,8 +143,10 @@ var parseCovidData = function(csv) {
     covid = {
         obs: [],
         country: {idx:{},list:[]},
-        date: {idx:{},list:[]}
+        date: {idx:{},list:[]},
+        tracking: covid.tracking
     };
+    
 
     var lines = csv; // assume an array?
     if (csv.indexOf("\n") >= 0) {

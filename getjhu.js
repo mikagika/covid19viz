@@ -9,6 +9,8 @@ Note that this is set up to work with my personal directory config. Sorry.
 
 var inlog='03-22-2020.csv';
 var outcsv='covid19_daily_reports.csv';
+var batfile = 'update_all.bat';
+var allcsv = 'covid19_daily_reports_all.csv';
 
 var now = new Date();
 now.setHours(now.getHours()-24); // yesterday
@@ -28,11 +30,20 @@ if ($ARG.length > 1) {
 var fileDate = inlog.substr(6,4)+"-"+inlog.substr(0,2)+"-"+inlog.substr(3,2);
 print("Will use data date of "+fileDate);
 
+var dateFile = new Date(inlog.substr(6,4),inlog.substr(0,2) - 1,inlog.substr(3,2));
+var dc = new Date();
+dc = dc.setDate(dateFile.getDate() - 130);  // this 130 because 100 + 30 days rolling is the cutoff in the UI
+var cutoffDate = formatDate(dc);
+print("Will use a cutoff date of "+cutoffDate+" for the daily file");
+
 if (inlog.indexOf("/") < 0) {
     inlog = "../COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"+inlog;
 }
 if (outcsv.indexOf("/") < 0) {
     outcsv = "html/data/"+outcsv;
+}
+if (allcsv.indexOf("/") < 0) {
+    allcsv = "html/data/"+allcsv;
 }
 
 print("Reading log file: "+inlog+", writing to "+outcsv);
@@ -155,6 +166,12 @@ fw.close();
 
 print("Wrote "+covid.obs.length+" lines");
 
+// write a new batch file to delete today's data from the full csv and then add it back in
+var fw = new FileWriter(batfile);
+fw.write("sed -i '/"+fileDate+"/d' "+allcsv+" \r\n");
+fw.write('grep "'+fileDate+'" '+outcsv+' >>'+allcsv+' \r\n');
+fw.close();
+
 exit(0);
 
 function handleQuotes(items) {
@@ -245,6 +262,9 @@ function getCovidData(csv) {
             if (data.length === 9) { // we can skip the fixing carriage returns if we have more columns than we use
                 data[8] = data[8].replace("\r","");
             }
+            if (data[4] < cutoffDate) {
+                continue; // skip this old record so we don't write it out
+            }
             var tobs = {
                 fips: data[0],
                 country: data[1], 
@@ -301,4 +321,20 @@ function splitter(instring, splitter, ignoreFirstCharMatch) {
         }
     }
     return rval;
+}
+
+// from https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
+// since we don't have .toISOString() available to us in Nashorn
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
 }
