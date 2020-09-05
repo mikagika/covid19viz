@@ -13,6 +13,8 @@ var covid = {
     date: {idx:{},list:[]}
 };
 var unlocked = true; 
+var loadedAll = false; 
+var initDone = false;
 
 var minDate = "20200322";  // oldest complete data we have, ignore anything older
 var selectedMinDate = minDate; 
@@ -118,23 +120,32 @@ var parsePopData = function(csv) {
 };
 
 var parseCovidData = function(csv) {
-	console.log("Fetched daily JHU report, now fetching COVID Tracking project data");
-    $.ajax({
-        'async': true,
-        'global': false,
-        'url': 'https://api.covidtracking.com/v1/states/daily.json',
-        'dataType': "text",
-        'cache': false,
-        'success': function (data) {
-            parseTrackingData(data);
-        },
-        'error': function(resp) {
-            console.log("Error retrieving popEstimate.csv, status: "+resp.status+" "+resp.statusText);
-            console.log(resp.responseText);
-        }
-    });
+    if (!initDone) {
+        console.log("Fetched daily JHU report, now fetching COVID Tracking project data");
+        $.ajax({
+            'async': true,
+            'global': false,
+            'url': 'https://api.covidtracking.com/v1/states/daily.json',
+            'dataType': "text",
+            'cache': false,
+            'success': function (data) {
+                parseTrackingData(data);
+            },
+            'error': function(resp) {
+                console.log("Error retrieving popEstimate.csv, status: "+resp.status+" "+resp.statusText);
+                console.log(resp.responseText);
+            }
+        });
+    }
     console.log("Parsing JHU Data");
-    
+
+    keys = {};
+    covid = {
+        obs: [],
+        country: {idx:{},list:[]},
+        date: {idx:{},list:[]}
+    };
+
     var lines = csv; // assume an array?
     if (csv.indexOf("\n") >= 0) {
         lines = csv.split("\n");
@@ -224,9 +235,10 @@ var parseTrackingData = function(data) {
 	document.getElementById("selectMA").addEventListener("change", getSelects);
 	document.getElementById("selectAgg").addEventListener("change", getSelects);
     document.getElementById("selectDates").addEventListener("change", getSelects);
-    getSelectDates();
-	summarize("All","All","All");
-    
+    if (getSelectDates()) {
+        summarize("All","All","All");
+    }
+    initDone = true;
 }
 
 /**
@@ -351,19 +363,25 @@ var getSelects = function() {
     var selectedCountry = document.getElementById("selectCountry").selectedOptions[0].label;
 	var selectedState = document.getElementById("selectState").selectedOptions[0].label;
     var selectedCounty = document.getElementById("selectCounty").selectedOptions[0].label;
-    getSelectDates();
-	console.log("Selections: ", selectedCountry, selectedState, selectedCounty, selectedMinDate);
-    summarize(selectedCountry, selectedState, selectedCounty, selectedMinDate);
+    if (getSelectDates()) {  // false implies we need to wait to load data
+        console.log("Selections: ", selectedCountry, selectedState, selectedCounty, selectedMinDate);
+        summarize(selectedCountry, selectedState, selectedCounty, selectedMinDate);
+    }
 }
 
 var getSelectDates = function() {
     var selDate = document.getElementById("selectDates").selectedOptions[0].label;
+    var longRange = false;
     if (selDate === "All") {
         selectedMinDate = minDate;
         avgMinDate = minDate;
+        longRange = true;
     }
     else {
         var days = selDate.substring(0,selDate.indexOf(" "));
+        if (days > 100) {
+            longRange = true;
+        }
         var now = new Date();
         now.setDate(now.getDate() - days);
         var iso = now.toISOString();
@@ -377,6 +395,27 @@ var getSelectDates = function() {
         iso = now.toISOString();
         avgMinDate = iso.substr(0,4)+iso.substr(5,2)+iso.substr(8,2);
     }
+    var ready = true;
+    if (longRange && !loadedAll) {
+        loadedAll = true;
+        ready = false;
+        $.ajax({
+            'async': true,
+            'global': false,
+            'url': 'data/covid19_daily_reports_all.csv',
+            'dataType': "text",
+            'cache': false,
+            'success': function (data) {
+                parseCovidData(data);
+                getSelects();
+            },
+            'error': function(resp) {
+                console.log("Error retrieving popEstimate.csv, status: "+resp.status+" "+resp.statusText);
+                console.log(resp.responseText);
+            }
+        });
+    }
+    return ready;
 }
 
 /**
