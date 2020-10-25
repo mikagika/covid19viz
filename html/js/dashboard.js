@@ -238,7 +238,8 @@ var parseTrackingData = function(data) {
 	document.getElementById("selectAgg").addEventListener("change", getSelects);
     document.getElementById("selectDates").addEventListener("change", getSelects);
     if (getSelectDates()) {
-        summarize("All","All","All");
+        document.getElementById("selectCountry").select
+        summarize("US","All","All");  // default US view
     }
     initDone = true;
 }
@@ -255,7 +256,10 @@ var populateSelects = function(level) {
 	if(level == "all") {
 		covid.country.list.forEach(country => {
 			var newOption = document.createElement("option");
-			newOption.innerText = country.name;
+            newOption.innerText = country.name;
+            if (country.name === "US") {  // default US view
+                newOption.selected = true;
+            }
 			selectCountry.appendChild(newOption);
 		});
 	} else if(level == "country") {
@@ -612,6 +616,8 @@ var summarize = function(srchCountry, srchState, srchCounty) {
     var selectMetric = document.getElementById("selectMetric").selectedOptions[0].label;
     var dim = "confirmed";
     switch (selectMetric) {
+        case "New Cases": 
+            dim = "confirmedDelta"; break;
         case "Confirmed Cases": 
             dim = "confirmed"; break;
         case "Deaths": 
@@ -676,11 +682,19 @@ var updateObsTracking = function(obs,stAbrv) {
  * Display the data selected in both tabular and graphical form 
  */
 var showData = function(days, locales, selection, dimension, selectMetric) {
-    console.log("showing data for dimension ", dimension);
+    console.log("showing data for dimension ", dimension, " for selectMetric ", selectMetric);
     var fmt = d3.format(",.0f");
     var fmtPct = d3.format(",.1f");
     var fmtPct2 = d3.format(",.2f");
     var dimDelta = dimension+"Delta";
+    var y1Label = "Total";
+    var y2Label = "Incremental";
+    if (selectMetric === "New Cases") {
+        dimDelta = "diedDelta";
+        selectMetric = "New Cases overlaid with New Deaths";
+        y1Label = "New Cases";
+        y2Label = "New Deaths";
+    }
     if (dimension === "totalTests") {
         dimDelta = "newTests";
     }
@@ -688,11 +702,15 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         dimDelta = "posPct";
         selectMetric = "Positivity, shown over Daily Tests";
         dimension = "newTests";
+        y1Label = "Daily Tests";
+        y2Label = "Percent Tests Positivle";
     }
     if (selectMetric === "Hospitalizations") {
         dimDelta = "newHosp";
         selectMetric = "New hospitalizations, shown over new cases";
         dimension = "confirmedDelta";
+        y1Label = "New Cases";
+        y2Label = "New Hospitalizations";
     }
     var sMA = document.getElementById("selectMA").selectedOptions[0].label.split(" ");
     var maCnt = sMA[0];
@@ -872,7 +890,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         .attr('transform','rotate(-90)')
         .attr('x',0-(height/2)-margin.t-margin.b)
         .attr('y',16)
-        .text("Total");
+        .text(y1Label);
 
     svg.append('g')  // y2 axis label
         .append('text')
@@ -880,7 +898,7 @@ var showData = function(days, locales, selection, dimension, selectMetric) {
         .attr('transform','translate(10,0),rotate(-90)')
         .attr('x',0-(height/2)-margin.t-margin.b)
         .attr('y',margin.l+width+60)
-        .text("Incremental");
+        .text(y2Label);
 
 
     // create the space and labeling for the visualization
