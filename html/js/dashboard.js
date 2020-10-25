@@ -238,10 +238,12 @@ var parseTrackingData = function(data) {
 	document.getElementById("selectAgg").addEventListener("change", getSelects);
     document.getElementById("selectDates").addEventListener("change", getSelects);
     if (getSelectDates()) {
-        document.getElementById("selectCountry").select
-        summarize("US","All","All");  // default US view
+        summarize("All","All","All");  // default US view
     }
     initDone = true;
+    // switch to US
+    $("#selectCountry").val("US").change();
+    getSelects();
 }
 
 /**
@@ -257,9 +259,7 @@ var populateSelects = function(level) {
 		covid.country.list.forEach(country => {
 			var newOption = document.createElement("option");
             newOption.innerText = country.name;
-            if (country.name === "US") {  // default US view
-                newOption.selected = true;
-            }
+            newOption.value = country.name;
 			selectCountry.appendChild(newOption);
 		});
 	} else if(level == "country") {
