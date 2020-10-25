@@ -243,7 +243,7 @@ var parseTrackingData = function(data) {
     initDone = true;
     // switch to US
     $("#selectCountry").val("US").change();
-    getSelects();
+    summarizeFromDocCountry();
 }
 
 /**
