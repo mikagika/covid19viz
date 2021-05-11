@@ -134,6 +134,7 @@ var parseCovidData = function(csv) {
             'error': function(resp) {
                 console.log("Error retrieving popEstimate.csv, status: "+resp.status+" "+resp.statusText);
                 console.log(resp.responseText);
+                parseTrackingData();
             }
         });
     }
@@ -217,17 +218,19 @@ var parseCovidData = function(csv) {
 };
 
 var parseTrackingData = function(data) {
-    console.log("Daily COVID Tracking Project data received, building index");
-    covid.tracking = {};
-    covid.tracking.data = JSON.parse(data);
-    covid.tracking.index = {};
-    for (var k=0;k<covid.tracking.data.length;k++) {
-        var tobs = covid.tracking.data[k];
-        var idx = tobs.state+"_"+tobs.date;
-        covid.tracking.index[idx] = k;
+    if (data) {
+        console.log("Daily COVID Tracking Project data received, building index");
+        covid.tracking = {};
+        covid.tracking.data = JSON.parse(data);
+        covid.tracking.index = {};
+        for (var k=0;k<covid.tracking.data.length;k++) {
+            var tobs = covid.tracking.data[k];
+            var idx = tobs.state+"_"+tobs.date;
+            covid.tracking.index[idx] = k;
+        }
+    
+        console.log("Daily COVID Tracking Project data index created");
     }
-
-    console.log("Daily COVID Tracking Project data index created");
     populateSelects("all");
     
 	document.getElementById("selectCountry").addEventListener("change", summarizeFromDocCountry);
@@ -558,14 +561,14 @@ var summarize = function(srchCountry, srchState, srchCounty) {
         if (srchCountry === "US") {
             if (srchState !== "All") {
                 var stAbrv = stateXref[srchState];
-                if (stAbrv && covid.tracking.index[stAbrv+"_"+days[d].date]) {
+                if (stAbrv && covid.tracking && covid.tracking.index[stAbrv+"_"+days[d].date]) {
                     updateObsTracking(days[d],stAbrv);
                 }
             }
             else {
                 for (var state in stateXref) {
                     var stAbrv = stateXref[srchState];
-                    if (stAbrv && covid.tracking.index[stAbrv+"_"+days[d].date]) {
+                    if (stAbrv && covid.tracking && covid.tracking.index[stAbrv+"_"+days[d].date]) {
                         updateObsTracking(days[d],stAbrv);
                     }
                 }
@@ -650,32 +653,34 @@ var summarize = function(srchCountry, srchState, srchCounty) {
  * @param {*} stAbrv 
  */
 var updateObsTracking = function(obs,stAbrv) {
-    var ttrack = covid.tracking.data[covid.tracking.index[stAbrv+"_"+obs.date]];
-    if (obs.hasTracking) {
-        obs.newHosp += ttrack.hospitalizedIncrease ? ttrack.hospitalizedIncrease * 1 : 0;
-        obs.newTests += ttrack.totalTestResultsIncrease ? ttrack.totalTestResultsIncrease * 1 : 0;
-        obs.newNeg += ttrack.negativeIncrease ? ttrack.negativeIncrease * 1 : 0;
-        obs.newPos += ttrack.positiveIncrease ? ttrack.positiveIncrease * 1 : 0;
-        obs.totalTests += ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
-        obs.totalNeg += ttrack.negative ? ttrack.negative * 1 : 0;
-        obs.totalPos += ttrack.positive ? ttrack.positive * 1 : 0;
-        obs.positivity = 100 * obs.totalPos / obs.totalTests;
-        obs.posPct = 100 * obs.newPos / obs.newTests;
+    if (covid.tracking) {
+        var ttrack = covid.tracking.data[covid.tracking.index[stAbrv+"_"+obs.date]];
+        if (obs.hasTracking) {
+            obs.newHosp += ttrack.hospitalizedIncrease ? ttrack.hospitalizedIncrease * 1 : 0;
+            obs.newTests += ttrack.totalTestResultsIncrease ? ttrack.totalTestResultsIncrease * 1 : 0;
+            obs.newNeg += ttrack.negativeIncrease ? ttrack.negativeIncrease * 1 : 0;
+            obs.newPos += ttrack.positiveIncrease ? ttrack.positiveIncrease * 1 : 0;
+            obs.totalTests += ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
+            obs.totalNeg += ttrack.negative ? ttrack.negative * 1 : 0;
+            obs.totalPos += ttrack.positive ? ttrack.positive * 1 : 0;
+            obs.positivity = 100 * obs.totalPos / obs.totalTests;
+            obs.posPct = 100 * obs.newPos / obs.newTests;
+        }
+        else {
+            obs.hasTracking = true;
+            obs.newHosp = ttrack.hospitalizedIncrease ? ttrack.hospitalizedIncrease * 1 : 0;
+            obs.newTests = ttrack.totalTestResultsIncrease ? ttrack.totalTestResultsIncrease * 1 : 0;
+            obs.newNeg = ttrack.negativeIncrease ? ttrack.negativeIncrease * 1 : 0;
+            obs.newPos = ttrack.positiveIncrease ? ttrack.positiveIncrease * 1 : 0;
+            obs.totalTests = ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
+            obs.totalNeg = ttrack.negative ? ttrack.negative * 1 : 0;
+            obs.totalPos = ttrack.positive ? ttrack.positive * 1 : 0;
+            obs.positivity = 100 * obs.totalPos / obs.totalTests;
+            obs.posPct = 100 * obs.newPos / obs.newTests;
+        }
+        obs.tests100k = obs.totalTests / (obs.population / 100000);
+        obs.newTests100k = obs.newTests / (obs.population / 100000);
     }
-    else {
-        obs.hasTracking = true;
-        obs.newHosp = ttrack.hospitalizedIncrease ? ttrack.hospitalizedIncrease * 1 : 0;
-        obs.newTests = ttrack.totalTestResultsIncrease ? ttrack.totalTestResultsIncrease * 1 : 0;
-        obs.newNeg = ttrack.negativeIncrease ? ttrack.negativeIncrease * 1 : 0;
-        obs.newPos = ttrack.positiveIncrease ? ttrack.positiveIncrease * 1 : 0;
-        obs.totalTests = ttrack.totalTestResults ? ttrack.totalTestResults * 1 : 0;
-        obs.totalNeg = ttrack.negative ? ttrack.negative * 1 : 0;
-        obs.totalPos = ttrack.positive ? ttrack.positive * 1 : 0;
-        obs.positivity = 100 * obs.totalPos / obs.totalTests;
-        obs.posPct = 100 * obs.newPos / obs.newTests;
-    }
-    obs.tests100k = obs.totalTests / (obs.population / 100000);
-    obs.newTests100k = obs.newTests / (obs.population / 100000);
 }
 
 /**
