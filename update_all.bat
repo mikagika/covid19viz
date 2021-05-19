@@ -1,2 +1,2 @@
-sed -i '/2021-05-17/d' html/data/covid19_daily_reports_all.csv 
-grep "2021-05-17" html/data/covid19_daily_reports.csv >>html/data/covid19_daily_reports_all.csv 
+sed -i '/2021-05-18/d' html/data/covid19_daily_reports_all.csv 
+grep "2021-05-18" html/data/covid19_daily_reports.csv >>html/data/covid19_daily_reports_all.csv 
